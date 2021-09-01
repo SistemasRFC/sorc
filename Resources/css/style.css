@@ -1,0 +1,148 @@
+.loading{
+    background:url('../../Resources/images/loading.gif') no-repeat right center;
+    background-size:25px 25px;
+}
+.TabelaCabecalho{
+    
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    background-repeat: repeat-x;
+    background-position: center;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-right-color: black;
+    border-left-color: black;
+    border-bottom-color: black;
+    border-top-color: black;
+}
+
+.TDTitulo{
+    
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    vertical-align: middle;
+    font-weight:bold;
+}
+
+.TDTituloCabecalho{
+
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+.TDSUBTituloCabecalho{
+
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 18px;
+    text-align: left;
+    vertical-align: middle;
+    background-color: #B5B5B5;
+}
+.TabelaConteudo{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    background-repeat: repeat-x;
+    background-position: center;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-right-color: black;
+    border-left-color: black;
+    border-bottom-color: black;
+    border-top-color: black;
+}
+
+.trcor:hover{
+    background-color: #B5B5B5;
+}
+
+a:link, a:visited{
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active{
+    text-decoration: none;
+}
+
+td{
+    font-size: .9em;
+}
+
+.label{
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont20{
+    font-size: 20px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+.labelFont12{
+    font-size: 12px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont13{
+    font-size: 13px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont14{
+    font-size: 14px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.divDefault{
+    border: 1px solid #a4bed4;
+}
+
+.inputFont12{
+    font-size: 12px;
+    font-family: Verdana, sans-serif;margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.inputFont14{
+    font-size: 14px;
+    font-family: Verdana, sans-serif;margin: 0;
+    padding: 0;
+    height: 25px;
+    text-align: left;
+}
