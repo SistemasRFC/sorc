@@ -9,7 +9,6 @@ class DespesasDao extends BaseDao
     Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $nroParcelaAtual, $codDespesaImportada=0){
         $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
         $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
-        $dtaPagamento = $dtaPagamento==''?NULL:"'".$this->ConverteDataForm($dtaPagamento)."'";
         $sql = "INSERT INTO EN_DESPESA (
                 COD_DESPESA,
                 DSC_DESPESA,
