@@ -19,6 +19,7 @@ $(function() {
              if (data[0]){
                  CarregaGridConta();
                  $( "#dialogInformacao" ).jqxWindow('setContent', "Registro salvo!");
+                 $( "#CadastroForm" ).jqxWindow( "close" );
              }else{
                  $( "#dialogInformacao" ).jqxWindow('setContent', 'Erro ao salvar conta!');
              }
