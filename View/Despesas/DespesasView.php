@@ -1,10 +1,12 @@
-<? include_once "../../View/MenuPrincipal/Cabecalho.php";?>
+<?php
+include_once "../../View/MenuPrincipal/Cabecalho.php";
+?>
 <html>
     <head>
         <title>Controle de Receitas</title>
     <meta http-equiv="Content-Type" content="text/HTML; charset=utf-8">
-    <script language="JavaScript" src="js/Funcoes.js"></script>
-    <script language="JavaScript" src="js/DespesasView.js"></script>
+    <script language="JavaScript" src="js/Funcoes.js?<?php echo time();?>"></script>
+    <script language="JavaScript" src="js/DespesasView.js?<?php echo time();?>"></script>
     </head>
     <body> 
         <table width="100%">
@@ -74,23 +76,53 @@
                                 <option value="S">Despesa Paga</option>
                             </select>
                         </td>
+                        <?php if ($rs_usuario[1][0]["COD_PERFIL_W"]==3){?>
+                            <td>
+                                Cliente
+                            </td>                        
+                            <td>
+                                <div id="comboCodCliente"></div>
+                                <select name="codCliente" id="codCliente" style="display:none">
+                                        <?php
+                                        $listaClientes = unserialize(urldecode($_POST['ListaClientes']));
 
+                                        $total = count($listaClientes[1]);
+                                        $i=0;
+                                        echo "<option value=\"-1\">Selecione um cliente</option>";
+                                        while($i<$total ) {
+                                            echo "<option value=\"".$listaClientes[1][$i]['COD_CLIENTE_FINAL']."\">".$listaClientes[1][$i]['DSC_CLIENTE_FINAL']."</option>";
+                                            $i++;
+                                        }
+                                        ?>
+                                </select>
+                            </td>
+                        <?php }else{
+                            echo "<input type='hidden' id='codCliente' value='".$_SESSION['cod_cliente_final']."'>";
+                        }
+                        ?>
                     </tr>
                 </table>
+                <?php
+                    echo "<input type='hidden' id='codPerfil' value='".$_SESSION['cod_perfil']."'>";
+                ?>
                 <table>
                     <tr>
                         <td>
                             <input type="button" id="btnPesquisa" value="Pesquisar">
                         </td>
+                        <?php if ($rs_usuario[1][0]["COD_PERFIL_W"]!=3){?>
                         <td>
                             <input type="button" id="btnNovo" value="Nova Despesa">
                         </td>
+                        <?php 
+                        }
+                        ?>
                         <td>
                             <input type="button" id="btnGrafico" value="Gráfico">
                         </td>  
-                        <td>
+<!--                        <td>
                             <input type="button" id="btnExportar" value="Exportar">
-                        </td>                       
+                        </td>                       -->
                     </tr>
                 </table>
                 <table>

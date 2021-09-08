@@ -95,7 +95,11 @@ class DespesaModel extends BaseModel
     
     Function ListarDespesas(){
         $dao = new DespesasDao();
-        $lista = $dao->ListarDespesas($_SESSION['cod_cliente_final']);
+        $codCliente = $_SESSION['cod_cliente_final'];
+        if ($_SESSION['cod_perfil']==3){
+            $codCliente = filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
+        }
+        $lista = $dao->ListarDespesas($codCliente);
         
         for($i=0;$i<count($lista[1]);$i++) {
             $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);

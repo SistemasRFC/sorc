@@ -3,6 +3,8 @@ include_once("../BaseController.php");
 include_once("../../Model/TipoDespesa/TipoDespesaModel.php");
 include_once("../../Model/Despesas/DespesasModel.php");
 include_once("../../Model/ContasBancarias/ContasBancariasModel.php");
+include_once("../../Model/ClienteFinal/ClienteFinalModel.php");
+
 class DespesasController extends BaseController
 {
     function DespesasController(){
@@ -19,10 +21,13 @@ class DespesasController extends BaseController
         $contasBancariasModel = new ContasBancariasModel();
         $listaContasBancarias = $contasBancariasModel->ListarContasBancariasAtivas(false);        
         $tipoDespesaModel = new TipoDespesaModel();
+        $clienteFinal = new ClienteFinalModel();
+        $listaClientes = $clienteFinal->ListarClienteFinalAtivo(false);
         $listaTipoDespesa = $tipoDespesaModel->ListarTiposDespesasAtivos(false);
         $params = array('ListaTipoDespesa' => urlencode(serialize($listaTipoDespesa)),
                         'ListaContasBancarias' => urlencode(serialize($listaContasBancarias)),
                         'ListaMeses' => urlencode(serialize($listaMeses)),
+                        'ListaClientes' => urlencode(serialize($listaClientes)),
                         'ListaAnos' => urlencode(serialize($listaAnos)),
                         'codTipoDespesa' => urlencode(serialize(0)),
                         'nroMesReferencia' => urlencode(serialize(date("m"))),

@@ -40,30 +40,34 @@ function CarregaGridDespesa(){
     //$("#tdMenu").html('<div id="jqxMenu"><ul><li><a href="#">Importar</a></li><li><a href="#">Editar</a></li><li><a href="#">Excluir</a></li></ul></div>');
     $( "#dialogInformacao" ).jqxWindow('setContent', "Aguarde!");
     $( "#dialogInformacao" ).jqxWindow("open");
-    $.post('../../Controller/Despesas/DespesasController.php',
-        {method: 'ListarDespesas',
-        nroAnoReferencia: $("#nroAnoReferencia").val(),
-        nroMesReferencia: $("#nroMesReferencia").val(),
-        indStatus: $("#indStatus").val(),
-        tpoDespesa: $("#tpoDespesa").val()},function(data){
+    if ($("#codCliente").val()!=-1){
+        $.post('../../Controller/Despesas/DespesasController.php',
+            {method: 'ListarDespesas',
+            nroAnoReferencia: $("#nroAnoReferencia").val(),
+            nroMesReferencia: $("#nroMesReferencia").val(),
+            indStatus: $("#indStatus").val(),
+            codCliente: $("#codCliente").val(), 
+            tpoDespesa: $("#tpoDespesa").val()},function(data){
 
-            data = eval('('+data+')');
-            if (data[0]){
+                data = eval('('+data+')');
+                if (data[0]){
 
-                MontaTabelaDespesa(data[1]);
-                totalValor = 0;
-                for (i=0;i<data[1].length;i++){            
-                    totalValor = parseFloat(totalValor)+parseFloat(data[1][i].VLR_DESPESA);
-                }        
-                totalValor = Formata(totalValor,2,'.',',');
-                $("#vlrTotal").html(totalValor); 
-                $("#vlrSelecionado").html('0');
-                $( "#dialogInformacao" ).jqxWindow("close");      
+                    MontaTabelaDespesa(data[1]);
+                    totalValor = 0;
+                    for (i=0;i<data[1].length;i++){            
+                        totalValor = parseFloat(totalValor)+parseFloat(data[1][i].VLR_DESPESA);
+                    }        
+                    totalValor = Formata(totalValor,2,'.',',');
+                    $("#vlrTotal").html(totalValor); 
+                    $("#vlrSelecionado").html('0');
+                    $( "#dialogInformacao" ).jqxWindow("close");      
 
-            }else{
-                $( "#dialogInformacao" ).jqxWindow('setContent', "Erro: "+data[1]);             
-            }
-    });
+                }else{
+                    $( "#dialogInformacao" ).jqxWindow('setContent', "Erro: "+data[1]);             
+                }
+        });
+    }
+    $( "#dialogInformacao" ).jqxWindow("close");  
 }
 function MontaTabelaDespesa(listaDespesas){
     

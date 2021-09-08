@@ -76,5 +76,8 @@ $(document).ready(function(){
     MontaComboFixo('comboNroMesReferencia', 'nroMesReferencia', mes);
     MontaComboFixo('comboCodConta', 'codConta', '-1');
     MontaComboFixo('comboCodTipoDespesa', 'codTipoDespesa', '-1');
+    if ($("#codPerfil").val()==3){
+        MontaComboFixo('comboCodCliente', 'codCliente', '-1');
+    }
     CarregaGridDespesa();    
 });
