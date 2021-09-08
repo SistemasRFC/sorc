@@ -168,8 +168,8 @@ include_once "../../View/MenuPrincipal/Cabecalho.php";
             </div>
             <div style="overflow: hidden;" id="windowContent">        
                 <div id="divResumo" style="display:block;border: 0px solid #a4bed4;overflow:scroll;width:100%;height:500px;">
-                    <div id='host' style="margin: 0 auto; width: 599px; height: 400px;">
-                         <div id='jqxChart' style="width: 500px; height: 400px; position: relative; left: 0px; top: 0px;">
+                    <div id='host' style="margin: 0 auto; width: 1200px; height: 400px;">
+                         <div id='jqxChart' style="width: 1100px; height: 400px; position: relative; left: 0px; top: 0px;">
                          </div>
                      </div>
                 </div>

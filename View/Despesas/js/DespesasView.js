@@ -13,7 +13,8 @@ $(function() {
     $("#GraficoForm").jqxWindow({ 
         title: 'Gráfico de Despesas',
         height: 450,
-        width: 700,
+        width: 1200,
+        maxWidth: 1200,
         animationType: 'fade',
         showAnimationDuration: 500,
         closeAnimationDuration: 500,
