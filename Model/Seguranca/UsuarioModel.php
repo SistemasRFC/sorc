@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../../Model/BaseModel.php");
 include_once("../../Dao/Seguranca/UsuarioDao.php");
 class UsuarioModel extends BaseModel
@@ -12,7 +12,7 @@ class UsuarioModel extends BaseModel
 
     function ListarUsuario(){
         $dao = new UsuarioDao();        
-        $lista = $dao->ListarUsuario($_SESSION['cod_perfil'], $_SESSION['cod_cliente_final']);    
+        $lista = $dao->ListarUsuario($_SESSION['cod_usuario'], $_SESSION['cod_perfil']);    
         if ($lista[0]){
             if ($lista[1]!=null){
                 $lista = BaseModel::AtualizaBooleanInArray($lista, 'IND_ATIVO', 'ATIVO');
@@ -23,12 +23,12 @@ class UsuarioModel extends BaseModel
     
     function AddUsuario(){
         $dao = new UsuarioDao();
-        return json_encode($dao->AddUsuario());
+        return json_encode($dao->AddUsuario($_SESSION['cod_usuario'], $_SESSION['cod_perfil']));
     }
 
     function UpdateUsuario(){
         $dao = new UsuarioDao();
-        return json_encode($dao->UpdateUsuario());
+        return json_encode($dao->UpdateUsuario($_SESSION['cod_perfil']));
     }
 
     function DeleteUsuario(){

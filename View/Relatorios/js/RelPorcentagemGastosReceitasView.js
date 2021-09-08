@@ -112,6 +112,9 @@ function CarregaGrafico(){
 function MontaGrafico(Data) {
     // prepare chart data as an array
     for (i=0;i<Data.length;i++){
+        if (Data[i].VLR_RECEITA==null){
+            Data[i].VLR_RECEITA='0';
+        }
         Data[i].VLR_DESPESA = (parseFloat(Data[i].VLR_DESPESA.replace(',', ''))/parseFloat(Data[i].VLR_RECEITA.replace(',', '')))*100;        
     }
     console.log(Data);    

@@ -48,6 +48,8 @@ $(function() {
                        $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_PAGAMENTO);
         }else if($.trim($(args).text()) == "Excluir"){
             deletarDespesa($("#codDespesa").val());
+        }else if($.trim($(args).text()) == "Quitar Parcelas"){
+            quitarParcelas($("#codDespesa").val());
         }
     });    
     $("#btnExportar").click(function(){

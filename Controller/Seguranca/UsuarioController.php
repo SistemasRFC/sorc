@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../BaseController.php");
 include_once("../../Model/Seguranca/PerfilModel.php");
 include_once("../../Model/Seguranca/UsuarioModel.php");

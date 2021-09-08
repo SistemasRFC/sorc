@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../BaseController.php");
 include_once("../../Model/Login/LoginModel.php");
 class LoginController extends BaseController

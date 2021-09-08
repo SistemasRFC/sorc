@@ -56,6 +56,7 @@ $(function() {
                codPerfil: $("#codPerfil").val(),
                codProjeto: $("#codProjeto").val(),
                nroCpf: $("#nroCpf").val(),
+               codCliente: $("#codCliente").val(),
                checkBoxes: checkBoxes,
                indAtivo: ativo,
                txtEmail: $("#txtEmail").val()}, function(data){

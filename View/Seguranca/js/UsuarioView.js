@@ -77,6 +77,7 @@ $(function() {
                nmeLogin: $("#nmeLogin").val(),
                codPerfil: $("#codPerfil").val(),
                indAtivo: ativo,
+               codCliente: $("#codCliente").val(),
                txtEmail: $("#txtEmail").val()}, function(data){
 
             data = eval('('+data+')'); 

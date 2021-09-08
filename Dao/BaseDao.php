@@ -35,7 +35,7 @@ class BaseDao{
                 die();
             }
         }catch(Exception $e){
-            print "<b>".mysql_error()."</b>";
+            print "<b>".mysqli_error()."</b>";
         }
     }
 
@@ -47,6 +47,8 @@ class BaseDao{
      */
     public Static function selectDB($sql, $objeto=true){
         //self::conect();    
+        ini_set('display_errors', true);
+        error_reporting(E_ALL & ~E_WARNING & ~ E_DEPRECATED);
         $resultado = mysqli_query(self::$conexao, $sql);
         if (!$resultado){
             $resulta[0] = false;

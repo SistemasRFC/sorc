@@ -45,8 +45,11 @@ function CarregaMenu(){
             $('#CriaMenu').jqxMenu({ source: records, height: 30, theme: theme });
             $("#CriaMenu").on('itemclick', function (event) {
                 for(i=0;i<DadosMenu[1].length;i++){
-                    if (event.args.id==DadosMenu[1][i].COD_MENU_W){                    
-                        if((DadosMenu[1][i].NME_CONTROLLER!='#') && (DadosMenu[1][i].NME_CONTROLLER!='null')){
+                    if (event.args.id==DadosMenu[1][i].COD_MENU_W){ 
+                        if((DadosMenu[1][i].NME_CONTROLLER!='#') && 
+                           (DadosMenu[1][i].NME_CONTROLLER!='null') &&
+                           (DadosMenu[1][i].NME_CONTROLLER!=null) &&
+                           (DadosMenu[1][i].NME_CONTROLLER!='')){
                             window.location.href=DadosMenu[1][i].NME_PATH+'?method='+DadosMenu[1][i].NME_METHOD;
                         }
                     }

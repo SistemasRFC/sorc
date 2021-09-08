@@ -6,7 +6,7 @@
         <td>
         Nome
         </td>
-        <td><input type="text" id="dscCliente" name="dscCliente" size="50"></td>
+        <td><input type="text" id="dscCliente" name="dscCliente" size="40"></td>
     </tr>
     <tr>
         <td><div id="indAtivo">Ativo</div></td>

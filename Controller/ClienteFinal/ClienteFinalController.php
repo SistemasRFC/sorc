@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../BaseController.php");
 include_once("../../Model/ClienteFinal/ClienteFinalModel.php");
 class ClienteFinalController extends BaseController

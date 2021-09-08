@@ -9,6 +9,7 @@ class DespesasDao extends BaseDao
     Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $nroParcelaAtual, $codDespesaImportada=0){
         $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
         $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
+        $dtaPagamento = $dtaPagamento==''?NULL:"'".$this->ConverteDataForm($dtaPagamento)."'";
         $sql = "INSERT INTO EN_DESPESA (
                 COD_DESPESA,
                 DSC_DESPESA,
@@ -30,11 +31,16 @@ class DespesasDao extends BaseDao
                 '".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT)."',
                 '".$vlrDespesa."',
                 '".$codClienteFinal."',
-                '".$indDespesaPaga."',
-                '".$this->ConverteDataForm($dtaPagamento)."',
-                ".filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT).",
+                '".$indDespesaPaga."',";
+                if ($dtaPagamento==''){
+                    $sql .= "NULL, ";
+                }else{
+                    $sql .= "'".$this->ConverteDataForm($dtaPagamento)."', ";
+                }
+                $sql .= filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT). ",
                 ".$nroParcelaAtual.",
                 ".$codDespesaImportada.")";
+//echo $sql; die;
         $result = $this->insertDB($sql);
         $result[2] = $codDespesa;
         return $result;
@@ -48,9 +54,13 @@ class DespesasDao extends BaseDao
                 COD_CONTA  =  ".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT).",
                 TPO_DESPESA = ".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT).",
                 VLR_DESPESA = '".$vlrDespesa."',
-                IND_DESPESA_PAGA = '".filter_input(INPUT_POST, 'indDespesaPaga', FILTER_SANITIZE_STRING)."',
-                DTA_PAGAMENTO ='".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING))."',
-                QTD_PARCELAS = ".filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT).",
+                IND_DESPESA_PAGA = '".filter_input(INPUT_POST, 'indDespesaPaga', FILTER_SANITIZE_STRING)."',";
+                if (filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING)=='//'){
+                    $sql .= " DTA_PAGAMENTO =NULL, ";
+                }else{
+                    $sql .= " DTA_PAGAMENTO ='".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING))."', ";
+                }        
+                $sql .= " QTD_PARCELAS = ".filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT).",
                 NRO_PARCELA_ATUAL = ".filter_input(INPUT_POST, 'nroParcelaAtual', FILTER_SANITIZE_NUMBER_INT)."
                 WHERE COD_DESPESA = ".filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
         //echo $sql; exit;
@@ -180,6 +190,19 @@ class DespesasDao extends BaseDao
                    FROM EN_DESPESA
                   WHERE COD_DESPESA_IMPORTACAO = $codDespesa";
         return $this->selectDB($sql, false);
+    }
+    
+    Public Function PegaDespesaFilha($codDespesaImportacao){
+        $sql = "SELECT COD_DESPESA
+                  FROM EN_DESPESA
+                 WHERE COD_DESPESA_IMPORTACAO = ".$codDespesaImportacao;
+        return $this->selectDB($sql, false);
+    }
+    
+        Function DeletarDespesaFilha($codDespesa){
+        $sql = " DELETE FROM EN_DESPESA
+                  WHERE COD_DESPESA = ".$codDespesa;
+        return $this->insertDB($sql);
     }
 }
 ?>

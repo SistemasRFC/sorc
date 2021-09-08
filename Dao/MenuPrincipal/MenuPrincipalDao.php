@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../../Dao/BaseDao.php");
 class MenuPrincipalDao extends BaseDao
 {
@@ -107,7 +107,8 @@ class MenuPrincipalDao extends BaseDao
   Public Function CarregaDadosUsuario($codUsuario){
     $sql = "SELECT COD_USUARIO,
                    NME_USUARIO_COMPLETO,
-                   DSC_CLIENTE_FINAL
+                   DSC_CLIENTE_FINAL,
+                   U.COD_PERFIL_W
               FROM SE_USUARIO U
              INNER JOIN EN_CLIENTE_FINAL C
                 ON U.COD_CLIENTE_FINAL = C.COD_CLIENTE_FINAL

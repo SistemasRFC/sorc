@@ -121,6 +121,11 @@ class DespesasController extends BaseController
         }
         return $anos;
     }
+    
+    Public Function QuitarParcelas(){
+        $model = new DespesaModel();
+        echo $model->QuitarParcelas();
+    }
 }
 $DespesasController = new DespesasController();
 ?>

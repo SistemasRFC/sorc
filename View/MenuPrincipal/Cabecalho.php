@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset($_SESSION)){
     session_start();
 } 
@@ -72,7 +72,7 @@ $rs_usuario = $_SESSION['DadosUsuario'];
                                                 font-size:10px;
                                                 color:#0150D3;
                                                 vertical-align:middle;
-                                                font-family: arial, helvetica, serif;\" href=\"../../view/MenuPrincipal/MenuPrincipalView.php\">Clique aqui para p&aacute;gina inicial</a>";
+                                                font-family: arial, helvetica, serif;\" href=\"../../View/MenuPrincipal/MenuPrincipalView.php\">Clique aqui para p&aacute;gina inicial</a>";
                                     ?>
                                 </td>
                             </tr>

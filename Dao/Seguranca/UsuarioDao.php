@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../../Dao/BaseDao.php");
 class UsuarioDao extends BaseDao
 {
@@ -6,7 +6,7 @@ class UsuarioDao extends BaseDao
         $this->conect();
     }
 
-    function ListarUsuario($codPerfil, $codCliente){
+    function ListarUsuario($codUsuarioPai, $codPerfil){
         $sql = "SELECT DISTINCT U.COD_USUARIO,
                           NME_USUARIO_COMPLETO,
                           NME_USUARIO,
@@ -16,17 +16,32 @@ class UsuarioDao extends BaseDao
                           u.IND_ATIVO
                      FROM SE_USUARIO U 
                      INNER JOIN SE_PERFIL P 
-                        ON U.COD_PERFIL_W = P.COD_PERFIL_W";
+                        ON U.COD_PERFIL_W = P.COD_PERFIL_W ";
         if ($codPerfil!=1){
-            $sql .= "  AND U.COD_CLIENTE_FINAL = $codCliente";
+            $sql .= " AND U.COD_USUARIO_PAI = ".$codUsuarioPai;
+            $sql .= " union 
+                      SELECT DISTINCT U.COD_USUARIO,
+                          NME_USUARIO_COMPLETO,
+                          NME_USUARIO,
+                          U.TXT_EMAIL,
+                          U.COD_PERFIL_W,
+                          P.DSC_PERFIL_W,
+                          u.IND_ATIVO
+                     FROM SE_USUARIO U 
+                     INNER JOIN SE_PERFIL P 
+                        ON U.COD_PERFIL_W = P.COD_PERFIL_W 
+                     WHERE U.COD_USUARIO = ".$codUsuarioPai.
+                   " ORDER BY NME_USUARIO_COMPLETO";
         }
+        
         return $this->selectDB("$sql", false);
     }
     
-    function AddUsuario(){        
+    function AddUsuario($codUsuarioPai, $codPerfil){        
         $codUsuario = $this->CatchUltimoCodigo('SE_USUARIO', 'COD_USUARIO');
         $nroCpf = str_replace('-','',str_replace('.', '', filter_input(INPUT_POST, 'nroCpf', FILTER_SANITIZE_STRING)));
         $senha = base64_encode("123459");
+        $codPerfil = $codPerfil==3?1:filter_input(INPUT_POST, 'codPerfil', FILTER_SANITIZE_NUMBER_INT);
         $sql_lista = "INSERT INTO SE_USUARIO (
                              COD_USUARIO,
                              NME_USUARIO,
@@ -35,16 +50,19 @@ class UsuarioDao extends BaseDao
                              TXT_EMAIL,
                              COD_PERFIL_W,
                              IND_ATIVO,
-                             NRO_CPF)
+                             NRO_CPF,
+                             COD_USUARIO_PAI,
+                             COD_CLIENTE_FINAL)
                      VALUES(".$codUsuario.",
                             '".filter_input(INPUT_POST, 'nmeLogin', FILTER_SANITIZE_MAGIC_QUOTES)."',
                             '".filter_input(INPUT_POST, 'nmeUsuario', FILTER_SANITIZE_MAGIC_QUOTES)."',
                             '".$senha."',
                             '".filter_input(INPUT_POST, 'txtEmail', FILTER_SANITIZE_MAGIC_QUOTES)."',
-                            '".filter_input(INPUT_POST, 'codPerfil', FILTER_SANITIZE_NUMBER_INT)."',
+                            '".$codPerfil."',
                             '".filter_input(INPUT_POST, 'indAtivo', FILTER_SANITIZE_STRING)."',
-                            '".$nroCpf."')";
-                             
+                            '".$nroCpf."', ".
+                            $codUsuarioPai.",
+                            ".filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT).")";
         $result = $this->insertDB("$sql_lista");
         if ($result[0]){
             $result[1]= $codUsuario;
@@ -52,14 +70,16 @@ class UsuarioDao extends BaseDao
         return $result;
     }
     
-    function UpdateUsuario(){     
+    function UpdateUsuario($codPerfil){     
         $nroCpf = str_replace('-','',str_replace('.', '', filter_input(INPUT_POST, 'nroCpf', FILTER_SANITIZE_NUMBER_INT)));
+        $codPerfil = $codPerfil==3?1:filter_input(INPUT_POST, 'codPerfil', FILTER_SANITIZE_NUMBER_INT);
         $sql_lista =  "UPDATE SE_USUARIO
                           SET NME_USUARIO          = '".filter_input(INPUT_POST, 'nmeLogin', FILTER_SANITIZE_MAGIC_QUOTES)."',
                               NME_USUARIO_COMPLETO = '".filter_input(INPUT_POST, 'nmeUsuario', FILTER_SANITIZE_MAGIC_QUOTES)."',
                               TXT_EMAIL            = '".filter_input(INPUT_POST, 'txtEmail', FILTER_SANITIZE_MAGIC_QUOTES)."',
-                              COD_PERFIL_W         = '".filter_input(INPUT_POST, 'codPerfil', FILTER_SANITIZE_NUMBER_INT)."',                              
-                              IND_ATIVO            = '".filter_input(INPUT_POST, 'indAtivo', FILTER_SANITIZE_STRING)."'
+                              COD_PERFIL_W         = '".$codPerfil."',
+                              IND_ATIVO            = '".filter_input(INPUT_POST, 'indAtivo', FILTER_SANITIZE_STRING)."',
+                              COD_CLIENTE_FINAL    = '".filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT)."'
            WHERE COD_USUARIO = ".filter_input(INPUT_POST, 'codUsuario', FILTER_SANITIZE_NUMBER_INT);        
         $result = $this->insertDB("$sql_lista");        
         if ($result[0]){

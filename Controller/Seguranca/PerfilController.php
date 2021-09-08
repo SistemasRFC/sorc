@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../BaseController.php");
 include_once("../../Model/Seguranca/PerfilModel.php");
 class PerfilController extends BaseController

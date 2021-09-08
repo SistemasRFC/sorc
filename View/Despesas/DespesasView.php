@@ -118,6 +118,7 @@
                         <li><a href="#">Importar</a></li>
                         <li><a href="#">Editar</a></li>
                         <li><a href="#">Excluir</a></li>
+                        <li><a href="#">Quitar Parcelas</a></li>
                     </ul>
                 </div>  
             </td>

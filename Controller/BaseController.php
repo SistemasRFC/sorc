@@ -1,5 +1,7 @@
-<?
+<?php
 ob_start();
+ini_set('display_errors', true);
+error_reporting(E_ALL & ~E_WARNING & ~ E_DEPRECATED);
 class BaseController
 {
     //public $defaultPath = 'http://localhost:8080/geprod';

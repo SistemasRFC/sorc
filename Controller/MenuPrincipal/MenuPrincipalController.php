@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../BaseController.php");
 include_once("../../Model/MenuPrincipal/MenuPrincipalModel.php");
 class MenuPrincipalController extends BaseController

@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../../Model/BaseModel.php");
 include_once("../../Dao/Despesas/DespesasDao.php");
 class DespesaModel extends BaseModel
@@ -17,6 +17,9 @@ class DespesaModel extends BaseModel
         $dta = explode('/', filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING));
         $indDespesaPaga = filter_input(INPUT_POST, 'indDespesaPaga', FILTER_SANITIZE_STRING);
         $dtaPagamento = filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING);
+        if ($dtaPagamento==''){
+            $dtaPagamento=NULL;
+        }
         $codDespesaImportada = 0;
         for ($i=$nroParcelaAtual;$i<=$qtdParcelas;$i++){
             if ($dta[1]==13){
@@ -86,7 +89,7 @@ class DespesaModel extends BaseModel
     function DeletarDespesa(){
         $dao = new DespesasDao();
         $result = $dao->PegaDespesaPai();
-        
+
         return json_encode($dao->DeletarDespesa($result[1][0]['COD_DESPESA_IMPORTACAO']));
     }
     
@@ -116,7 +119,7 @@ class DespesaModel extends BaseModel
         return json_encode($lista[1]);
     }
 
-Function ListarSomaTipoDespesas(){
+    Function ListarSomaTipoDespesas(){
         $dao = new DespesasDao();
         $mes = filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_STRING);
         $ano = filter_input(INPUT_POST, 'nroAnoReferencia', FILTER_SANITIZE_STRING);
@@ -155,6 +158,17 @@ Function ListarSomaTipoDespesas(){
             );
         }
         return json_encode($data);
+    }
+    
+    Public Function QuitarParcelas(){
+        $dao = new DespesasDao();
+        $codDespesa = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
+        $result = $dao->PegaDespesaFilha($codDespesa);
+        while ($result[1]!=NULL){
+            $dao->DeletarDespesaFilha($result[1][0]['COD_DESPESA']);
+            $result = $dao->PegaDespesaFilha($result[1][0]['COD_DESPESA']);
+        }
+        return json_encode($result);
     }
 }
 ?>

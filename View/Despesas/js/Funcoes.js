@@ -230,7 +230,22 @@ function deletarDespesa(codDespesa){
          }
     );
 }
-
+function quitarParcelas(codDespesa){
+    $( "#dialogInformacao" ).jqxWindow('setContent', "Aguarde, Removendo a despesa!");
+    $( "#dialogInformacao" ).jqxWindow("open"); 
+    $.post('../../Controller/Despesas/DespesasController.php',
+        {method:'QuitarParcelas',
+         codDespesa: codDespesa}, function(data){
+            data = eval('('+data+')');
+            if(data[0]){
+                CarregaGridDespesa();
+                $( "#dialogInformacao" ).jqxWindow('setContent', 'Despesa removida com sucesso!');
+            }else{
+                $( "#dialogInformacao" ).jqxWindow('setContent', 'Erro ao remover despesa!');                
+            }
+         }
+    );    
+}
 function MontaComboFixo(nmeCombo, nmeSelect, seleciona){
     $("#"+nmeCombo).jqxDropDownList({ width: '200px', height: '25px'});
     $("#"+nmeCombo).jqxDropDownList('loadFromSelect', nmeSelect);  
