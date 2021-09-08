@@ -1,4 +1,4 @@
-<script language="JavaScript" src="js/CadDespesasView.js"></script>
+<script language="JavaScript" src="js/CadDespesasView.js?<?php echo time();?>"></script>
 <form name="CadastroForm" method="post">
     <input type="hidden" id="method" name="method">
     <input type="hidden" id="codDespesa" name="codDespesa" value="">

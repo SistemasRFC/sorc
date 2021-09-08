@@ -11,8 +11,8 @@
     <script type="text/javascript" src="../../Resources/js/jqxcore.js"></script>
     <script type="text/javascript" src="../../Resources/js/jqxchart.js"></script>
     <script type="text/javascript" src="../../Resources/js/jqxdata.js"></script>
-    <script src="../../Resources/js/svJavaScript.js"></script>
-    <script src="js/RelatorioTipoDespesaView.js"></script>
+    <script src="../../Resources/js/svJavaScript.js?<?php echo time();?>"></script>
+    <script src="js/RelatorioTipoDespesaView.js?<?php echo time();?>"></script>
     <link href="../../Resources/css/newStyle.css" rel="stylesheet">
     </head>
     <body>
