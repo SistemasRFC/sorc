@@ -63,7 +63,7 @@ $(function() {
                 $( "#CadastroForm" ).jqxWindow( "close" );
                 setTimeout(function(){
                     $( "#dialogInformacao" ).jqxWindow("close");
-                    CarregaGridTurma();
+//                    CarregaGridTurma();
                 },"2000");                
             }else{
                 $( "#dialogInformacao" ).jqxWindow('setContent', 'Erro ao salvar despesa!');                
