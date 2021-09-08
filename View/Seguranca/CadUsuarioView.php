@@ -20,7 +20,7 @@
             </td>
             <td><input type="text" id="txtEmail" name="txtEmail" size="60"></td>
         </tr>
-        <?php if ($rs_usuario[1][0]["COD_PERFIL"]==1){?>
+        <?php if ($rs_usuario[1][0]["COD_PERFIL_W"]==1){?>
             <tr>
                 <td>Perfil</td>
                 <td class="styleTD1" style="text-align:left;">
