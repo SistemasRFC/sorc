@@ -29,6 +29,7 @@ function MontaComboAno(){
                 displayMember: 'NRO_ANO_REFERENCIA',
                 valueMember: 'NRO_ANO_REFERENCIA'
             });  
+            $("#comboNroAnoReferencia").val(new Date().getFullYear());
         },
         async:true
                      

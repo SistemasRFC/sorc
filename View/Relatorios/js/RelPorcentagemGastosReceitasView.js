@@ -54,6 +54,7 @@ function MontaComboAno(){
                 displayMember: 'NRO_ANO_REFERENCIA',
                 valueMember: 'NRO_ANO_REFERENCIA'
             });  
+            $("#comboNroAnoReferencia").val(new Date().getFullYear());
         },
         async:true
                      
@@ -87,6 +88,9 @@ function MontaComboMes(){
                 displayMember: 'DSC_MES_REFERENCIA',
                 valueMember: 'NRO_MES_REFERENCIA'
             });  
+            mes = new Date().getMonth();
+            mes = String(mes+1).padStart(2, "0");
+            $("#comboNroMesReferencia").val(mes);
         },
         async:true
                      

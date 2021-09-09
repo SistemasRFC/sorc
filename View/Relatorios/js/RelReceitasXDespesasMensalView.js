@@ -66,7 +66,6 @@ function MontaComboMes(){
             });  
             mes = new Date().getMonth();
             mes = String(mes+1).padStart(2, "0");
-//            alert(mes);
             $("#comboNroMesReferencia").val(mes);
         },
         async:true
