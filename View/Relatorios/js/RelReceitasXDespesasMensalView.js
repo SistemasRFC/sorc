@@ -126,7 +126,7 @@ function MontaGrafico(Data) {
                                 initialAngle: 35,
                                 radius: 155,
                                 centerOffset: 0,
-                                formatSettings: { sufix: ' R$', decimalPlaces: 2 }
+                                formatSettings: { prefix: 'R$ ', decimalPlaces: 2 }
                             }
                         ]
                         }
