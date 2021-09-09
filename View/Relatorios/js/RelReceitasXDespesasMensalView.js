@@ -90,16 +90,15 @@ function CarregaGrafico(){
     });
 }
 function MontaGrafico(Data) {
-    // prepare chart data as an array
+    Data = [{'DSC_VALOR':'Valor Receita', 'VLR_VALOR':Data[0].VLR_RECEITA},
+            {'DSC_VALOR':'Valor Despesa', 'VLR_VALOR':Data[0].VLR_DESPESA}]
     var source =
     {
         localdata: Data,
         datatype: "json",
         datafields: [
-            { name: 'MES' },
-            { name: 'ANO' },
-            { name: 'VLR_DESPESA' },
-            { name: 'VLR_RECEITA' }
+            { name: 'DSC_VALOR' },
+            { name: 'VLR_VALOR' }
         ]        
     };
     var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); } });
@@ -112,45 +111,24 @@ function MontaGrafico(Data) {
                 padding: { left: 10, top: 5, right: 10, bottom: 5 },
                 titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
                 source: dataAdapter,
-                xAxis:
-                    {
-                        dataField: 'MES',
-                        showTickMarks: true,
-                        valuesOnTicks: false,
-                        tickMarksInterval: 1,
-                        tickMarksColor: '#888888',
-                        unitInterval: 1,
-                        gridLinesInterval: 1,
-                        gridLinesColor: '#888888',
-                        axisSize: 'auto'
-                    },
-                colorScheme: 'scheme05',
+                colorScheme: 'scheme01',
                 seriesGroups:
                     [
                         {
-                            formatSettings:
-                            {
-                                prefix: 'R$ ',
-                                decimalPlaces: 2,
-                                decimalSeparator: ',',
-                                thousandsSeparator: '.',
-                                sufix: ''
-                            },
                             type: 'pie',
                             showLabels: true,
-                            valueAxis:
+                    series:
+                        [
                             {
-                                unitInterval: 5000,
-                                minValue: 0,
-                                maxValue: 25000,
-                                description: 'Valor Gasto',
-                                axisSize: 'auto',
-                                tickMarksColor: '#888888'
-                            },
-                            series: [
-                                    { dataField: 'VLR_RECEITA', displayText: 'Receitas', symbolType: 'square'},
-                                    { dataField: 'VLR_DESPESA', displayText: 'Despesas', symbolType: 'square'}
-                                ]
+                                dataField: 'VLR_VALOR',
+                                displayText: 'DSC_VALOR',
+                                labelRadius: 170,
+                                initialAngle: 35,
+                                radius: 155,
+                                centerOffset: 0,
+                                formatSettings: { sufix: ' R$', decimalPlaces: 2 }
+                            }
+                        ]
                         }
                     ]
             };
