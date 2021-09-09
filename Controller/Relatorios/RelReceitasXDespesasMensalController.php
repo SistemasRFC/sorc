@@ -1,9 +1,9 @@
 <?php
 include_once("../BaseController.php");
-include_once("../../Model/Relatorios/RelReceitasXDespesasModel.php");
-class RelReceitasXDespesasController extends BaseController
+include_once("../../Model/Relatorios/RelReceitasXDespesasMensalModel.php");
+class RelReceitasXDespesasMensalController extends BaseController
 {
-    Public Function RelReceitasXDespesasController(){
+    Public Function RelReceitasXDespesasMensalController(){
         eval("\$this->".BaseController::getMethod()."();");
 
     }
@@ -15,7 +15,7 @@ class RelReceitasXDespesasController extends BaseController
     }
     
     Public Function CarregaRegistros(){
-        $model = new RelReceitasXDespesasModel();
+        $model = new RelReceitasXDespesasMensalModel();
         echo $model->CarregaRegistros();
     }
     
@@ -44,13 +44,13 @@ class RelReceitasXDespesasController extends BaseController
                              'DSC_MES_REFERENCIA' => 'Novembro'),
                        array('NRO_MES_REFERENCIA' => '12',
                              'DSC_MES_REFERENCIA' => 'Dezembro'));
-        return $meses;
+        echo json_encode($meses);
     }
     
     Function ListarAnos(){
-        $model = new RelReceitasXDespesasModel();
+        $model = new RelReceitasXDespesasMensalModel();
         echo $model->ListarAnos();
     }
 }
-$RelReceitasXDespesasController = new RelReceitasXDespesasController();
+$RelReceitasXDespesasMensalController = new RelReceitasXDespesasMensalController();
 ?>

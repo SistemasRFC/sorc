@@ -1,9 +1,9 @@
 <?php
 include_once("../../Model/BaseModel.php");
-include_once("../../Dao/Relatorios/RelReceitasXDespesasDao.php");
-class RelReceitasXDespesasModel extends BaseModel
+include_once("../../Dao/Relatorios/RelReceitasXDespesasMensalDao.php");
+class RelReceitasXDespesasMensalModel extends BaseModel
 {
-    function RelReceitasXDespesasModel(){
+    function RelReceitasXDespesasMensalModel(){
         If (!isset($_SESSION)){
             ob_start();
             session_start();
@@ -11,7 +11,7 @@ class RelReceitasXDespesasModel extends BaseModel
     }
     
     Public Function CarregaRegistros($Json=true){
-        $dao = new RelReceitasXDespesasDao();
+        $dao = new RelReceitasXDespesasMensalDao();
         $lista = $dao->CarregaRegistros($_SESSION['cod_cliente_final']);
         if ($Json){
             return json_encode($lista);
