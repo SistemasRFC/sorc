@@ -53,6 +53,8 @@ $rs_usuario = $_SESSION['DadosUsuario'];
         <script src="../../View/MenuPrincipal/js/DialogsView.js"></script>
     </head>
     <body>
+        <input type="hidden" id="codPerfil" value="<?=$rs_usuario[1][0]["COD_PERFIL_W"]?>">
+        <input type="hidden" id="codClienteFinalSelecionado" value="<?=$_SESSION["cod_cliente_final"]?>">
         <table width="100%">
             <tr>
                 <td>
@@ -60,11 +62,14 @@ $rs_usuario = $_SESSION['DadosUsuario'];
                         <table width="100%" align="left" style="border:1px solid #a4bed4;">
                             <tr>
                                 <td align="left" style="text-align:left; height:10%; font-size:14px;color:#000000;vertical-align:middle;font-family: arial, helvetica, serif;" width="30%">
-                                    <? echo $rs_usuario[1][0]['DSC_CLIENTE_FINAL'];?> <BR>
+                                    <?php
+                                        echo $rs_usuario[1][0]['DSC_CLIENTE_FINAL'];
+                                    ?> <BR>
                                     SORC - Sistema de Orçamentos
                                 </td>
-                                <td align="left" style="text-align:left; height:10%;font-size:14px;color:#000000;vertical-align:middle;font-family: arial, helvetica, serif;">
-                                    <?
+                                <td id="tdcodClienteFinalSelecao" align="left" style="text-align:left; height:10%;font-size:14px;color:#000000;vertical-align:middle;font-family: arial, helvetica, serif;">
+                                    <?php 
+                                    if ($_SESSION["cod_perfil"]!=3){
                                         echo "Usu&aacute;rio: ".$rs_usuario[1][0]['NME_USUARIO_COMPLETO'];
                                         echo "<BR>";
                                         echo"<a style=\"text-align:left;
@@ -73,7 +78,8 @@ $rs_usuario = $_SESSION['DadosUsuario'];
                                                 color:#0150D3;
                                                 vertical-align:middle;
                                                 font-family: arial, helvetica, serif;\" href=\"../../View/MenuPrincipal/MenuPrincipalView.php\">Clique aqui para p&aacute;gina inicial</a>";
-                                    ?>
+                                    }
+                                    ?> 
                                 </td>
                             </tr>
                             <tr>

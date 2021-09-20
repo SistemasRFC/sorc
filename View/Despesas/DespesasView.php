@@ -76,30 +76,7 @@ include_once "../../View/MenuPrincipal/Cabecalho.php";
                                 <option value="S">Despesa Paga</option>
                             </select>
                         </td>
-                        <?php if ($rs_usuario[1][0]["COD_PERFIL_W"]==3){?>
-                            <td>
-                                Cliente
-                            </td>                        
-                            <td>
-                                <div id="comboCodCliente"></div>
-                                <select name="codCliente" id="codCliente" style="display:none">
-                                        <?php
-                                        $listaClientes = unserialize(urldecode($_POST['ListaClientes']));
-
-                                        $total = count($listaClientes[1]);
-                                        $i=0;
-                                        echo "<option value=\"-1\">Selecione um cliente</option>";
-                                        while($i<$total ) {
-                                            echo "<option value=\"".$listaClientes[1][$i]['COD_CLIENTE_FINAL']."\">".$listaClientes[1][$i]['DSC_CLIENTE_FINAL']."</option>";
-                                            $i++;
-                                        }
-                                        ?>
-                                </select>
-                            </td>
-                        <?php }else{
-                            echo "<input type='hidden' id='codCliente' value='".$_SESSION['cod_cliente_final']."'>";
-                        }
-                        ?>
+                        
                     </tr>
                 </table>
                 <?php
@@ -151,6 +128,7 @@ include_once "../../View/MenuPrincipal/Cabecalho.php";
                         <li><a href="#">Editar</a></li>
                         <li><a href="#">Excluir</a></li>
                         <li><a href="#">Quitar Parcelas</a></li>
+                        <li><a href="#">Pagar por conta</a></li>
                     </ul>
                 </div>  
             </td>

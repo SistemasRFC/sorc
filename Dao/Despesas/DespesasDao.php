@@ -6,13 +6,14 @@ class DespesasDao extends BaseDao
         $this->conect();
     }
 
-    Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $nroParcelaAtual, $codDespesaImportada=0){
+    Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $dtaLancamento, $nroParcelaAtual, $codDespesaImportada=0){
         $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
         $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
         $sql = "INSERT INTO EN_DESPESA (
                 COD_DESPESA,
                 DSC_DESPESA,
                 DTA_DESPESA,
+                DTA_LANC_DESPESA,
                 COD_CONTA,
                 TPO_DESPESA,
                 VLR_DESPESA,
@@ -26,6 +27,7 @@ class DespesasDao extends BaseDao
                 ".$codDespesa.",
                 '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
                 '".$this->ConverteDataForm($dtaDespesa)."',
+                '".$this->ConverteDataForm($dtaLancamento)."',
                 '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT)."',
                 '".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT)."',
                 '".$vlrDespesa."',
@@ -50,6 +52,7 @@ class DespesasDao extends BaseDao
         $sql = "UPDATE EN_DESPESA SET
                 DSC_DESPESA = '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
                 DTA_DESPESA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING))."',
+                DTA_LANC_DESPESA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaLancDespesa', FILTER_SANITIZE_STRING))."',
                 COD_CONTA  =  ".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT).",
                 TPO_DESPESA = ".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT).",
                 VLR_DESPESA = '".$vlrDespesa."',
@@ -95,6 +98,7 @@ class DespesasDao extends BaseDao
         }
         $sql = " SELECT COD_DESPESA,
                         DTA_DESPESA,
+                        DTA_LANC_DESPESA,
                         VLR_DESPESA,
                         DSC_DESPESA,
                         TPO_DESPESA,
@@ -198,10 +202,24 @@ class DespesasDao extends BaseDao
         return $this->selectDB($sql, false);
     }
     
-        Function DeletarDespesaFilha($codDespesa){
+    Public Function DeletarDespesaFilha($codDespesa){
         $sql = " DELETE FROM EN_DESPESA
                   WHERE COD_DESPESA = ".$codDespesa;
         return $this->insertDB($sql);
+    }
+    
+    Public Function GetDespesaById($codDespesa){
+        $sql = "SELECT COD_CONTA, DTA_DESPESA FROM EN_DESPESA WHERE COD_DESPESA = ".$codDespesa;
+        return $this->selectDB($sql, false);
+    }
+    
+    Public Function AtualizaPagamento($codConta, $dtaDespesa){
+        $sql = "UPDATE EN_DESPESA SET
+                IND_DESPESA_PAGA = 'S',
+                DTA_PAGAMENTO ='".$dtaDespesa."' ";
+                $sql .= " WHERE COD_CONTA = ".$codConta. " AND DTA_DESPESA = '".$dtaDespesa."'";
+//        echo $sql; exit;
+        return $this->insertDB($sql);        
     }
 }
 ?>

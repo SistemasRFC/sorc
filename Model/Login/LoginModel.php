@@ -51,5 +51,9 @@ class LoginModel
         return $dao->AlteraSenha($_SESSION['cod_usuario']);
     }
 
+    function AtualizaCliente(){
+        $_SESSION['cod_cliente_final_old']=$_SESSION['cod_cliente_final'];
+        $_SESSION['cod_cliente_final']= filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
+    }
 }
 ?>

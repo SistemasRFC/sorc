@@ -26,7 +26,7 @@ $(function() {
         CarregaGridDespesa();
     });    
     $( "#btnNovo" ).click(function( event ) {
-        CadDespesa('AddDespesa', '0', '', '', '-1', '', '', '-1', '', 'N', '');        
+        CadDespesa('AddDespesa', '0', '', '', '-1', '', '', '-1', '', '', 'N', '');        
     });      
     contextMenu = $("#jqxMenu").jqxMenu({ width: '120px', autoOpenPopup: false, mode: 'popup', theme: theme });;
     $("#jqxMenu").on('itemclick', function (event) {
@@ -45,12 +45,15 @@ $(function() {
                        $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).NRO_PARCELA_ATUAL,
                        $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).COD_CONTA,
                        $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_DESPESA,
+                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_LANC_DESPESA,
                        $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).IND_PAGO,
                        $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_PAGAMENTO);
         }else if($.trim($(args).text()) == "Excluir"){
             deletarDespesa($("#codDespesa").val());
         }else if($.trim($(args).text()) == "Quitar Parcelas"){
             quitarParcelas($("#codDespesa").val());
+        }else if($.trim($(args).text()) == "Pagar por conta"){
+            pagarPorConta($("#codDespesa").val());
         }
     });    
     $("#btnExportar").click(function(){

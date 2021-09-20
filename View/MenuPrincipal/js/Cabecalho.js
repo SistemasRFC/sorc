@@ -2,6 +2,8 @@ $(document).ready(function(){
     $("input[type='button']").jqxButton({theme: theme}); 
     
     VerificaSessao();
+    atualizaCliente();
+    criaComboCliente();
 });
 function VerificaSessao(){
     $.post('../../Controller/MenuPrincipal/MenuPrincipalController.php', {
@@ -105,4 +107,72 @@ function CriarCombo(nmeCombo, url, parametros, dataFields, displayMember, valueM
                      
     });  
     dataAdapter.dataBind();    
+}
+
+function atualizaCliente(){
+    if ($("#codPerfil").val()==3){
+        $("#comboCodClienteFinalSelecao").change(function(){
+            $.post('../../Controller/Login/LoginController.php', {
+                async: false,
+                method: 'AtualizaCliente',
+                codCliente: $("#comboCodClienteFinalSelecao").val()
+            }).then(function(){
+                window.location.href='../../View/MenuPrincipal/MenuPrincipalView.php';
+            });            
+        });
+    }
+}
+
+function criaComboCliente(){
+    if ($("#codPerfil").val()==3){
+        $.post('../../Controller/ClienteFinal/ClienteFinalController.php',
+            {
+                method: 'ListarClienteFinalAtivo'
+            }, function(data){
+
+            data = eval('('+data+')');
+            if (data[0]){
+                var dados = '<div id="comboCodClienteFinalSelecao"></div>';
+                dados += '<select name="codClienteFinalSelecao" id="codClienteFinalSelecao" style="display:none">';
+                dados += '<option value="-1">Selecione</option>';
+                for (var i=0; i<data[1].length; i++){
+                    if ($("#codClienteFinalSelecionado").val()==data[1][i]["COD_CLIENTE_FINAL"]){
+                        dados += '<option value="'+data[1][i]["COD_CLIENTE_FINAL"]+'" selected>'+data[1][i]["DSC_CLIENTE_FINAL"]+'</option>';
+                    }else{
+                        dados += '<option value="'+data[1][i]["COD_CLIENTE_FINAL"]+'">'+data[1][i]["DSC_CLIENTE_FINAL"]+'</option>';
+                    }
+                }
+                dados += '</select>';
+                $( "#tdcodClienteFinalSelecao" ).html(dados); 
+                MontaComboFixoCabecalho("comboCodClienteFinalSelecao", "codClienteFinalSelecao", $("#codClienteFinalSelecionado").val());
+            }else{
+                $( "#dialogInformacao" ).jqxWindow('setContent', 'Erro ao excluir cliente! '+data[1]);
+            }
+        }); 
+    }
+}
+function MontaComboFixoCabecalho(nmeCombo, nmeSelect, seleciona){
+    $("#"+nmeCombo).jqxDropDownList({ width: '200px', height: '25px'});
+    $("#"+nmeCombo).jqxDropDownList('loadFromSelect', nmeSelect);  
+    $("#"+nmeSelect).val(seleciona);
+    var index = $("#"+nmeSelect)[0].selectedIndex;
+    $("#"+nmeCombo).jqxDropDownList('selectIndex', index);
+    $("#"+nmeCombo).jqxDropDownList('ensureVisible', index);    
+    
+    $("#"+nmeCombo).on('select', function (event) {
+        var args = event.args;
+        // select the item in the 'select' tag.
+        var index = args.item.index;
+        $("#"+nmeSelect).val(args.item.value);
+        
+    });  
+    atualizaCliente();
+//    $("#"+nmeSelect).on('change', function (event) {
+//        updating = true;
+//        $("#"+nmeSelect).val(seleciona);
+//        var index = $("#"+nmeSelect)[0].selectedIndex;
+//        $("#"+nmeCombo).jqxDropDownList('selectIndex', index);
+//        $("#"+nmeCombo).jqxDropDownList('ensureVisible', index);
+//        updating = false;
+//    });    
 }

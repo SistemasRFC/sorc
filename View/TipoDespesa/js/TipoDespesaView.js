@@ -11,7 +11,7 @@ $(function() {
         autoOpen: false
     });    
     $( "#btnNovo" ).click(function( event ) {
-        CadTipoDespesa('AddTipoDespesa', '0', '', '', '', true);  
+        CadTipoDespesa('AddTipoDespesa', '0', '', '', '', true, false);  
     });    
 
 });

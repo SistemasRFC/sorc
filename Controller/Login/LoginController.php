@@ -27,6 +27,11 @@ class LoginController extends BaseController
   function Logoff(){
       header("Location: ../../index.php");
   }
+  
+  Public Function AtualizaCliente(){
+    $model = new LoginModel();        
+    $model->AtualizaCliente();
+  }
 }
 $loginController = new LoginController();
 ?>

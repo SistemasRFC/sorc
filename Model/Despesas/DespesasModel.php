@@ -15,6 +15,7 @@ class DespesaModel extends BaseModel
         $qtdParcelas = filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT);
         $nroParcelaAtual = filter_input(INPUT_POST, 'nroParcelaAtual', FILTER_SANITIZE_NUMBER_INT);        
         $dta = explode('/', filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING));
+        $dtaLancamento = filter_input(INPUT_POST, 'dtaLancDespesa', FILTER_SANITIZE_STRING);
         $indDespesaPaga = filter_input(INPUT_POST, 'indDespesaPaga', FILTER_SANITIZE_STRING);
         $dtaPagamento = filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING);
         if ($dtaPagamento==''){
@@ -30,7 +31,7 @@ class DespesaModel extends BaseModel
                 $dta[1] = '0'.$dta[1];
             }
             $dtaDespesa = $dta[0].'/'.$dta[1].'/'.$dta[2]; 
-            $result = $dao->AddDespesa($_SESSION['cod_cliente_final'], $dtaDespesa, $indDespesaPaga, $dtaPagamento, $nroParcelaAtual, $codDespesaImportada);
+            $result = $dao->AddDespesa($_SESSION['cod_cliente_final'], $dtaDespesa, $indDespesaPaga, $dtaPagamento, $dtaLancamento, $nroParcelaAtual, $codDespesaImportada);
             if ($i==$nroParcelaAtual){
                 $codDespesaImportada = $result[2];
             }
@@ -104,6 +105,7 @@ class DespesaModel extends BaseModel
         for($i=0;$i<count($lista[1]);$i++) {
             $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
             $lista[1][$i]['DTA_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_DESPESA']);
+            $lista[1][$i]['DTA_LANC_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_LANC_DESPESA']);
             $lista[1][$i]['DTA_PAGAMENTO'] = $this->ConverteDataBanco($lista[1][$i]['DTA_PAGAMENTO']);
             $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'],2,'.','');
         }        
@@ -117,6 +119,7 @@ class DespesaModel extends BaseModel
         for($i=0;$i<count($lista[1]);$i++) {
             $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
             $lista[1][$i]['DTA_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_DESPESA']);
+            $lista[1][$i]['DTA_LANC_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_LANC_DESPESA']);
             $lista[1][$i]['DTA_PAGAMENTO'] = $this->ConverteDataBanco($lista[1][$i]['DTA_PAGAMENTO']);
             $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'],2,'.','');
         }        
@@ -171,6 +174,16 @@ class DespesaModel extends BaseModel
         while ($result[1]!=NULL){
             $dao->DeletarDespesaFilha($result[1][0]['COD_DESPESA']);
             $result = $dao->PegaDespesaFilha($result[1][0]['COD_DESPESA']);
+        }
+        return json_encode($result);
+    }
+    
+    Public Function PagarPorConta(){
+        $dao = new DespesasDao();
+        $codDespesa = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
+        $result = $dao->GetDespesaById($codDespesa);
+        if ($result[0]){
+            $result = $dao->AtualizaPagamento($result[1][0]['COD_CONTA'], $result[1][0]['DTA_DESPESA']);
         }
         return json_encode($result);
     }

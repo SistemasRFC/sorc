@@ -1,4 +1,4 @@
-function CadTipoDespesa(method, codTipoDespesa, dscTipoDespesa, vlrPiso, vlrTeto, ativo){
+function CadTipoDespesa(method, codTipoDespesa, dscTipoDespesa, vlrPiso, vlrTeto, ativo, investimento){
      $( "#CadastroForm" ).jqxWindow( "open" );
      $("#method").val(method);
      $("#codTipoDespesa").val(codTipoDespesa);
@@ -10,6 +10,11 @@ function CadTipoDespesa(method, codTipoDespesa, dscTipoDespesa, vlrPiso, vlrTeto
      }else{
          $("#indAtivo").jqxCheckBox('uncheck');
      }
+     if (investimento){
+         $("#indInvestimento").jqxCheckBox('check');
+     }else{
+         $("#indInvestimento").jqxCheckBox('uncheck');
+     }     
 }
 function CarregaGridTipoDespesa(){
     $("#tdGrid").html('');
@@ -41,7 +46,8 @@ function MontaTabelaTipoDespesa(listaTipoDespesa){
             { name: 'DSC_TIPO_DESPESA', type: 'string' },
             { name: 'VLR_PISO', type: 'float' },
             { name: 'VLR_TETO', type: 'float' },
-            { name: 'ATIVO', type: 'boolean' }
+            { name: 'ATIVO', type: 'boolean' },
+            { name: 'INVESTIMENTO', type: 'boolean' }
         ]
     };
     var dataAdapter = new $.jqx.dataAdapter(source);
@@ -71,7 +77,8 @@ function MontaTabelaTipoDespesa(listaTipoDespesa){
                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).DSC_TIPO_DESPESA,
                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).VLR_PISO,
                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).VLR_TETO,
-                   $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).ATIVO);
+                   $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).ATIVO,
+                   $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).INVESTIMENTO);
     });
     $("#dialogInformacao" ).jqxWindow("close");  
 }

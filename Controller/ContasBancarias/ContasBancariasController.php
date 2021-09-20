@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../BaseController.php");
 include_once("../../Model/ContasBancarias/ContasBancariasModel.php");
 class ContasBancariasController extends BaseController

@@ -2,7 +2,7 @@ var selectedrowindexes='';
 var totalValor = 0;
 var contextMenu = '';
 var nomeGrid = 'ListagemForm';
-function CadDespesa(method, codDespesa, dscDespesa, vlrDespesa, tpoDespesa, qtdParcelas, nroParcelaAtual, codConta, dtaDespesa, indPago, dtaPago){
+function CadDespesa(method, codDespesa, dscDespesa, vlrDespesa, tpoDespesa, qtdParcelas, nroParcelaAtual, codConta, dtaDespesa, dtaLancDespesa, indPago, dtaPago){
     $( "#CadastroForm" ).jqxWindow( "open" );
     $("#method").val(method);
     if (codDespesa>0){
@@ -19,6 +19,7 @@ function CadDespesa(method, codDespesa, dscDespesa, vlrDespesa, tpoDespesa, qtdP
     $("#codDespesa").val(codDespesa);
     $("#dscDespesa").val(dscDespesa);
     $("#dtaDespesa").val(dtaDespesa);
+    $("#dtaLancDespesa").val(dtaLancDespesa);
     $("#dtaPagamento").val(dtaPago);
     $("#qtdParcelas").val(qtdParcelas);
     $("#nroParcelaAtual").val(nroParcelaAtual);     
@@ -79,6 +80,7 @@ function MontaTabelaDespesa(listaDespesas){
         [
             { name: 'COD_DESPESA', type: 'int' },
             { name: 'DTA_DESPESA', type: 'string' },
+            { name: 'DTA_LANC_DESPESA', type: 'string' },
             { name: 'VLR_DESPESA', type: 'float' },
             { name: 'DSC_DESPESA', type: 'string' },
             { name: 'TPO_DESPESA', type: 'string' },
@@ -108,7 +110,8 @@ function MontaTabelaDespesa(listaDespesas){
         selectionmode: 'multiplerows',
         columns: [
           { text: 'Descri&ccedil;&atilde;o', datafield: 'DSC_DESPESA', columntype: 'textbox', width: 280},
-          { text: 'Data', datafield: 'DTA_DESPESA', columntype: 'datetimeinput', width: 80},
+          { text: 'Data Venc.', datafield: 'DTA_DESPESA', columntype: 'datetimeinput', width: 80},
+          { text: 'Data Lanc.', datafield: 'DTA_LANC_DESPESA', columntype: 'datetimeinput', width: 80},
           { text: 'Valor', columntype: 'numberinput', cellsalign: 'right', datafield: 'VLR_DESPESA', width: 80, cellsformat: "f2"},
           { text: 'Parcelas', columntype: 'number', cellsalign: 'right', datafield: 'QTD_PARCELAS', width: 80},
           { text: 'Parcela Atual', columntype: 'number', cellsalign: 'right', datafield: 'NRO_PARCELA_ATUAL', width: 80},
@@ -132,7 +135,8 @@ function MontaTabelaDespesa(listaDespesas){
         $("#comboCodConta").val($('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).COD_CONTA);
         $("#comboCodTipoDespesa").val($('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).COD_TIPO_DESPESA);
         $("#dtaPagamento").val($('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).DTA_PAGAMENTO);       
-        $("#indAtivo").prop("checked", $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).IND_PAGO);       
+        $("#dtaLancDespesa").val($('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).DTA_LANC_DESPESA);
+        $("#indDespesaPaga").prop("checked", $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).IND_PAGO);       
         if (event.args.rightclick) {
 
             $("#"+nomeGrid).jqxGrid('selectrow', event.args.rowindex);
@@ -174,6 +178,7 @@ function MontaTabelaDespesa(listaDespesas){
                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).NRO_PARCELA_ATUAL,
                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).COD_CONTA,
                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).DTA_DESPESA,
+                   $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).DTA_LANC_DESPESA,
                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).IND_PAGO,
                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', args.rowindex).DTA_PAGAMENTO);
     });
@@ -249,6 +254,22 @@ function quitarParcelas(codDespesa){
             }
          }
     );    
+}
+function pagarPorConta(codDespesa){
+    $( "#dialogInformacao" ).jqxWindow('setContent', "Aguarde, informando pagamento em bloco!");
+    $( "#dialogInformacao" ).jqxWindow("open"); 
+    $.post('../../Controller/Despesas/DespesasController.php',
+        {method:'PagarPorConta',
+         codDespesa: codDespesa}, function(data){
+            data = eval('('+data+')');
+            if(data[0]){
+                CarregaGridDespesa();
+                $( "#dialogInformacao" ).jqxWindow('setContent', 'Pagamento informado com sucesso!');
+            }else{
+                $( "#dialogInformacao" ).jqxWindow('setContent', 'Erro ao informar pagamento!');                
+            }
+         }
+    );
 }
 function MontaComboFixo(nmeCombo, nmeSelect, seleciona){
     $("#"+nmeCombo).jqxDropDownList({ width: '200px', height: '25px'});

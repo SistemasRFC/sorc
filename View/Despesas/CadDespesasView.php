@@ -11,7 +11,13 @@
     </tr>
     <tr>
         <td>
-        Data
+        Data lançamento
+        </td>
+        <td><input type="text" id="dtaLancDespesa" name="dtaLancDespesa"></td>
+    </tr>
+    <tr>
+        <td>
+        Data Vencimento
         </td>
         <td><input type="text" id="dtaDespesa" name="dtaDespesa"></td>
     </tr>
@@ -54,6 +60,24 @@
         </td>
     </tr>
     <tr>
+        <td>
+        Conta
+        </td>
+        <td><div id="comboCodConta"></div>
+            <select name="codConta" id="codConta" style="display:none;">
+            <?$rs_conta = unserialize(urldecode($_POST['ListaContasBancarias']));
+            $total = count($rs_conta[1]);
+            $i=0;
+            echo "<option value=\"-1\">Selecione</option>";
+            while($i<$total ) {
+                echo "<option value=\"".$rs_conta[1][$i]['COD_CONTA']."\">".$rs_conta[1][$i]['CONTA']."</option>";
+                $i++;
+            }
+            ?>
+            </select>
+        </td>
+    </tr>        
+    <tr>
         <td colspan="2">
             <div id="divValores">
             </div>
@@ -67,25 +91,7 @@
     <tr>
         <td>
             <div id="trDtaDespesaPaga" style="display:block">
-                <table>
-                    <tr>
-                        <td>
-                        Conta
-                        </td>
-                        <td><div id="comboCodConta"></div>
-                            <select name="codConta" id="codConta" style="display:none;">
-                            <?$rs_conta = unserialize(urldecode($_POST['ListaContasBancarias']));
-                            $total = count($rs_conta[1]);
-                            $i=0;
-                            echo "<option value=\"-1\">Selecione</option>";
-                            while($i<$total ) {
-                                echo "<option value=\"".$rs_conta[1][$i]['COD_CONTA']."\">".$rs_conta[1][$i]['CONTA']."</option>";
-                                $i++;
-                            }
-                            ?>
-                            </select>
-                        </td>
-                    </tr>                    
+                <table>                
                     <tr>
                         <td>
                             Data do Pagamento

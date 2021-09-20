@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../BaseController.php");
 include_once("../../Model/TipoDespesa/TipoDespesaModel.php");
 class TipoDespesaController extends BaseController

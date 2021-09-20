@@ -1,9 +1,9 @@
-<? include_once "../../View/MenuPrincipal/Cabecalho.php";?>
+<?php include_once "../../View/MenuPrincipal/Cabecalho.php";?>
 <html>
     <head>
     <title>Cadastro de Tipo de Despesa</title>
-    <script src="js/Funcoes.js"></script> 
-    <script src="js/TipoDespesaView.js"></script>      
+    <script src="js/Funcoes.js?<?php echo time();?>"></script> 
+    <script src="js/TipoDespesaView.js?<?php echo time();?>"></script>      
     </head>
     <body>    
         <table>

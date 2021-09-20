@@ -1,4 +1,4 @@
-<script src="js/CadTipoDespesaView.js"></script>
+<script src="js/CadTipoDespesaView.js?<?php echo time();?>"></script>
 <input type="hidden" name="method" id="method" value="">
 <input type="hidden" name="codTipoDespesa" id="codTipoDespesa" value="0">
 <table width="40%" align="center">
@@ -23,6 +23,9 @@
                 <tr>
                     <td><input type="text" size="50" name="vlrTeto" id="vlrTeto" value=""></td>
                 </tr>
+                <tr>
+                    <td><div id="indInvestimento">Investimento</div></td>
+                </tr>                
                 <tr>
                     <td><div id="indAtivo">Ativo</div></td>
                 </tr>
