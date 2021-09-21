@@ -52,8 +52,14 @@ class LoginModel
     }
 
     function AtualizaCliente(){
-        $_SESSION['cod_cliente_final_old']=$_SESSION['cod_cliente_final'];
-        $_SESSION['cod_cliente_final']= filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
+        $codCliente = filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
+        if ($codCliente!=-1){
+            $_SESSION['cod_cliente_final_old']=$_SESSION['cod_cliente_final'];
+            $_SESSION['cod_cliente_final']= filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
+        }else{
+            $_SESSION['cod_cliente_final']=$_SESSION['cod_cliente_final_old'];
+            $_SESSION['cod_cliente_final_old']= filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
+        }
     }
 }
 ?>

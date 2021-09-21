@@ -5,7 +5,7 @@ $rs_usuario = $_SESSION['DadosUsuario'];
 <html>
     <head>
         <title>Cadastro de Usuários</title>
-        <script src="js/UsuarioView.js"></script>
+        <script src="js/UsuarioView.js?<?php echo time();?>"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; IBM850; ISO-8859-1">
 
     </head>
@@ -38,7 +38,7 @@ $rs_usuario = $_SESSION['DadosUsuario'];
             <div id="windowHeader">
             </div>
             <div style="overflow: hidden;" id="windowContent">
-                <? include_once "CadUsuarioView.php";?>
+                <?php include_once "CadUsuarioView.php";?>
             </div>
       </div>
     </body>

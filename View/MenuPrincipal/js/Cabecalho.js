@@ -110,7 +110,7 @@ function CriarCombo(nmeCombo, url, parametros, dataFields, displayMember, valueM
 }
 
 function atualizaCliente(){
-    if ($("#codPerfil").val()==3){
+    if ($("#codPerfilCabecalho").val()==3){
         $("#comboCodClienteFinalSelecao").change(function(){
             $.post('../../Controller/Login/LoginController.php', {
                 async: false,
@@ -124,7 +124,7 @@ function atualizaCliente(){
 }
 
 function criaComboCliente(){
-    if ($("#codPerfil").val()==3){
+    if ($("#codPerfilCabecalho").val()==3){
         $.post('../../Controller/ClienteFinal/ClienteFinalController.php',
             {
                 method: 'ListarClienteFinalAtivo'

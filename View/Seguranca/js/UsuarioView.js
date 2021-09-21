@@ -219,6 +219,7 @@ function MontaTabelaUsuario(listaUsuario){
             { name: 'NME_USUARIO', type: 'string' },
             { name: 'NME_USUARIO_COMPLETO', type: 'string' },
             { name: 'TXT_EMAIL', type: 'string' },
+            { name: 'COD_CLIENTE_FINAL', type: 'string' },
             { name: 'COD_PERFIL_W', type: 'string' },
             { name: 'DSC_PERFIL_W', type: 'string' },
             { name: 'NRO_CPF', type: 'string' },
@@ -265,6 +266,7 @@ function MontaTabelaUsuario(listaUsuario){
         $("#nmeUsuario").val($('#listaUsuarios').jqxGrid('getrowdatabyid', rowID).NME_USUARIO_COMPLETO);
         $("#txtEmail").val($('#listaUsuarios').jqxGrid('getrowdatabyid', rowID).TXT_EMAIL);
         $("#codPerfil").val($('#listaUsuarios').jqxGrid('getrowdatabyid', rowID).COD_PERFIL_W);
+        $("#codCliente").val($('#listaUsuarios').jqxGrid('getrowdatabyid', rowID).COD_CLIENTE_FINAL);
         $("#nroCpf").val($('#listaUsuarios').jqxGrid('getrowdatabyid', rowID).NRO_CPF);                 
         if ($('#listaUsuarios').jqxGrid('getrowdatabyid', rowID).IND_ATIVO=='S'){            
             $("#indAtivo").jqxCheckBox('check');
@@ -283,6 +285,7 @@ function LimparCampos(){
     $("#nmeUsuario").val('');
     $("#txtEmail").val('');
     $("#codPerfil").val('0');
+    $("#codCliente").val('0');
     $("#nroCpf").val('');
 }
 
@@ -305,12 +308,18 @@ function Monta(listaCliente){
     
 }
 $(document).ready(function(){
-    CarregaComboPerfil();
+//    CarregaComboPerfil();
     CarregaGridUsuario();    
     CriarCombo('codCliente', 
                '../../Controller/ClienteFinal/ClienteFinalController.php', 
                'method;ListarClienteFinalAtivo', 
                'COD_CLIENTE_FINAL|NME_CLIENTE_FINAL', 
                'DSC_CLIENTE_FINAL', 
-               'COD_CLIENTE_FINAL');  
+               'COD_CLIENTE_FINAL');     
+    CriarCombo('codPerfil', 
+               '../../Controller/Seguranca/PerfilController.php', 
+               'method;ListarPerfilAtivo', 
+               'COD_PERFIL_W|DSC_PERFIL_W', 
+               'DSC_PERFIL_W', 
+               'COD_PERFIL_W');  
 });

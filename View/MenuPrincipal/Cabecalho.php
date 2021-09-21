@@ -53,7 +53,7 @@ $rs_usuario = $_SESSION['DadosUsuario'];
         <script src="../../View/MenuPrincipal/js/DialogsView.js"></script>
     </head>
     <body>
-        <input type="hidden" id="codPerfil" value="<?=$rs_usuario[1][0]["COD_PERFIL_W"]?>">
+        <input type="hidden" id="codPerfilCabecalho" value="<?=$rs_usuario[1][0]["COD_PERFIL_W"]?>">
         <input type="hidden" id="codClienteFinalSelecionado" value="<?=$_SESSION["cod_cliente_final"]?>">
         <table width="100%">
             <tr>
