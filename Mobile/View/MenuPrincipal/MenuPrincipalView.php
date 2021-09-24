@@ -5,6 +5,7 @@
 <html>
     <head>
         <title>SORC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=IBM850; ISO-8859-1">
         <!-- jquery -->
@@ -37,7 +38,7 @@
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
-                    <div class="row">
+                    <div class="col-sm-12">
                         <input type="button" 
                                id="btnCadastroDespesa" 
                                value="Cadastro Despesa" 
