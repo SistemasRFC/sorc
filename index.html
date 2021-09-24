@@ -15,7 +15,6 @@ and open the template in the editor.
     </body>
     <script>
         function detectar_mobile() { 
-            alert(navigator.userAgent);
          if( navigator.userAgent.match(/Android/i)
          || navigator.userAgent.match(/webOS/i)
          || navigator.userAgent.match(/iPhone/i)
@@ -27,7 +26,6 @@ and open the template in the editor.
             window.location.href='indexMobile.php';
           }
          else {
-             alert("PC");
             window.location.href='index.php';
           }
         }
