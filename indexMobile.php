@@ -7,6 +7,7 @@
 <html>
     <head>
         <title>SORC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=IBM850; ISO-8859-1">
         <!-- jquery -->
