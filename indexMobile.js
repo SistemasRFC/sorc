@@ -1,54 +1,20 @@
 $(function() {
-    valor = '{x:'+$(window).width/2+', y:'+$(window).heigth/2+'}';
-    $( "#dialogInformacao" ).jqxWindow({
-        autoOpen: false,
-        height: 150,
-        width: 450,
-        theme: theme,
-        animationType: 'fade',
-        showAnimationDuration: 500,
-        closeAnimationDuration: 500,
-        title: 'Mensagem',
-        isModal: true
-    });
-    $("#CadastroForm").jqxWindow({
-        autoOpen: true,
-        height: 150,
-        width: 350,
-        theme: theme,
-        animationType: 'fade',
-        showAnimationDuration: 500,
-        closeAnimationDuration: 500,
-        isModal: false,
-        title: 'Login - Sistema SORC'
-    });
     $(".login").keyup(function(event){
         if (event.keyCode==13){
             $("#btnLogin").click();
         }
     }); 
-    $("#btnLogin").jqxButton({ width: '100', theme: theme });
-    $("#btnLogin").click(function(){
-        $( "#dialogInformacao" ).jqxWindow('setContent', "Aguarde, efetuando Login!");
-        $( "#dialogInformacao" ).jqxWindow("open");        
-        $.post('Controller/Login/LoginController.php',
-               {
-                   method: 'Logar',
-                   nmeLogin: $("#nmeLogin").val(),
-                   txtSenha: $("#txtSenha").val()
-               },
-               function(logar){
-                    logar = eval ('('+logar+')');
-                    if (logar[0]==true){
-                        window.location.href=logar[1][0]['DSC_PAGINA'];
-                    }else{
-                        $( "#dialogInformacao" ).jqxWindow('setContent', "Usu&aacute;rio ou senha inv&aacute;lido!");                        
-                    }
-               }
-        );
+    $("#btnLogin").click(function(){     
+        var parametros = retornaParametros();
+        ExecutaDispatch('Login','Logar', parametros, posLogin, "Aguarde, efetuando login!");
     });
 
 });
+
+function posLogin(logar){
+    $(location).attr('href', 'Mobile/Dispatch.php?controller=' + logar[1][0]['DSC_PAGINA'] + '&method=' + logar[1][0]['NME_METHOD']+'&verificaPermissao=N');
+}
+
 $(document).ready(function(){
     $("#nmeLogin").focus();
 });

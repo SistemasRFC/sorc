@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body onload="detectar_mobile();">
+        <div>TODO write content</div>
+    </body>
+    <script>
+        function detectar_mobile() { 
+            alert(navigator.userAgent);
+         if( navigator.userAgent.match(/Android/i)
+         || navigator.userAgent.match(/webOS/i)
+         || navigator.userAgent.match(/iPhone/i)
+         || navigator.userAgent.match(/iPad/i)
+         || navigator.userAgent.match(/iPod/i)
+         || navigator.userAgent.match(/BlackBerry/i)
+         || navigator.userAgent.match(/Windows Phone/i)
+         ){
+            window.location.href='indexMobile.php';
+          }
+         else {
+             alert("PC");
+            window.location.href='index.php';
+          }
+        }
+        
+        function verifica_cel(){
+            var largura = screen.width;
+
+            if( largura <= 700 ) {  
+                window.location.href='indexMobile.php';   
+            }
+            window.location.href='index.php';
+        }
+    </script>
+</html>

@@ -1,0 +1,13 @@
+.text-persian-light {
+    color: #01b2b2 !important;
+}
+
+.text-persian-dark {
+    color: #019b9b !important;
+}
+
+.bg-gradient-persian {
+    background-color: #33dddd;
+    background-image: linear-gradient(180deg, #0dbdc4 20%, #0c757c 90%);
+    background-size: cover;
+}
