@@ -1,2 +1,5 @@
 nbproject/
 Dao/BaseDao.php
+Mobile/constantes.php
+Mobile/Dao/BaseDao.php
+Resources/constantes.js
