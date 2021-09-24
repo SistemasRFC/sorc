@@ -14,6 +14,9 @@ $(function() {
     $("#btnSalvar").click(function(){
         var parametros = retornaParametros();
         ExecutaDispatch('Despesas','AddDespesa', parametros, LimparCampos, 'Aguarde salvando despesa!', 'Despesa salva com sucesso!');        
+    });
+    $("#btnVoltar").click(function(){
+        $(location).attr('href', '../../Dispatch.php?controller=MenuPrincipal&method=ChamaView&verificaPermissao=N');
     })
 });
 

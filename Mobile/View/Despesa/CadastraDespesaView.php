@@ -43,6 +43,7 @@
                     <div class="row">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-5 p-5">
+                            <input type="button" id="btnVoltar" value="Menu Principal" class="btn btn-primary btn-user btn-block">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-800 mb-4">Cadastro de Despesa</h1>
                             </div>
