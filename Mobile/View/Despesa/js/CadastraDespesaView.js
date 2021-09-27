@@ -13,7 +13,7 @@ $(document).on('keydown', 'input[pattern]', function(e){
 $(function() {
     $("#btnSalvar").click(function(){
         var parametros = retornaParametros();
-        ExecutaDispatch('Despesas','AddDespesa', parametros, LimparCampos, 'Aguarde salvando despesa!', 'Despesa salva com sucesso!');        
+        ExecutaDispatch('Despesas','AddDespesa', parametros, limparCamposTela, 'Aguarde salvando despesa!', 'Despesa salva com sucesso!');        
     });
     $("#btnVoltar").click(function(){
         $(location).attr('href', '../../Dispatch.php?controller=MenuPrincipal&method=ChamaView&verificaPermissao=N');
@@ -39,4 +39,18 @@ function montaComboTipoDespesa(dados){
 
 function montaComboContas(dados){
     CriarSelectPuro('Conta utilizada','codConta', dados, '', false, '');    
+}
+
+function limparCamposTela(){
+    $("#dscDespesa").val("");
+    $("#dtaLancDespesa").val("");
+    $("#dtaDespesa").val("");
+    $("#vlrDespesa").val("");
+    $("#qtdParcelas").val("1");
+    $("#nroParcelaAtual").val("1");
+    $("#codTipoDespesa").val("");
+    $("#codConta").val("");
+    $("#indDespesaPaga").checked(true);
+    $("#dtaPagamento").val("");
+    
 }
