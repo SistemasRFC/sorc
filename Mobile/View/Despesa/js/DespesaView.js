@@ -23,7 +23,7 @@ $(function() {
 function montaListaDespesas(resp) {
     let listaDespesas = resp[1];
     var html = "";
-    html += "<table>";
+    html += "<table class='table table-striped'>";
     html += "   <thead>";
     html += "       <tr>";
     html += "           <th>Pago em</th>";
@@ -35,10 +35,11 @@ function montaListaDespesas(resp) {
     if(listaDespesas!=null) {
         for(i in listaDespesas){
             let item = listaDespesas[i]
-            html += "       <tr>";
             if(item.IND_PAGO == "N") {
+                html += "       <tr style='background-color: #F5A9A9'>";
                 html += "           <td>"+item.DTA_DESPESA.substring(0,5)+"</td>";
             } else {
+                html += "       <tr>";
                 html += "           <td style='color: green'>"+item.DTA_PAGAMENTO.substring(0,5)+"</td>";
             }
             html += "           <td>"+item.DSC_DESPESA+"</td>";
@@ -47,7 +48,7 @@ function montaListaDespesas(resp) {
         }
     } else {
         html += "       <tr>";
-        html += "           <td colspan='3'> NENHUMA DESPESA NESSE PERÍODO</td>";
+        html += "           <td colspan='3'>NENHUMA DESPESA NESSE PERÍODO</td>";
         html += "       </tr>";
     }
     html += "   </tbody>";
