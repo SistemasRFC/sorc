@@ -29,29 +29,44 @@
         <script src="<?=ALIAS;?>Mobile/View/MenuPrincipal/js/FuncoesGerais.js?random=<?php echo time(); ?>"></script>
         <script src="<?=ALIAS;?>Resources/swal/dist/sweetalert.min.js"></script>
         <link rel="stylesheet" type="text/css" href="<?=ALIAS;?>Resources/swal/dist/sweetalert.css"> 
-
+        <script src="<?=ALIAS;?>Mobile/View/Despesa/js/DespesaView.js?random=<?php echo time(); ?>"></script>
     </head>
+    
+    
     <body>
         <input type="hidden" id="verificaPermissao" name="verificaPermissao" value="N" class="persist">
         <div class="container">
 
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-1">
+            <div class="card o-hidden border-0 shadow-lg my-4">
+                <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
-                    <div class="col-sm-12">
-                        <input type="button" 
-                               id="btnListarDespesas" 
-                               value="Listar Despesas" 
-                               class="btn btn-info btn-user btn-block"
-                               onClick="javascript:window.location.href='../Despesa/DespesaView.php'">
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2 p-3">
+                            <button id="btnVoltar" class="btn btn-link btn-user text-left">
+                                <i class="fa fa-arrow-alt-circle-left"> Voltar</i>
+                            </button>
+                            <label class="h4 text-gray-800 ml-2">
+                                Despesas
+                            </label>
+                        </div>
                     </div>
-                    <br />
-                    <div class="col-sm-12">
-                        <input type="button" 
-                               id="btnCadastroDespesa" 
-                               value="Cadastro Despesa" 
-                               class="btn btn-primary btn-user btn-block"
-                               onClick="javascript:window.location.href='../Despesa/CadastraDespesaView.php'">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 p-3">
+                            <form class="filtroPesquisa">
+                                <div class="form-group">
+                                    <div id="tdnroMesReferencia"></div>
+                                    <div id="tdnroAnoReferencia"></div>
+                                </div>
+                                <hr>
+                                <input type="button" id="btnPesquisar" value="Pesquisar" class="btn btn-info btn-user btn-block">
+                                <hr>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9 col-md-9 col-lg-9 p-4">
+                            <div id="listaDespesas"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,3 +74,8 @@
         </div>
     </body>
 </html>
+<style>
+    .title{
+        font-size: 18px;
+    }
+</style>
