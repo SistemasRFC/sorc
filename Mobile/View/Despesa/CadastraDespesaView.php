@@ -42,21 +42,21 @@
                     <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-12 pt-2 pb-2" style="background-color: #ddd;">
-                            <button id="btnVoltar" class="btn btn-link btn-user text-left col-5">
+                            <button id="btnVoltar" class="btn btn-link btn-user text-left col-5" style="color: black">
                                 <i class="fa fa-arrow-alt-circle-left title"> Voltar</i>
                             </button>
-                            <button id="btnListarDespesas" class="btn btn-link btn-user text-right col-6">
-                                <i class="fa fa-list-alt title"> Despesas</i>
+                            <button id="btnListarDespesas" class="btn btn-link btn-user text-right col-6" style="color: black">
+                                <i class="fa fa-list-alt title "> Despesas</i>
                             </button>
                         </div>
-                        <div class="col-12 text-center pb-2">
-                            <label class="h4 text-gray-800 ml-1">
+                        <div class="col-12 text-center pt-1">
+                            <label class="h4 text-gray-800 ml-1 text-persian-light">
                                 Cadastro de Despesa
                             </label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 p-3">
+                    <div class="row p-1">
+                        <div class="col-12">
                             <form class="user">
                                 <div class="form-group">
                                     <label for="dscDespesa" class="mb-0 title">Descrição da Despesa</label>

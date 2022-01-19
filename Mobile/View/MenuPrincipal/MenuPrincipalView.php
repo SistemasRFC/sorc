@@ -38,7 +38,7 @@
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-1 mb-3">
                     <!-- Nested Row within Card Body -->
-                    <h3 class="text-center" style="color: black">SORC</h3>
+                    <h3 class="text-center text-persian-dark">SORC</h3>
                     <div class="col-12">
                         <input type="button" 
                                id="btnListarDespesas" 
