@@ -17,7 +17,11 @@ $(function() {
     });
     $("#btnVoltar").click(function(){
         $(location).attr('href', '../../Dispatch.php?controller=MenuPrincipal&method=ChamaView&verificaPermissao=N');
-    })
+    });
+    $("#btnListarDespesas").click(function(){
+        $(location).attr('href', './DespesaView.php');
+    });
+    
 });
 
 $(document).ready(function(){

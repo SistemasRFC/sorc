@@ -41,11 +41,16 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-sm-2 col-md-2 col-lg-2 p-3">
-                            <button id="btnVoltar" class="btn btn-link btn-user text-left">
-                                <i class="fa fa-arrow-alt-circle-left"> Voltar</i>
+                        <div class="col-12 pt-2 pb-2" style="background-color: #ddd;">
+                            <button id="btnVoltar" class="btn btn-link btn-user text-left col-5">
+                                <i class="fa fa-arrow-alt-circle-left title"> Voltar</i>
                             </button>
-                            <label class="h4 text-gray-800 ml-2">
+                            <button id="btnNovaDespesa" class="btn btn-link btn-user text-right col-6">
+                                <i class="fa fa-plus-circle title"> Nova</i>
+                            </button>
+                        </div>
+                        <div class="col-12 text-center pb-2">
+                            <label class="h4 text-gray-800 ml-1">
                                 Despesas
                             </label>
                         </div>

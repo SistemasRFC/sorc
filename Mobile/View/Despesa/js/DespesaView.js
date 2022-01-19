@@ -1,15 +1,3 @@
-// $(document).on('keydown', 'input[pattern]', function(e){
-//     var input = $(this);
-//     var oldVal = input.val();
-//     var regex = new RegExp(input.attr('pattern'), 'g');
-
-//     setTimeout(function(){
-//         var newVal = input.val();
-//         if(!regex.test(newVal)){
-//             input.val(oldVal); 
-//         }
-//     }, 1);
-// });
 $(function() {
     $("#btnPesquisar").click(function(){
         var parametros = retornaParametros();
@@ -17,7 +5,11 @@ $(function() {
     });
     $("#btnVoltar").click(function(){
         $(location).attr('href', '../../Dispatch.php?controller=MenuPrincipal&method=ChamaView&verificaPermissao=N');
-    })
+    });
+    $("#btnNovaDespesa").click(function(){
+        $(location).attr('href', './CadastraDespesaView.php');
+    });
+    
 });
 
 function montaListaDespesas(resp) {
@@ -36,7 +28,7 @@ function montaListaDespesas(resp) {
         for(i in listaDespesas){
             let item = listaDespesas[i]
             if(item.IND_PAGO == "N") {
-                html += "       <tr style='background-color: #F5A9A9'>";
+                html += "       <tr style='background-color: #F6CECE'>";
                 html += "           <td>"+item.DTA_DESPESA.substring(0,5)+"</td>";
             } else {
                 html += "       <tr>";

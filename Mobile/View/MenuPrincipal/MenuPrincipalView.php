@@ -36,21 +36,22 @@
         <div class="container">
 
             <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-1">
+                <div class="card-body p-1 mb-3">
                     <!-- Nested Row within Card Body -->
-                    <div class="col-sm-12">
+                    <h3 class="text-center" style="color: black">SORC</h3>
+                    <div class="col-12">
                         <input type="button" 
                                id="btnListarDespesas" 
-                               value="Listar Despesas" 
-                               class="btn btn-info btn-user btn-block"
+                               value="Consulta Despesas" 
+                               class="btn btn-primary btn-user btn-block"
                                onClick="javascript:window.location.href='../Despesa/DespesaView.php'">
                     </div>
                     <br />
-                    <div class="col-sm-12">
+                    <div class="col-12">
                         <input type="button" 
                                id="btnCadastroDespesa" 
                                value="Cadastro Despesa" 
-                               class="btn btn-primary btn-user btn-block"
+                               class="btn btn-success btn-user btn-block"
                                onClick="javascript:window.location.href='../Despesa/CadastraDespesaView.php'">
                     </div>
                 </div>
