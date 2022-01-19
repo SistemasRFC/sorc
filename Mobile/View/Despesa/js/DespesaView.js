@@ -14,6 +14,7 @@ $(function() {
 
 function montaListaDespesas(resp) {
     let listaDespesas = resp[1];
+    let totalDespesas = resp[2].VLR_TOTAL;
     var html = "";
     html += "<table class='table table-striped'>";
     html += "   <thead>";
@@ -26,7 +27,7 @@ function montaListaDespesas(resp) {
     html += "   <tbody>";
     if(listaDespesas!=null) {
         for(i in listaDespesas){
-            let item = listaDespesas[i]
+            let item = listaDespesas[i];
             if(item.IND_PAGO == "N") {
                 html += "       <tr style='background-color: #F6CECE'>";
                 html += "           <td>"+item.DTA_DESPESA.substring(0,5)+"</td>";
@@ -38,6 +39,10 @@ function montaListaDespesas(resp) {
             html += "           <td>R$ "+item.VLR_DESPESA+"</td>";
             html += "       </tr>";
         }
+        html += "       <tr>";
+        html += "           <td colspan='2' class='text-right'><b>TOTAL:</b></td>";
+        html += "           <td>R$ "+totalDespesas+"</td>";
+        html += "       </tr>";
     } else {
         html += "       <tr>";
         html += "           <td colspan='3'>NENHUMA DESPESA NESSE PERÍODO</td>";

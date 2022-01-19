@@ -53,7 +53,7 @@
                             </div>
                             <form class="user">
                                 <div class="form-group">
-                                    <label for="nmeUsuario" class="mb-0">Usuário</label>
+                                    <label for="nmeUsuario" class="mb-0">Login</label>
                                     <input type="text" id="nmeUsuario" name="nmeUsuario" autocomplete="off" class='login input persist form-control form-control-user' placeholder="Login">
                                 </div>
                                 <div class="form-group">

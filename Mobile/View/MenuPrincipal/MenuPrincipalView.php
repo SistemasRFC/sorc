@@ -35,10 +35,11 @@
         <input type="hidden" id="verificaPermissao" name="verificaPermissao" value="N" class="persist">
         <div class="container">
 
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-1 mb-3">
+            <div class="card o-hidden border-0 shadow-lg my-4">
+                <div class="card-body p-0 mb-3">
                     <!-- Nested Row within Card Body -->
-                    <h3 class="text-center text-persian-dark">SORC</h3>
+                    <h3 class="text-center text-persian-dark mt-3">SORC</h3>
+                    <hr>
                     <div class="col-12">
                         <input type="button" 
                                id="btnListarDespesas" 
