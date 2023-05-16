@@ -21,7 +21,18 @@ $(function() {
         theme: theme,
         isModal: true,
         autoOpen: false
-    });    
+    });  
+    $("#ImportarDespesaForm").jqxWindow({ 
+        title: 'Importação de Despesas',
+        height: 200,
+        width: 400,
+        animationType: 'fade',
+        showAnimationDuration: 500,
+        closeAnimationDuration: 500,
+        theme: theme,
+        isModal: true,
+        autoOpen: false
+    });
     $( "#btnPesquisa" ).click(function( event ) {
         CarregaGridDespesa();
     });    
@@ -33,8 +44,9 @@ $(function() {
         var args = event.args;
         var rowindex = $('#'+nomeGrid).jqxGrid('getselectedrowindex');
         if ($.trim($(args).text()) == "Importar") {
-            ImportarDespesa($("#codDespesa").val(),
-                            $("#dtaDespesa").val());
+            $( "#ImportarDespesaForm" ).jqxWindow( "open" );
+//            ImportarDespesa($("#codDespesa").val(),
+//                            $("#dtaDespesa").val());
         }else if($.trim($(args).text()) == "Editar"){
             CadDespesa('UpdateDespesa',
                        $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).COD_DESPESA,

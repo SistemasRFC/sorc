@@ -141,6 +141,13 @@ include_once "../../View/MenuPrincipal/Cabecalho.php";
                 <? include_once "CadDespesasView.php";?>
             </div>            
       </div> 
+      <div id="ImportarDespesaForm">
+            <div id="windowHeader">
+            </div>
+            <div style="overflow: hidden;" id="windowContent">
+                <? include_once "CadImportarDespesaView.php";?>
+            </div>            
+      </div>         
       <div id="GraficoForm">
             <div id="windowHeader">
             </div>

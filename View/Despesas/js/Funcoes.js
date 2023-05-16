@@ -200,7 +200,6 @@ function ImportarDespesa(codDespesa, dtaDespesa){
                 $( "#dialogInformacao" ).jqxWindow('setContent', 'Despesa importada com sucesso!'); 
                 setTimeout(function(){
                     $( "#dialogInformacao" ).jqxWindow("close");
-                    CarregaGridTurma();
                 },"2000");                
             }else{
                 $( "#dialogInformacao" ).jqxWindow('setContent', 'Erro ao importada despesa! '+data[1]);                

@@ -171,11 +171,12 @@ class DespesasDao extends BaseDao
     }
     
     Public Function ImportarDespesa($codCliente, $dtaDespesa, $codDespesa){
-        $sql = "INSERT INTO EN_DESPESA (COD_DESPESA, DSC_DESPESA, DTA_DESPESA, COD_CONTA, TPO_DESPESA, VLR_DESPESA, COD_CLIENTE_FINAL,
+        $sql = "INSERT INTO EN_DESPESA (COD_DESPESA, DSC_DESPESA, DTA_DESPESA, DTA_LANC_DESPESA, COD_CONTA, TPO_DESPESA, VLR_DESPESA, COD_CLIENTE_FINAL,
                                         IND_DESPESA_PAGA, DTA_PAGAMENTO, COD_DESPESA_IMPORTACAO)
                 SELECT ".$this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA').", 
                        DSC_DESPESA,
                        '".$this->ConverteDataForm($dtaDespesa)."',
+                       '".$this->GetDataAtual()."',
                        COD_CONTA,
                        TPO_DESPESA,
                        VLR_DESPESA,
