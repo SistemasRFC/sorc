@@ -150,9 +150,21 @@ function MontaTabelaDespesa(listaDespesas){
     {
         selectedrowindexes = $('#'+nomeGrid).jqxGrid('selectedrowindexes');
         soma = 0;
+        var codigosDespesas = '';
+        var datasDespesas='';
         for (i=0;i<selectedrowindexes.length;i++){            
-            soma = parseFloat(soma)+parseFloat($('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).VLR_DESPESA);            
+            soma = parseFloat(soma)+parseFloat($('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).VLR_DESPESA);
+            if (codigosDespesas==''){
+                codigosDespesas = $('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).COD_DESPESA;
+                datasDespesas = $('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).DTA_DESPESA;
+                
+            }else{
+                codigosDespesas = codigosDespesas+';'+$('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).COD_DESPESA;
+                datasDespesas = datasDespesas+';'+$('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).DTA_DESPESA;
+            }
         }    
+        $("#hdDtaDespesa").val(datasDespesas);
+        $("#codDespesasImportacao").val(codigosDespesas);
         AtualizaValores(soma);
     });
     
@@ -160,9 +172,21 @@ function MontaTabelaDespesa(listaDespesas){
     {
         selectedrowindexes = $('#'+nomeGrid).jqxGrid('selectedrowindexes');
         soma = 0;
+        var codigosDespesas = '';
+        var datasDespesas='';
         for (i=0;i<selectedrowindexes.length;i++){            
             soma = parseFloat(soma)+parseFloat($('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).VLR_DESPESA);
+            if (codigosDespesas==''){
+                codigosDespesas = $('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).COD_DESPESA;
+                datasDespesas = $('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).DTA_DESPESA;
+                
+            }else{
+                codigosDespesas = codigosDespesas+';'+$('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).COD_DESPESA;
+                datasDespesas = datasDespesas+';'+$('#'+nomeGrid).jqxGrid('getrowdatabyid', selectedrowindexes[i]).DTA_DESPESA;
+            }
         }    
+        $("#hdDtaDespesa").val(datasDespesas);
+        $("#codDespesasImportacao").val(codigosDespesas);
         AtualizaValores(soma);
     });
     $("#"+nomeGrid).jqxGrid('localizestrings', localizationobj);
@@ -186,13 +210,15 @@ function MontaTabelaDespesa(listaDespesas){
     $("#dialogInformacao" ).jqxWindow("close");  
 }
 
-function ImportarDespesa(codDespesa, dtaDespesa){
+function ImportarDespesa(codDespesa, dtaDespesa, nroMes, nroAno){
     $( "#dialogInformacao" ).jqxWindow('setContent', "Aguarde, Removendo a despesa!");
     $( "#dialogInformacao" ).jqxWindow("open"); 
     $.post('../../Controller/Despesas/DespesasController.php',
         {method:'ImportarDespesa',
          codDespesa: codDespesa,
          dtaDespesa: dtaDespesa,
+         nroMesReferencia: nroMes,
+         nroAnoReferencia: nroAno,
          qtdParcelas: 0,
          nroParcelaAtual:0}, function(data){
             data = eval('('+data+')');

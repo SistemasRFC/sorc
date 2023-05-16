@@ -44,14 +44,25 @@ class DespesaModel extends BaseModel
     }
 
     function ImportarDespesa(){
-        $dtaDespesa = filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING);  
-        $codigo = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_STRING); 
-        
         $dao = new DespesasDao();
-        $lista = $dao->ImportarDespesa($_SESSION['cod_cliente_final'],
-                                  $dtaDespesa,
-                                  $codigo);
+        $strDtaDespesa = filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING);  
+        $codigo = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_STRING); 
+        $nroAno = filter_input(INPUT_POST, 'nroAnoReferencia', FILTER_SANITIZE_STRING); 
+        $nroMes = filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_STRING); 
         
+        $arrCodigos = explode(";", $codigo);
+        $arrDtaDespesa = explode(";", $strDtaDespesa);
+        $ultimoCodigo = $dao->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
+        $dtaAtual = $dao->GetDataAtual();
+        for($i=0;$i<count($arrCodigos);$i++){
+            $codigo = $arrCodigos[$i];
+            $data = explode("/", $arrDtaDespesa[$i]);
+            $dtaDespesa = $data[0].'/'.$nroMes.'/'.$nroAno;
+            $lista = $dao->ImportarDespesa($ultimoCodigo, $dtaAtual, $_SESSION['cod_cliente_final'],
+                                      $dtaDespesa,
+                                      $codigo);
+            $ultimoCodigo++;
+        }
         return json_encode($lista);
     }
 

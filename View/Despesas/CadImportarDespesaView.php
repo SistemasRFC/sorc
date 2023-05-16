@@ -1,6 +1,7 @@
 <script language="JavaScript" src="js/CadImportarDespesaView.js?<?php echo time(); ?>"></script>
 <form name="CadastroForm" method="post">
     <input type="hidden" id="hdDtaDespesa">
+    <input type="hidden" id="codDespesasImportacao">
     <table>
         <tr>
             <td>

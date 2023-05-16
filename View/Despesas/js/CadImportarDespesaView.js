@@ -1,9 +1,11 @@
 $(function() {
     $("#btnImportar").click(function(){
-        var dtaDespesa = $("#dtaDespesa").val();
-        var arrDtaDespesa = dtaDespesa.split('/');
-        dtaDespesa = arrDtaDespesa[0]+'/'+$("#nroMesReferenciaImportacao").val()+'/'+$("#nroAnoReferenciaImportacao").val();
-        ImportarDespesa($("#codDespesa").val(), dtaDespesa);
+        ImportarDespesa(
+            $("#codDespesasImportacao").val(), 
+            $("#hdDtaDespesa").val(), 
+            $("#nroMesReferenciaImportacao").val(), 
+            $("#nroAnoReferenciaImportacao").val()
+        );
     });
 });
 
