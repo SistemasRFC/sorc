@@ -37,34 +37,41 @@
         <input type="hidden" id="verificaPermissao" name="verificaPermissao" value="N" class="persist">
         <div class="container">
 
-            <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card o-hidden border-0 shadow-lg my-4">
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-5 p-5">
-                            <input type="button" id="btnVoltar" value="Menu Principal" class="btn btn-primary btn-user btn-block">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-800 mb-4">Cadastro de Despesa</h1>
-                            </div>
+                        <div class="col-12 pt-2 pb-2" style="background-color: #ddd;">
+                            <button id="btnVoltar" class="btn btn-link btn-user text-left col-5" style="color: black">
+                                <i class="fa fa-arrow-alt-circle-left title"> Voltar</i>
+                            </button>
+                            <button id="btnListarDespesas" class="btn btn-link btn-user text-right col-6" style="color: black">
+                                <i class="fa fa-list-alt title "> Despesas</i>
+                            </button>
+                        </div>
+                        <div class="col-12 text-center pt-1">
+                            <label class="h4 text-gray-800 ml-1 text-persian-light">
+                                Cadastro de Despesa
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row p-1">
+                        <div class="col-12">
                             <form class="user">
                                 <div class="form-group">
                                     <label for="dscDespesa" class="mb-0 title">Descrição da Despesa</label>
                                     <input type="text" id="dscDespesa" name="dscDespesa" autocomplete="off" class='login input persist form-control form-control-user'>
-                                </div>
-                                <div class="form-group">
+
                                     <label for="dtaLancDespesa" class="mb-0 title">Data lançamento</label>
                                     <input type="date" 
                                            id="dtaLancDespesa" 
                                            autocomplete="off" 
                                            name="dtaLancDespesa" 
                                            class='login persist input form-control form-control-user'>
-                                </div>
-                                <div class="form-group">
+
                                     <label for="dtaDespesa" class="mb-0 title">Data Vencimento</label>
                                     <input type="date" id="dtaDespesa" autocomplete="off" name="dtaDespesa" class='login persist input form-control form-control-user'>
-                                </div>                                
-                                <div class="form-group">
+
                                     <label for="vlrDespesa" class="mb-0 title">Valor</label>
                                     <input  autocomplete="off" 
                                             type="number" 
@@ -75,10 +82,8 @@
                                             data-number-to-fixed="2" 
                                             id="vlrDespesa" name="vlrDespesa" 
                                             pattern="^\d*(\.\d{0,2})?$"
-                                            class="persist form-control currency form-control-user"
-                                            >
-                                </div>
-                                <div class="form-group">
+                                            class="persist form-control currency form-control-user">
+
                                     <label for="qtdParcelas" class="mb-0 title">Qtd Parcelas</label>
                                     <input  autocomplete="off" 
                                             type="number" 
@@ -90,8 +95,7 @@
                                             name="qtdParcelas" 
                                             value="1"
                                             class='login persist input form-control form-control-user'>
-                                </div>                        
-                                <div class="form-group">
+
                                     <label for="nroParcelaAtual" class="mb-0 title">Parcela Atual</label>
                                     <input  autocomplete="off" 
                                             type="number" 
@@ -103,20 +107,19 @@
                                             name="nroParcelaAtual" 
                                             value="1"
                                             class='login persist input form-control form-control-user'>
-                                </div>                          
-                                <div class="form-group" id="tdcodTipoDespesa">
-                                    
-                                </div>                                
-                                <div class="form-group" id="tdcodConta">
-                                    
-                                </div>     
-                                <input type="checkbox" 
-                                       id="indDespesaPaga" 
-                                       name="indDespesaPaga" 
-                                       checked
-                                       style="transform: scale(1.5); padding: 15px;"
-                                       class="persist"><span class="title"> Despesa Paga?</span>
-                                <div class="form-group" id="divdtaPagamento">
+                                    <div id="tdcodTipoDespesa"></div>
+                                    <div id="tdcodConta"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="checkbox" 
+                                        id="indDespesaPaga" 
+                                        name="indDespesaPaga" 
+                                        checked
+                                        style="transform: scale(1.5); padding: 15px;"
+                                        class="persist ml-1"><span class="title ml-1"> Despesa Paga?</span>
+                                </div>
+                                <div id="divdtaPagamento">
                                     <label for="dtaPagamento" class="mb-0 title">Data Pagamento</label>
                                     <input type="date" id="dtaPagamento" autocomplete="off" name="dtaPagamento" class='login persist input form-control form-control-user'>
                                 </div> 
@@ -124,7 +127,6 @@
                                 <input type="button" id="btnSalvar" value="Salvar" class="btn btn-success btn-user btn-block">
                             </form>
                         </div>
-                        <div class="col-lg-1"></div>
                     </div>
                 </div>
             </div>
@@ -134,6 +136,6 @@
 </html>
 <style>
     .title{
-        font-size: 20px;
+        font-size: 18px;
     }
 </style>

@@ -40,6 +40,7 @@ class LoginModel
                 }
             }else{
                 $logar[0]=false;
+                $logar[1]="Usuário não encontrado. Verique Login e Senha e tente novamente.";
             }
         }            
 

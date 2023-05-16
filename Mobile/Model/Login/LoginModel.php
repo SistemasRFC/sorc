@@ -32,6 +32,7 @@ class LoginModel
                 $logar[1]=$result[1];
             }else{
                 $logar[0]=false;
+                $logar[1]="Usuário não encontrado. Verique Login e Senha e tente novamente.";
             }
         }
 //        var_dump($_SESSION); die;

@@ -7,10 +7,8 @@ class TiposDespesaDao extends BaseDao
     }
 
     Function AddTipoDespesa($codClienteFinal){
-        $vlrPiso = str_replace('.', '', filter_input(INPUT_POST, 'vlrPiso', FILTER_SANITIZE_STRING));
-        $vlrPiso = str_replace(',', '.', $vlrPiso);        
-        $vlrTeto = str_replace('.', '', filter_input(INPUT_POST, 'vlrTeto', FILTER_SANITIZE_STRING));
-        $vlrTeto = str_replace(',', '.', $vlrTeto);
+        $vlrPiso = str_replace(',', '.', filter_input(INPUT_POST, 'vlrPiso', FILTER_SANITIZE_STRING));
+        $vlrTeto = str_replace(',', '.', filter_input(INPUT_POST, 'vlrTeto', FILTER_SANITIZE_STRING));
         $sql = "INSERT INTO EN_TIPO_DESPESA (
                 COD_TIPO_DESPESA,
                 DSC_TIPO_DESPESA,
