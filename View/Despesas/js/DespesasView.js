@@ -79,8 +79,8 @@ $(document).ready(function(){
     $(document).on('contextmenu', function (e) {
         return false;
     });
-    MontaComboFixo('comboIndStatus', 'indStatus', '0');
-    MontaComboFixo('comboTpoDespesa', 'tpoDespesa', '0');
+    MontaComboFixo('comboIndStatus', 'indStatus', '0',100);
+    MontaComboFixo('comboTpoDespesa', 'tpoDespesa', '0',200);
     data = new Date();
     ano = data.getFullYear();
     mes = data.getMonth();
@@ -88,10 +88,11 @@ $(document).ready(function(){
     if (mes<10){
         mes = '0'+mes;
     }
-    MontaComboFixo('comboNroAnoReferencia', 'nroAnoReferencia', ano);
-    MontaComboFixo('comboNroMesReferencia', 'nroMesReferencia', mes);
-    MontaComboFixo('comboCodConta', 'codConta', '-1');
-    MontaComboFixo('comboCodTipoDespesa', 'codTipoDespesa', '-1');
+    MontaComboFixo('comboNroAnoReferencia', 'nroAnoReferencia', ano, 100);
+    MontaComboFixo('comboNroMesReferencia', 'nroMesReferencia', mes, 100);
+    MontaComboFixo('comboCodConta', 'codConta', '-1', 300);
+    MontaComboFixo('comboCodTipoDespesa', 'codTipoDespesa', '-1', 300);
+    MontaComboFixo('comboCodContaPesquisa', 'codContaPesquisa', '-1',300);
     if ($("#codPerfil").val()==3){
         MontaComboFixo('comboCodCliente', 'codCliente', '-1');
     }

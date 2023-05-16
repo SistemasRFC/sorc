@@ -48,7 +48,9 @@ function CarregaGridDespesa(){
             nroMesReferencia: $("#nroMesReferencia").val(),
             indStatus: $("#indStatus").val(),
             codCliente: $("#codCliente").val(), 
-            tpoDespesa: $("#tpoDespesa").val()},function(data){
+            tpoDespesa: $("#tpoDespesa").val(),
+            codConta: $("#codContaPesquisa").val()
+        },function(data){
 
                 data = eval('('+data+')');
                 if (data[0]){
@@ -296,8 +298,8 @@ function pagarPorConta(codDespesa){
          }
     );
 }
-function MontaComboFixo(nmeCombo, nmeSelect, seleciona){
-    $("#"+nmeCombo).jqxDropDownList({ width: '200px', height: '25px'});
+function MontaComboFixo(nmeCombo, nmeSelect, seleciona, largura){
+    $("#"+nmeCombo).jqxDropDownList({ width: largura+'px', height: '25px'});
     $("#"+nmeCombo).jqxDropDownList('loadFromSelect', nmeSelect);  
     $("#"+nmeSelect).val(seleciona);
     var index = $("#"+nmeSelect)[0].selectedIndex;

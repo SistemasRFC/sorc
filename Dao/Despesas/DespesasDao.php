@@ -131,7 +131,11 @@ class DespesasDao extends BaseDao
         $indStatus = filter_input(INPUT_POST, 'indStatus', FILTER_SANITIZE_STRING);
         if ($indStatus!="-1" && $indStatus!=""){
             $sql .= "   AND R.IND_DESPESA_PAGA = '".$indStatus."'";
-        }        
+        } 
+        $codConta = filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_STRING);
+        if ($codConta!="-1" && $indStatus!=""){
+            $sql .= "   AND R.COD_CONTA = ".$codConta;
+        }         
         $sql .= " ORDER BY DTA_DESPESA";
         return $this->selectDB($sql, false);
     }

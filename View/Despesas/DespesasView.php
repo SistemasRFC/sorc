@@ -76,7 +76,23 @@ include_once "../../View/MenuPrincipal/Cabecalho.php";
                                 <option value="S">Despesa Paga</option>
                             </select>
                         </td>
-                        
+                        <td>
+                        Conta
+                        </td>
+                        <td>
+                            <div id="comboCodContaPesquisa"></div>
+                            <select name="codContaPesquisa" id="codContaPesquisa" style="display:none;">
+                                <?$rs_conta = unserialize(urldecode($_POST['ListaContasBancarias']));
+                                $total = count($rs_conta[1]);
+                                $i=0;
+                                echo "<option value=\"-1\">Selecione</option>";
+                                while($i<$total ) {
+                                    echo "<option value=\"".$rs_conta[1][$i]['COD_CONTA']."\">".$rs_conta[1][$i]['CONTA']."</option>";
+                                    $i++;
+                                }
+                                ?>
+                            </select>                            
+                        </td>
                     </tr>
                 </table>
                 <?php
