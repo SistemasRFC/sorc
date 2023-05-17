@@ -17,6 +17,6 @@ $(document).ready(function(){
     if (mes<10){
         mes = '0'+mes;
     }
-    MontaComboFixo('comboNroAnoReferenciaImportacao', 'nroAnoReferenciaImportacao', ano);
-    MontaComboFixo('comboNroMesReferenciaImportacao', 'nroMesReferenciaImportacao', mes);
+    MontaComboFixo('comboNroAnoReferenciaImportacao', 'nroAnoReferenciaImportacao', ano, 100);
+    MontaComboFixo('comboNroMesReferenciaImportacao', 'nroMesReferenciaImportacao', mes, 150);
 })
