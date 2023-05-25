@@ -107,7 +107,7 @@ function MontaGrafico(dados){
                                     flip: true,
                                     unitInterval: 500,
                                     minValue: 0,
-                                    maxValue: 10000,
+                                    maxValue: 100000,
                                     description: 'Valor Gasto',
                                     tickMarksColor: '#888888'
                                 },
