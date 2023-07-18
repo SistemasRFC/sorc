@@ -34,15 +34,15 @@ class MenuPrincipalModel extends BaseModel
         return json_encode($result);
     }
 
-    function CarregaController($codMenu, $path){
-        $dao = new MenuPrincipalDao();
-        $controller = $dao->CarregaController($codMenu, $path);
-        if ($controller->NME_METHOD!=''){
-            return json_encode($controller->NME_CONTROLLER."?method=".$rs_localiza->NME_METHOD);
-        }else{
-            return json_encode('#');
-        }
-    }
+    // function CarregaController($codMenu, $path){
+    //     $dao = new MenuPrincipalDao();
+    //     $controller = $dao->CarregaController($codMenu, $path);
+    //     if ($controller->NME_METHOD!=''){
+    //         return json_encode($controller->NME_CONTROLLER."?method=".$rs_localiza->NME_METHOD);
+    //     }else{
+    //         return json_encode('#');
+    //     }
+    // }
 
     /**
      * Retorna uma lista de atalhos configurados no Cadastro de Menu
