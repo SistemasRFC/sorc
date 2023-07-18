@@ -1,15 +1,8 @@
 <?php
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/MenuPrincipal/MenuPrincipalDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/MenuPrincipal/MenuPrincipalDao.php");
 class MenuPrincipalModel extends BaseModel
 {
-    function MenuPrincipalModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
-
     /**
      * Carrega o menu principal
      * @param type $codUsuario
@@ -37,18 +30,19 @@ class MenuPrincipalModel extends BaseModel
 
     function CarregaMenuNew($path){
         $dao = new MenuPrincipalDao();
-        return json_encode($dao->CarregaMenuNew($_SESSION['cod_usuario'], $path));
+        $result = $dao->CarregaMenuNew($_SESSION['cod_usuario'], $path);
+        return json_encode($result);
     }
 
-    function CarregaController($codMenu, $path){
-        $dao = new MenuPrincipalDao();
-        $controller = $dao->CarregaController($codMenu, $path);
-        if ($controller->NME_METHOD!=''){
-            return json_encode($controller->NME_CONTROLLER."?method=".$rs_localiza->NME_METHOD);
-        }else{
-            return json_encode('#');
-        }
-    }
+    // function CarregaController($codMenu, $path){
+    //     $dao = new MenuPrincipalDao();
+    //     $controller = $dao->CarregaController($codMenu, $path);
+    //     if ($controller->NME_METHOD!=''){
+    //         return json_encode($controller->NME_CONTROLLER."?method=".$rs_localiza->NME_METHOD);
+    //     }else{
+    //         return json_encode('#');
+    //     }
+    // }
 
     /**
      * Retorna uma lista de atalhos configurados no Cadastro de Menu
@@ -61,7 +55,12 @@ class MenuPrincipalModel extends BaseModel
 
     Public Function CarregaDadosUsuario(){
         $dao = new MenuPrincipalDao();
-        $_SESSION['DadosUsuario'] = $dao->CarregaDadosUsuario($_SESSION['cod_usuario']);
+        $result = $dao->CarregaDadosUsuario($_SESSION['cod_usuario']);
+        if($result[0]) {
+            $_SESSION['dadosUsuario'] = $result[1][0];
+        } else {
+            $_SESSION['dadosUsuario'] = NULL;
+        }
     }
 }
 ?>
