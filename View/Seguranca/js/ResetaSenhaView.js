@@ -28,7 +28,7 @@ $(function() {
     $("#btnResetar").click(function(){
         $( "#dialogInformacao" ).jqxWindow('setContent', "Aguarde, Resetando Senha!");
         $( "#dialogInformacao" ).jqxWindow("open");        
-        $.post('../../Controller/Seguranca/UsuarioController.php',
+        $.post('../../Controller/Usuario/UsuarioController.php',
                {
                    method: 'ResetaSenha',
                    nroCpf: $("#nroCpf").val()

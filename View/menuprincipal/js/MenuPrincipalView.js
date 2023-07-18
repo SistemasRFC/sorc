@@ -12,19 +12,20 @@ $(function() {
 });
 function CarregaAtalhos(){
     $("#divAtalhos").html("<span style='align:center;'>Aguarde, Carregando!<br><img src='../../Resources/images/carregando.gif' width='200' height='30'></span>");
-    $.post('../../Controller/MenuPrincipal/MenuPrincipalController.php',
-        {
-            method: 'CarregaAtalhos'
-        },
-        function(listaAtalhos){
-             listaAtalhos = eval ('('+listaAtalhos+')');
-             if (listaAtalhos[0]==true){
-                 MontaTabelaAtalhos(listaAtalhos[1]);
-             }else{
-                 $("#divAtalhos").html("<span style='align:center;'>Erro ao buscar atalhos!<br>"+listaAtalhos[1]);
-             }
-        }
-    );
+    ExecutaDispatch('MenuPrincipal', 'CarregaAtalhos', undefined, MontaTabelaAtalhos);
+    // $.post('../../Controller/MenuPrincipal/MenuPrincipalController.php',
+    //     {
+    //         method: 'CarregaAtalhos'
+    //     },
+    //     function(listaAtalhos){
+    //          listaAtalhos = eval ('('+listaAtalhos+')');
+    //          if (listaAtalhos[0]==true){
+    //              MontaTabelaAtalhos(listaAtalhos[1]);
+    //          }else{
+    //              $("#divAtalhos").html("<span style='align:center;'>Erro ao buscar atalhos!<br>"+listaAtalhos[1]);
+    //          }
+    //     }
+    // );
 }
 
 function MontaTabelaNoticias(listaNoticias){
@@ -44,7 +45,8 @@ function MontaTabelaNoticias(listaNoticias){
 function chamaAtalho(controller, method){    
     window.location.href = controller+'?method='+method;
 }
-function MontaTabelaAtalhos(listaAtalhos){
+function MontaTabelaAtalhos(listaAtalhos) {
+    listaAtalhos = listaAtalhos[1];
     if (listaAtalhos!=null){
         tabela = '<table width="100%" border="0">';
         colunas = 5;
@@ -67,24 +69,27 @@ function MontaTabelaAtalhos(listaAtalhos){
     $("#divAtalhos").html(tabela);
 }
 function CarregaGrafico(){
-    $.post('../../Controller/Despesas/DespesasController.php',
-        {method: 'ListarSomaTipoDespesas',
-         nroAnoReferencia: '',
-         nroMesReferencia: '',
-         tpoDespesa: $("#tpoDespesa").val(),
-         indStatus: -1,
-         ordenacao: 'DTA_DESPESA',
-         orientaOrdenacao: 'ASC'}, function(data){
-        data = eval('('+data+')');
-        if (data[0]){
-            MontaGrafico(data[1]);
-        }else{
-            $( "#dialogInformacao" ).html('Erro ao importar Saldo!');
-            $("#btnOK").show();
-        }
-    });
+    ExecutaDispatch('Despesas', 'ListarSomaTipoDespesas', undefined, MontaGrafico);
+
+    // $.post('../../Controller/Despesas/DespesasController.php',
+    //     {method: 'ListarSomaTipoDespesas',
+    //      nroAnoReferencia: '',
+    //      nroMesReferencia: '',
+    //      tpoDespesa: $("#tpoDespesa").val(),
+    //      indStatus: -1,
+    //      ordenacao: 'DTA_DESPESA',
+    //      orientaOrdenacao: 'ASC'}, function(data){
+    //     data = eval('('+data+')');
+    //     if (data[0]){
+    //         MontaGrafico(data[1]);
+    //     }else{
+    //         $( "#dialogInformacao" ).html('Erro ao importar Saldo!');
+    //         $("#btnOK").show();
+    //     }
+    // });
 }
 function MontaGrafico(Data) {
+    Data = Data[1];
     // prepare chart data as an array
     total = 0;
     for (i=0;i<Data.length;i++){
@@ -332,6 +337,7 @@ function MontaTabela(listaDespesas){
     $("#dialogInformacao" ).jqxWindow("close");     
 }
 $(document).ready(function() {
+    // ExecutaDispatch('MenuPrincipal', 'CarregaDadosUsuario', undefined, undefined);
     CarregaAtalhos();   
     CarregaGrafico();
 });

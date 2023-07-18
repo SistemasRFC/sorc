@@ -1,6 +1,6 @@
 <?php
-include_once("../BaseController.php");
-include_once("../../Model/Relatorios/TotalPorTipoModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/Relatorios/TotalPorTipoModel.php");
 
 class TotalPorTipoController extends BaseController
 {

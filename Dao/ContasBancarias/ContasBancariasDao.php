@@ -1,38 +1,25 @@
-<?
-include_once("../../Dao/BaseDao.php");
+<?php
+include_once("Dao/BaseDao.php");
 class ContasBancariasDao extends BaseDao
 {
-    function ContasBancariasDao(){
-        $this->conect();
-    }
+	protected $tableName = "EN_CONTA";
 
-    Function AddContaBancaria($codClienteFinal){
-        $sql = "INSERT INTO EN_CONTA (
-                COD_CONTA,
-                NME_BANCO,
-                NRO_CONTA,
-                NRO_AGENCIA,
-                COD_CLIENTE_FINAL,
-                IND_ATIVA)
-                VALUES(
-                ".$this->CatchUltimoCodigo('EN_CONTA', 'COD_CONTA').",
-                '".filter_input(INPUT_POST, 'nmeBanco', FILTER_SANITIZE_STRING)."',
-                '".filter_input(INPUT_POST, 'nroAgencia', FILTER_SANITIZE_STRING)."',
-                '".filter_input(INPUT_POST, 'nroConta', FILTER_SANITIZE_STRING)."',
-                '".$codClienteFinal."',
-                '".filter_input(INPUT_POST, 'indAtivo', FILTER_SANITIZE_STRING)."')";
-        return $this->insertDB($sql);
+	protected $columns = array(
+		"nmeBanco"       	=> array("column" => "NME_BANCO", 		  "typeColumn" => "S"),
+		"nroConta"      	=> array("column" => "NRO_CONTA", 		  "typeColumn" => "S"),
+		"nroAgencia"        => array("column" => "NRO_AGENCIA", 	  "typeColumn" => "S"),
+		"codClienteFinal"	=> array("column" => "COD_CLIENTE_FINAL", "typeColumn" => "I"),
+		"indAtiva"          => array("column" => "IND_ATIVA", 		  "typeColumn" => "S")
+	);
+
+  	protected $columnKey = array("codConta" => array("column" => "COD_CONTA", "typeColumn" => "I"));
+
+    function AddContaBancaria(stdClass $obj) {
+      return $this->MontarInsert($obj);
     }
     
-    Function UpdateContaBancaria(){
-        $sql = " UPDATE EN_CONTA
-                    SET NME_BANCO = '".filter_input(INPUT_POST, 'nmeBanco', FILTER_SANITIZE_STRING)."',
-                        NRO_CONTA = '".filter_input(INPUT_POST, 'nroConta', FILTER_SANITIZE_STRING)."',
-                        NRO_AGENCIA = '".filter_input(INPUT_POST, 'nroAgencia', FILTER_SANITIZE_STRING)."',
-                        IND_ATIVA = '".filter_input(INPUT_POST, 'indAtivo', FILTER_SANITIZE_STRING)."'
-                  WHERE COD_CONTA = ".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT);
-        //echo $sql; die;
-        return $this->insertDB($sql);
+    function UpdateContaBancaria(stdClass $obj) {
+      return $this->MontarUpdate($obj);
     }
 
     Function ListarContasBancarias($codClienteFinal,

@@ -1,6 +1,6 @@
 <?php
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/Relatorios/RelReceitasXDespesasDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/Relatorios/RelReceitasXDespesasDao.php");
 class RelReceitasXDespesasModel extends BaseModel
 {
     function RelReceitasXDespesasModel(){

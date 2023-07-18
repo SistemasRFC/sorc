@@ -1,6 +1,6 @@
 <?
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/ImportarDespesa/ImportarDespesaDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/ImportarDespesa/ImportarDespesaDao.php");
 class ImportarDespesaModel extends BaseModel
 {
     function ImportarDespesaModel(){

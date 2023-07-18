@@ -1,15 +1,8 @@
 <?php
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/MenuPrincipal/MenuPrincipalDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/MenuPrincipal/MenuPrincipalDao.php");
 class MenuPrincipalModel extends BaseModel
 {
-    function MenuPrincipalModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
-
     /**
      * Carrega o menu principal
      * @param type $codUsuario
@@ -37,7 +30,8 @@ class MenuPrincipalModel extends BaseModel
 
     function CarregaMenuNew($path){
         $dao = new MenuPrincipalDao();
-        return json_encode($dao->CarregaMenuNew($_SESSION['cod_usuario'], $path));
+        $result = $dao->CarregaMenuNew($_SESSION['cod_usuario'], $path);
+        return json_encode($result);
     }
 
     function CarregaController($codMenu, $path){
@@ -61,7 +55,12 @@ class MenuPrincipalModel extends BaseModel
 
     Public Function CarregaDadosUsuario(){
         $dao = new MenuPrincipalDao();
-        $_SESSION['DadosUsuario'] = $dao->CarregaDadosUsuario($_SESSION['cod_usuario']);
+        $result = $dao->CarregaDadosUsuario($_SESSION['cod_usuario']);
+        if($result[0]) {
+            $_SESSION['dadosUsuario'] = $result[1][0];
+        } else {
+            $_SESSION['dadosUsuario'] = NULL;
+        }
     }
 }
 ?>

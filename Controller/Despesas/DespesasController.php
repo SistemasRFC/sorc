@@ -1,19 +1,19 @@
 <?php
-include_once("../BaseController.php");
-include_once("../../Model/TipoDespesa/TipoDespesaModel.php");
-include_once("../../Model/Despesas/DespesasModel.php");
-include_once("../../Model/ContasBancarias/ContasBancariasModel.php");
-include_once("../../Model/ClienteFinal/ClienteFinalModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/TipoDespesa/TipoDespesaModel.php");
+include_once("Model/Despesas/DespesasModel.php");
+include_once("Model/ContasBancarias/ContasBancariasModel.php");
+include_once("Model/ClienteFinal/ClienteFinalModel.php");
 
 class DespesasController extends BaseController
 {
-    function DespesasController(){
-        $method = $_REQUEST['method'];
-        $string =$method.'()';
-        $method = "\$this->".$string.";";
-        eval($method);
+    // function __construct(){
+    //     $method = $_REQUEST['method'];
+    //     $string =$method.'()';
+    //     $method = "\$this->".$string.";";
+    //     eval($method);
 
-    }
+    // }
     
     Function ChamaView(){
         $listaMeses = $this->ListarMeses();

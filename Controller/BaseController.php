@@ -1,17 +1,18 @@
 <?php
-ob_start();
-ini_set('display_errors', true);
-error_reporting(E_ALL & ~E_WARNING & ~ E_DEPRECATED);
+
+include_once "Shared/Constantes.php";
+include_once PATH."Model/BaseModel.php";
+// ob_start();
+// ini_set('display_errors', true);
+// error_reporting(E_ALL & ~E_WARNING & ~ E_DEPRECATED);
 class BaseController
 {
-    //public $defaultPath = 'http://localhost:8080/geprod';
-    public static $defaultPath;
+
+    public static $defaultPath = ALIAS;
     /**
      *Construtor da BaseController 
      */
-    public function BaseController(){    
-
-    }
+    public function __construct(){}
     
     Public function gen_redirect_and_form($page, $data, $host="")
     {

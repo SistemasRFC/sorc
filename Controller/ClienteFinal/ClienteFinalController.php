@@ -1,22 +1,12 @@
 <?php
-include_once("../BaseController.php");
-include_once("../../Model/ClienteFinal/ClienteFinalModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/ClienteFinal/ClienteFinalModel.php");
 class ClienteFinalController extends BaseController
 {
-    function ClienteFinalController(){        
-        $method = $_REQUEST['method'];
-        $string =$method.'()';
-        $method = "\$this->".$string.";";
-        //echo $method;
-        eval($method);
-
-    }
-    
-    Public Function ChamaView(){
-        $params = array();
-        $view = $this->getPath()."/View/ClienteFinal/".str_replace("Controller", "View", get_class($this)).".php";
-        echo ($this->gen_redirect_and_form($view, $params));
-    }
+    Public Function ChamaView() {
+       $params = array();
+       echo ($this->gen_redirect_and_form(BaseController::ReturnView(BaseController::getPath(), get_class($this)), $params));
+   }
     
     Public Function ListarClienteFinal(){
         $ClienteFinalModel = new ClienteFinalModel();
@@ -30,7 +20,7 @@ class ClienteFinalController extends BaseController
     
     Public Function UpdateCliente(){
         $ClienteFinalModel = new ClienteFinalModel();
-        echo $ClienteFinalModel->UpdateCliente();   
+        echo $ClienteFinalModel->UpdateCliente();
     }
     
     Public Function AddCliente(){

@@ -1,5 +1,5 @@
 <?
-include_once("../../Dao/BaseDao.php");
+include_once("Dao/BaseDao.php");
 class DespesasDao extends BaseDao
 {
     function DespesasDao(){

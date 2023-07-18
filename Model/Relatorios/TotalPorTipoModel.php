@@ -1,6 +1,6 @@
 <?php
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/Relatorios/TotalPorTipoDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/Relatorios/TotalPorTipoDao.php");
 class TotalPorTipoModel extends BaseModel
 {
     function TotalPorTipoModel(){

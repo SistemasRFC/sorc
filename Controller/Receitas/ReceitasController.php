@@ -1,7 +1,7 @@
 <?php
-include_once("../BaseController.php");
-include_once("../../Model/Receitas/ReceitasModel.php");
-include_once("../../Model/ContasBancarias/ContasBancariasModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/Receitas/ReceitasModel.php");
+include_once("Model/ContasBancarias/ContasBancariasModel.php");
 class ReceitasController extends BaseController
 {
     function ReceitasController(){

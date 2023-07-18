@@ -1,18 +1,15 @@
 <?php
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/TipoDespesa/TipoDespesaDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/TipoDespesa/TipoDespesaDao.php");
+include_once("Resources/php/FuncoesArray.php");
+include_once("Resources/php/FuncoesMoeda.php");
 class TipoDespesaModel extends BaseModel
 {
-    function TipoDespesaModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
-    
     function AddTipoDespesa($Json=true){
         $dao = new TiposDespesaDao();
-        $lista = $dao->AddTipoDespesa($_SESSION['cod_cliente_final']);
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
+        $lista = $dao->AddTipoDespesa($this->objRequest);
         if ($Json){
             $lista = json_encode($lista);
         }
@@ -21,7 +18,9 @@ class TipoDespesaModel extends BaseModel
 
     function UpdateTipoDespesa($Json=true){
         $dao = new TiposDespesaDao();
-        $lista = $dao->UpdateTipoDespesa();
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
+        $lista = $dao->UpdateTipoDespesa($this->objRequest);
         if ($Json){
             $lista = json_encode($lista);
         }
@@ -31,11 +30,10 @@ class TipoDespesaModel extends BaseModel
     Function ListarTiposDespesas($Json=true){
         $dao = new TiposDespesaDao();
         $lista = $dao->ListarTiposDespesas($_SESSION['cod_cliente_final']);
-        for ($i=0;$i<count($lista);$i++){
-            $lista = BaseModel::AtualizaBooleanInArray($lista, 'IND_ATIVO|IND_INVESTIMENTO' , 'ATIVO|INVESTIMENTO');
-        }
+        $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATIVO|IND_INVESTIMENTO' , 'ATIVO|INVESTIMENTO');
         if ($Json){
-            $lista = json_encode($lista);
+            // var_dump($lista); die;
+            return json_encode($lista);
         }
         return $lista;                
     }
@@ -43,9 +41,7 @@ class TipoDespesaModel extends BaseModel
     Function ListarTiposDespesasAtivos($Json=true){
         $dao = new TiposDespesaDao();
         $lista = $dao->ListarTiposDespesasAtivos($_SESSION['cod_cliente_final']);
-        for ($i=0;$i<count($lista);$i++){
-            $lista = BaseModel::AtualizaBooleanInArray($lista, 'IND_ATIVO|IND_INVESTIMENTO' , 'ATIVO|INVESTIMENTO');
-        }
+        $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATIVO|IND_INVESTIMENTO' , 'ATIVO|INVESTIMENTO');
         if ($Json){
             $lista = json_encode($lista);
         }

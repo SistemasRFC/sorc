@@ -1,10 +1,23 @@
 <?php
-include_once("../../Dao/BaseDao.php");
+include_once("Dao/BaseDao.php");
 class LoginDao extends BaseDao
 {
-  function LoginDao(){
-      $this->conect();
-  }
+    protected $tableName = "SE_USUARIO";
+
+    protected $columns = array(
+      "nmeUsuario"   => array("column" => "NME_USUARIO", "typeColumn" => "S"),
+      "nmeUsuarioCompleto"   => array("column" => "NME_USUARIO_COMPLETO", "typeColumn" => "S"),
+      "txtSenhaW"   => array("column" => "TXT_SENHA_W", "typeColumn" => "P"),
+      "txtEmail"   => array("column" => "TXT_EMAIL", "typeColumn" => "S"),
+      "codPerfilW"   => array("column" => "COD_PERFIL_W", "typeColumn" => "I"),
+      "codClienteFinal"   => array("column" => "COD_CLIENTE_FINAL", "typeColumn" => "I"),
+      "indAtivo"   => array("column" => "IND_ATIVO", "typeColumn" => "S"),
+      "codUsuarioPai"   => array("column" => "COD_USUARIO_PAI", "typeColumn" => "I"),
+      "dscLogin"   => array("column" => "DSC_LOGIN", "typeColumn" => "S"),
+      "nroCpf"   => array("column" => "NRO_CPF", "typeColumn" => "S")
+    );
+
+    protected $columnKey = array("codUsuario" => array("column" => "COD_USUARIO", "typeColumn" => "I"));
 
   /**
    * Confere o usuário no banco de dados
@@ -12,17 +25,16 @@ class LoginDao extends BaseDao
    * @param type $txtSenha
    * @return boolean
    */
-  function Logar($nmeLogin,
-                 $txtSenha){
+  function Logar(stdClass $obj) {
     $sql = " SELECT COD_USUARIO,
                     COD_PERFIL_W,
-                    u.COD_CLIENTE_FINAL,
-                    '".session_id()."' AS 'SESSAO'
-                FROM SE_USUARIO U
-               INNER JOIN EN_CLIENTE_FINAL C
-                  ON U.COD_CLIENTE_FINAL = C.COD_CLIENTE_FINAL
-            WHERE NME_USUARIO = '$nmeLogin'
-                AND TXT_SENHA_W='$txtSenha'"; 
+                    u.COD_CLIENTE_FINAL
+               FROM SE_USUARIO U
+              INNER JOIN EN_CLIENTE_FINAL C
+                 ON U.COD_CLIENTE_FINAL = C.COD_CLIENTE_FINAL
+              WHERE NME_USUARIO = '$obj->nmeUsuario'
+                AND TXT_SENHA_W = '$obj->txtSenhaW'"; 
+                
     return $this->selectDB($sql, false);
   }
 
@@ -54,12 +66,18 @@ class LoginDao extends BaseDao
     return $rs_localiza;
   }
 
-  function AlteraSenha($codUsuario){      
-      $senha = base64_encode(filter_input(INPUT_POST, 'txtNova', FILTER_SANITIZE_MAGIC_QUOTES));
-      $sql = "UPDATE SE_USUARIO SET TXT_SENHA_W = '".$senha."'
-               WHERE COD_USUARIO = $codUsuario";
+  function AlteraSenha(stdClass $obj){
+      $sql = "UPDATE SE_USUARIO SET TXT_SENHA_W = '".$obj->txtSenhaNova."' WHERE COD_USUARIO = ".$obj->codUsuario;
       return $this->insertDB($sql);
   }
+    
+  function VerificaSenhaAtual(stdClass $obj){
+    $sql = "SELECT COUNT(COD_USUARIO) AS QTD
+              FROM SE_USUARIO
+             WHERE COD_USUARIO = ".$obj->codUsuario."
+               AND TXT_SENHA_W   = '".$obj->txtSenhaW."'";
+    return $this->selectDB($sql, false);
+}
 
 }
 ?>

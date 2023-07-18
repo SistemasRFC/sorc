@@ -1,37 +1,14 @@
 <?php
-include_once("../BaseController.php");
-include_once("../../Model/ContasBancarias/ContasBancariasModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/ContasBancarias/ContasBancariasModel.php");
 class ContasBancariasController extends BaseController
 {
-    function ContasBancariasController(){
-        $method = $_REQUEST['method'];
-        $string =$method.'()';
-        $method = "\$this->".$string.";";
-        //echo $method;
-        eval($method);
 
-    }
-    
-    Function ChamaView(){
-        $view = $this->getPath()."/View/ContasBancarias/".str_replace("Controller", "View", get_class($this)).".php";
-        header("Location: ".$view);            
+    Public Function ChamaView() {
+       $params = array();
+       echo ($this->gen_redirect_and_form(BaseController::ReturnView(BaseController::getPath(), get_class($this)), $params));
     }
 
-    Function ChamaImportaSaldoView(){
-        $listaMeses = $this->ListarMeses();
-        $listaAnos = $this->ListarAnos();
-        $params = array('ListaMeses' => urlencode(serialize($listaMeses)),
-                        'ListaAnos' => urlencode(serialize($listaAnos)),
-                        'nroMesReferencia' => urlencode(serialize(date("m"))),
-                        'nroAnoReferencia' => urlencode(serialize(date("Y"))));
-        $view = $this->getPath()."/View/ContasBancarias/ImportaSaldoView.php";
-        echo ($this->gen_redirect_and_form($view, $params));        
-    }
-
-    Function ImportarSaldo(){
-        $model = new ContasBancariasModel();
-        echo $model->ImportarSaldo();
-    }
     Function AddContaBancaria(){
         $model = new ContasBancariasModel();
         echo $model->AddContaBancaria();
@@ -40,11 +17,6 @@ class ContasBancariasController extends BaseController
     Function UpdateContaBancaria(){
         $model = new ContasBancariasModel();
         echo $model->UpdateContaBancaria();
-    }  
-
-    Function RemoveContaBancaria(){
-        $model = new ContasBancariasModel();
-        echo $model->RemoveContaBancaria();
     }
 
     Function ListarContasBancarias(){
@@ -105,6 +77,22 @@ class ContasBancariasController extends BaseController
             $j++;
         }
         return $anos;
+    }
+
+    Function ChamaImportaSaldoView(){
+        $listaMeses = $this->ListarMeses();
+        $listaAnos = $this->ListarAnos();
+        $params = array('ListaMeses' => urlencode(serialize($listaMeses)),
+                        'ListaAnos' => urlencode(serialize($listaAnos)),
+                        'nroMesReferencia' => urlencode(serialize(date("m"))),
+                        'nroAnoReferencia' => urlencode(serialize(date("Y"))));
+        $view = $this->getPath()."/View/ContasBancarias/ImportaSaldoView.php";
+        echo ($this->gen_redirect_and_form($view, $params));        
+    }
+
+    Function ImportarSaldo(){
+        $model = new ContasBancariasModel();
+        echo $model->ImportarSaldo();
     }
 }
 $ContasBancariasController = new ContasBancariasController();

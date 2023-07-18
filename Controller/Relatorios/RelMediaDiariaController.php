@@ -1,6 +1,6 @@
 <?
-include_once("../BaseController.php");
-include_once("../../Model/Relatorios/RelMediaDiariaModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/Relatorios/RelMediaDiariaModel.php");
 class RelMediaDiariaController extends BaseController
 {
     Public Function RelMediaDiariaController(){

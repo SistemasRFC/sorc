@@ -1,37 +1,29 @@
 <?php
-include_once("../BaseController.php");
-include_once("../../Model/Login/LoginModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/Login/LoginModel.php");
 class LoginController extends BaseController
 {
-    function LoginController(){
-        eval("\$this->".BaseController::getMethod()."();");
-    }
-    /**
-     * Verifica se o usuário é válido
-     * @param type $pagina 
-     */
-    function Logar(){
-        $model = new LoginModel();        
-        $logar = $model->Logar();
-        echo $logar;
+
+    public function ChamaAlterarSenhaView()
+    {
+        $params = array();
+        echo ($this->gen_redirect_and_form('View/Login/AlterarSenhaView.php', $params));
     }
 
-  function AlteraSenha(){
-     $model = new LoginModel();
-     if ($model->AlteraSenha()){
-        header("Location: ../../Controller/MenuPrincipal/MenuPrincipalController.php?method=CarregaMenu");
-    }else{
-        header("Location: ../../index.php");
+    function Logar(){
+        $model = new LoginModel();        
+        echo $model->Logar();
     }
-  }
-  function Logoff(){
-      header("Location: ../../index.php");
-  }
-  
-  Public Function AtualizaCliente(){
-    $model = new LoginModel();        
-    $model->AtualizaCliente();
-  }
+
+    function AlteraSenha(){
+      $model = new LoginModel();
+      echo $model->AlteraSenha();
+    }
+
+    Public Function AtualizaCliente(){
+      $model = new LoginModel();        
+      $model->AtualizaCliente();
+    }
 }
 $loginController = new LoginController();
 ?>

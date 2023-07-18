@@ -1,6 +1,6 @@
 <?php
-include_once("../BaseController.php");
-include_once("../../Model/Relatorios/RelReceitasXDespesasMensalModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/Relatorios/RelReceitasXDespesasMensalModel.php");
 class RelReceitasXDespesasMensalController extends BaseController
 {
     Public Function RelReceitasXDespesasMensalController(){

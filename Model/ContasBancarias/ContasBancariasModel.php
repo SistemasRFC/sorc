@@ -1,35 +1,28 @@
 <?php
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/ContasBancarias/ContasBancariasDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/ContasBancarias/ContasBancariasDao.php");
+include_once("Resources/php/FuncoesArray.php");
 class ContasBancariasModel extends BaseModel
-{
-    function ContasBancariasModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
-    
+{    
     function AddContaBancaria(){
         $dao = new ContasBancariasDao();
-        return json_encode($dao->AddContaBancaria($_SESSION['cod_cliente_final']));
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
+        return json_encode($dao->AddContaBancaria($this->objRequest));
     }
 
     function UpdateContaBancaria(){
         $dao = new ContasBancariasDao();
-        return json_encode($dao->UpdateContaBancaria());
-    }
-
-    function RemoveContaBancaria(){
-        $dao = new ContasBancariasDao();
-        return json_encode($dao->RemoveContaBancaria());
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
+        return json_encode($dao->UpdateContaBancaria($this->objRequest));
     }
 
     Function ListarContasBancarias($Json = true){
         $dao = new ContasBancariasDao();
         $lista = $dao->ListarContasBancarias($_SESSION['cod_cliente_final']);
         for ($i=0;$i<count($lista);$i++){
-            $lista = BaseModel::AtualizaBooleanInArray($lista, 'IND_ATIVA' , 'ATIVO');
+            $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATIVA' , 'ATIVO');
         }
         if ($Json){
             $lista = json_encode($lista);
@@ -41,7 +34,7 @@ class ContasBancariasModel extends BaseModel
         $dao = new ContasBancariasDao();
         $lista = $dao->ListarContasBancariasAtivas($_SESSION['cod_cliente_final']);
         for ($i=0;$i<count($lista);$i++){
-            $lista = BaseModel::AtualizaBooleanInArray($lista, 'IND_ATIVA' , 'ATIVO');
+            $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATIVA' , 'ATIVO');
         }
         if ($Json){
             $lista = json_encode($lista);

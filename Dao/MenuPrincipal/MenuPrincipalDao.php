@@ -1,11 +1,7 @@
 <?php
-include_once("../../Dao/BaseDao.php");
+include_once("Dao/BaseDao.php");
 class MenuPrincipalDao extends BaseDao
 {
-  function MenuPrincipalDao(){
-      $this->conect();
-  }
-
   function CarregaMenu($codUsuario,
                        $codMenuPai,
                        $path){
@@ -53,7 +49,7 @@ class MenuPrincipalDao extends BaseDao
                 ON MP.COD_PERFIL_W = U.COD_PERFIL_W
              WHERE COD_USUARIO = ".$codUsuario." AND IND_MENU_ATIVO_W = 'S'
              ORDER BY DSC_MENU_W";
-             //echo $sql_localiza; exit;
+            //  echo $sql_localiza; exit;
             $rs_localiza = $this->selectDB("$sql_localiza", false);
         }catch(Exception $e){
             echo "erro".$e;

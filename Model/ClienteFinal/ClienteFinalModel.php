@@ -1,41 +1,36 @@
 <?php
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/ClienteFinal/ClienteFinalDao.php");
-class ClienteFinalModel extends BaseModel
-{
-    function ClienteFinalModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }    
+include_once("Model/BaseModel.php");
+include_once("Dao/ClienteFinal/ClienteFinalDao.php");
+include_once("Resources/php/FuncoesArray.php");
+class ClienteFinalModel extends BaseModel {  
     
     Public Function ListarClienteFinal($Json=true){
-        $clienteFinalDao = new ClienteFinalDao();
-        $lista = $clienteFinalDao->ListarClienteFinal($_SESSION['cod_usuario'], $_SESSION['cod_perfil']);
-        if ($lista[0]){
+        $dao = new ClienteFinalDao();
+        $lista = $dao->ListarClienteFinal($_SESSION['cod_usuario'], $_SESSION['cod_perfil']);
+        if ($lista[0]) {
             for ($i=0;$i<count($lista);$i++){
-                $lista = BaseModel::AtualizaBooleanInArray($lista, 'IND_ATIVO' , 'ATIVO');
+                $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATIVO' , 'ATIVO');
             }
         }
-        if ($Json){
+        if ($Json) {
             $lista = json_encode($lista);
         }
         return $lista;
     }     
     
     Public Function ListarClienteFinalAtivo($Json=true){
-        $clienteFinalDao = new ClienteFinalDao();
-        $lista = $clienteFinalDao->ListarClienteFinalAtivo($_SESSION['cod_usuario'], $_SESSION['cod_perfil']);
-        if ($Json){
+        $dao = new ClienteFinalDao();
+        $lista = $dao->ListarClienteFinalAtivo($_SESSION['cod_perfil'], $_SESSION['cod_cliente_final']);
+        if ($Json) {
             $lista = json_encode($lista);
         }
         return $lista;
     }
     
     Public Function UpdateCliente($Json=true){
-        $clienteFinalDao = new ClienteFinalDao();
-        $lista = $clienteFinalDao->UpdateCliente($_SESSION['cod_usuario']);
+        $dao = new ClienteFinalDao();
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $lista = $dao->UpdateCliente($this->objRequest);
         if ($Json){
             $lista = json_encode($lista);
         }
@@ -43,8 +38,9 @@ class ClienteFinalModel extends BaseModel
     } 
     
     Public Function AddCliente($Json=true){
-        $clienteFinalDao = new ClienteFinalDao();
-        $lista = $clienteFinalDao->AddCliente($_SESSION['cod_usuario']);
+        $dao = new ClienteFinalDao();
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $lista = $dao->AddCliente($this->objRequest);
         if ($Json){
             $lista = json_encode($lista);
         }
@@ -52,8 +48,8 @@ class ClienteFinalModel extends BaseModel
     }
     
     Public Function DeleteCliente($Json=true){
-        $clienteFinalDao = new ClienteFinalDao();
-        $lista = $clienteFinalDao->DeleteCliente();
+        $dao = new ClienteFinalDao();
+        $lista = $dao->DeleteCliente();
         if ($Json){
             $lista = json_encode($lista);
         }

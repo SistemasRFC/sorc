@@ -1,11 +1,7 @@
 <?php
-include_once("../../Dao/BaseDao.php");
+include_once("Dao/BaseDao.php");
 class DespesasDao extends BaseDao
 {
-    function DespesasDao(){
-        $this->conect();
-    }
-
     Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $dtaLancamento, $nroParcelaAtual, $codDespesaImportada=0){
         $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
         $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');

@@ -1,62 +1,61 @@
 <?php
-session_start();
-session_unset();
+    ob_start();
+    session_start();
+    session_unset();
 ?>
 <html>
-    <head>
-        <title>Sistema SORC</title>
-        <script src="Resources/JavaScript.js"></script>
-        <link href="Resources/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="Resources/jqx/jqwidgets/styles/jqx.base.css" type="text/css" />
-        <link rel="stylesheet" href="Resources/jqx/jqwidgets/styles/jqx.bootstrap.css" type="media" />
-        <script src="Resources/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js"></script>
-        <script src="Resources/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
-        <script type="text/javascript" src="Resources/jqx/jqwidgets/jqxcore.js"></script>
-        <script type="text/javascript" src="Resources/jqx/jqwidgets/jqxdata.js"></script>
-        <script type="text/javascript" src="Resources/jqx/jqwidgets/jqxbuttons.js"></script>
-        <script type="text/javascript" src="Resources/jqx/jqwidgets/globalization/globalize.js"></script>
-        <script type="text/javascript" src="Resources/jqx/jqwidgets/jqxcore.js"></script>
-        <script type="text/javascript" src="Resources/jqx/jqwidgets/jqxwindow.js"></script>
-        <script type="text/javascript" src="Resources/jqx/scripts/gettheme.js"></script>
-        <script src="index.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=IBM850; ISO-8859-1">
-    </head>
-    <body>
-        <div id="CadastroForm">
-            <div id="windowHeader">
-            </div>
-            <div style="overflow: hidden;" id="windowContent">
-                <form name="CadastroForm" method="post" accept-charset="UTF-8" action="Controller/Login/LoginController.php">
-                    <input type="hidden" id="method" name="method">
-                    <input type="hidden" id="pagina" name="pagina">
-                    <input type="hidden" id="paginaError" name="paginaError">
-                    <table>
-                        <tr>
-                            <td>
-                                Login
-                            </td>
-                            <td><input type="text" id="nmeLogin" name="nmeLogin" class='login'></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Senha
-                            </td>
-                            <td><input type="password" id="txtSenha" name="txtSenha" class='login'></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <input type="button" id="btnLogin" value="Login">
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-        </div>
-      <div id="dialogInformacao">
-        <div id="windowHeader">
-        </div>
-        <div style="overflow: hidden;" id="windowContent">
-        </div>
+<head>
+    <title>SORC</title>
+    <meta charset="UTF-8">
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="/sorc/favicon.ico"> -->
+    <!-- JS -->
+    <script src="/sorc/Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/sorc/Resources/bootstrap-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/sorc/Resources/bootstrap-admin/js/sb-admin-2.min.js"></script>
+    <script src="/sorc/Resources/swal/sweetalert.min.js"></script>
+    <script src="/sorc/Resources/swal/dist/sweetalert.min.js"></script>
+    <script src="/sorc/Resources/jquery/jquery-3.6.0.min.js"></script>
+    <script src="/sorc/Shared/FuncoesGerais.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/sorc/Resources/bootstrap-admin/css/sb-admin-2.css">
+    </link>
+    <link href="/sorc/Resources/bootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/sorc/Resources/swal/dist/sweetalert.css">
+    <link href="/sorc/Resources/bootstrap-admin/css/theme-material.css" rel="stylesheet" type="text/css">
+    <link href="/sorc/Resources/bootstrap-admin/css/style.css" rel="stylesheet" type="text/css">
+    <script src="index.js?rdm=<?php echo time();?>"></script>
+</head>
+
+<body style="background-color: #222">
+
+    <div class="container">
+
+      <div class="card my-5" style="margin-top: 4rem !important;">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-lg-6" style="padding-top: 7rem">
+                      <h1 align="center" class="color-primary">SORC</h1>
+                      <h2 align="center" class="color-secondary">Sistema de finanças</h2>
+                  </div>
+                  <div class="col-lg-6 p-5 bl-1">
+                      <div align="center">
+                          <h1 class="h4 text-gray-800 mb-4 color-primary">LOGIN</h1>
+                      </div>
+                      <form class="px-5">
+                          <div class="form-group">
+                              <label for="nmeUsuario" class="mb-0">Usuário</label>
+                              <input type="text" id="nmeUsuario" name="nmeUsuario" class='persist input form-control' placeholder="Login">
+                          </div>
+                          <div class="form-group">
+                              <label for="txtSenhaW" class="mb-0">Senha</label>
+                              <input type="password" id="txtSenhaW" name="txtSenhaW" class='persist input form-control' placeholder="Senha">
+                          </div>
+                          <input type="button" id="btnLogar" value="Entrar" class="btn btn-primary btn-user btn-block">
+                      </form>
+                  </div>
+              </div>
+          </div>
       </div>
-    </body>
+    </div>
+  </body>
 </html>

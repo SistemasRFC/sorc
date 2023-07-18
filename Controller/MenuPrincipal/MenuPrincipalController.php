@@ -1,11 +1,8 @@
 <?php
-include_once("../BaseController.php");
-include_once("../../Model/MenuPrincipal/MenuPrincipalModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/MenuPrincipal/MenuPrincipalModel.php");
 class MenuPrincipalController extends BaseController
 {
-  function MenuPrincipalController(){         
-    eval("\$this->".BaseController::getMethod()."();");
-  }
   
   /**
    * Verifica se o usuário é válido

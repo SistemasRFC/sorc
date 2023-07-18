@@ -1,5 +1,5 @@
 <?php
-include_once("../../Dao/BaseDao.php");
+include_once("Dao/BaseDao.php");
 class RelDespesasPagamentoDao extends BaseDao
 {
     Public Function RelDespesasPagamentoDao(){

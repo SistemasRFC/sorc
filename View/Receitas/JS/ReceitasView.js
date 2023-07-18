@@ -14,6 +14,10 @@ $(function() {
     $( "#btnPesquisa" ).click(function( event ) {
         CarregaGridReceita();
     });    
+    $("#btnExcel").click(function () {
+        alert('xls');
+        $("#ListagemForm").jqxGrid('exportdata', 'xls', 'jqxGrid');           
+    });    
     $( "#btnNovo" ).click(function( event ) {
         CadReceita('AddReceita', '0', '', '', '-1', '', '', '-1', '', 'N', '');        
     });      

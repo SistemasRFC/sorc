@@ -1,13 +1,7 @@
 <?php
-include_once("../../Dao/Login/LoginDao.php");
-class LoginModel
+include_once("Dao/Login/LoginDao.php");
+class LoginModel extends BaseModel
 {
-    function LoginModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
     /**
      * Encripta a senha e verifica se o login existe
      * @param type $nmeLogin
@@ -15,41 +9,75 @@ class LoginModel
      * @return type
      */
     function Logar(){
-        $nmeLogin = filter_input(INPUT_POST, 'nmeLogin', FILTER_SANITIZE_MAGIC_QUOTES);
-        $txtSenha = filter_input(INPUT_POST, 'txtSenha', FILTER_SANITIZE_MAGIC_QUOTES);
-        if (($nmeLogin=="adm")&&($txtSenha=="adm")){
-            $senha = $txtSenha;
-        }else{           
-            $senha = base64_encode($txtSenha);            
-        }
         $dao = new LoginDao();
-        $logar = $dao->Logar($nmeLogin, $senha);
-        if ($logar[0]){
-            if ($logar[1]!=NULL){
-                $logar[1][0]['DSC_PAGINA'] = 'Controller/MenuPrincipal/MenuPrincipalController.php?method=CarregaMenu';
-                if ($logar[1][0]['COD_USUARIO']>0){
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        // $nmeLogin = filter_input(INPUT_POST, 'nmeUsuario', FILTER_SANITIZE_ADD_SLASHES);
+        // $txtSenha = filter_input(INPUT_POST, 'txtSenha', FILTER_SANITIZE_ADD_SLASHES);
+        // if (($this->objRequest->nmeUsuario=="adm")&&($this->objRequest->txtSenha=="adm")){
+        //     $senha = $txtSenha;
+        // }else{
+        //     $this->objRequest->txtSenha = base64_encode($this->objRequest->txtSenha)
+        //     $senha = base64_encode($txtSenha);
+        // }
+        $logar = $dao->Logar($this->objRequest);
+        if ($logar[0]) {
+            if ($logar[1] != NULL) {
+                $logar[2]['redirecionaInicio'] = true;
+                if ($logar[1][0]['COD_USUARIO'] > 0) {
                     $codigo = "'".$logar[1][0]['COD_USUARIO']."'";
-                    $_SESSION['cod_usuario']=$codigo;
-                    $_SESSION['cod_cliente_final']=$logar[1][0]['COD_CLIENTE_FINAL'];
-                    $_SESSION['cod_perfil']=$logar[1][0]['COD_PERFIL_W'];
-                    if ($txtSenha=='123459'){
-                        $logar[1][0]['DSC_PAGINA'] = 'View/Seguranca/AlteraSenhaView.php?txtSenha='.base64_encode($txtSenha);                        
+                    $_SESSION['cod_usuario'] = $codigo;
+                    $_SESSION['cod_cliente_final'] = $logar[1][0]['COD_CLIENTE_FINAL'];
+                    $_SESSION['cod_perfil'] = $logar[1][0]['COD_PERFIL_W'];
+                    if ($this->objRequest->txtSenhaW == base64_encode('123459')) {
+                        $logar[2]['redirecionaInicio'] = false;
                     }
-                }else{
+                } else {
                     $logar[0]=false;
                 }
-            }else{
+            } else {
                 $logar[0]=false;
                 $logar[1]="Usuário não encontrado. Verique Login e Senha e tente novamente.";
             }
-        }            
+        }
 
         return json_encode($logar);
     }
 
     function AlteraSenha(){
         $dao = new LoginDao();
-        return $dao->AlteraSenha($_SESSION['cod_usuario']);
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $this->objRequest->codUsuario = $_SESSION['cod_usuario'];
+        $this->objRequest->txtSenhaNova = base64_encode(filter_input(INPUT_POST, 'txtNova', FILTER_SANITIZE_ADD_SLASHES));
+        $result = $this->VerificaSenhaAtual();
+        if ($result[0]){
+            $result = $dao->AlteraSenha($this->objRequest);
+            if ($result[0]) {
+                if ($result[1]) {
+                    $result[1]['mensagem'] = 'Senha Alterada!';
+                    $result[1]['DSC_PAGINA'] = 'MenuPrincipal';
+                    $result[1]['NME_METHOD'] = 'CarregaMenu';
+                }
+            } else {
+                $result[1]['mensagem'] = 'Erro ao alterar a senha!';
+            }
+        }
+        return json_encode($result);
+    }
+    
+    Public Function VerificaSenhaAtual(){
+        $dao = new LoginDao();
+        $verifica = $dao->VerificaSenhaAtual($this->objRequest);
+        if ($verifica[0]){
+            if ($verifica[1][0]['QTD'] == 0) {
+                $verifica[0] = false;
+                $verifica[1]['mensagem'] = 'Senha atual não confere!';
+                return $verifica;
+            }
+        }else {
+            $verifica[1]['mensagem'] = 'Problema ao executar a consulta!';
+            return $verifica;
+        }
+        return [true, 'ok'];
     }
 
     function AtualizaCliente(){

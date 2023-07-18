@@ -1,14 +1,10 @@
 <?php
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/Despesas/DespesasDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/Despesas/DespesasDao.php");
+include_once("Resources/php/FuncoesData.php");
+include_once("Resources/php/FuncoesMoeda.php");
 class DespesaModel extends BaseModel
 {
-    function DespesaModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
     
     function AddDespesa(){
         $dao = new DespesasDao();
@@ -85,13 +81,14 @@ class DespesaModel extends BaseModel
             $codCliente = filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
         }
         $lista = $dao->ListarDespesas($codCliente);
-        
+        $lista = FuncoesData::AtualizaDataInArray($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO');
+        $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
         for($i=0;$i<count($lista[1]);$i++) {
             $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
-            $lista[1][$i]['DTA_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_DESPESA']);
-            $lista[1][$i]['DTA_LANC_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_LANC_DESPESA']);
-            $lista[1][$i]['DTA_PAGAMENTO'] = $this->ConverteDataBanco($lista[1][$i]['DTA_PAGAMENTO']);
-            $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'],2,'.','');
+            // $lista[1][$i]['DTA_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_DESPESA']);
+            // $lista[1][$i]['DTA_LANC_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_LANC_DESPESA']);
+            // $lista[1][$i]['DTA_PAGAMENTO'] = $this->ConverteDataBanco($lista[1][$i]['DTA_PAGAMENTO']);
+            // $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'],2,'.','');
         }        
         return json_encode($lista);
     }
@@ -99,13 +96,15 @@ class DespesaModel extends BaseModel
     Function ListarDespesasGrid(){
         $dao = new DespesasDao();
         $lista = $dao->ListarDespesas($_SESSION['cod_cliente_final']);
+        $lista = FuncoesData::AtualizaDataInArray($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO');
+        $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
         
         for($i=0;$i<count($lista[1]);$i++) {
             $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
-            $lista[1][$i]['DTA_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_DESPESA']);
-            $lista[1][$i]['DTA_LANC_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_LANC_DESPESA']);
-            $lista[1][$i]['DTA_PAGAMENTO'] = $this->ConverteDataBanco($lista[1][$i]['DTA_PAGAMENTO']);
-            $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'],2,'.','');
+            // $lista[1][$i]['DTA_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_DESPESA']);
+            // $lista[1][$i]['DTA_LANC_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_LANC_DESPESA']);
+            // $lista[1][$i]['DTA_PAGAMENTO'] = $this->ConverteDataBanco($lista[1][$i]['DTA_PAGAMENTO']);
+            // $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'],2,'.','');
         }        
         return json_encode($lista[1]);
     }

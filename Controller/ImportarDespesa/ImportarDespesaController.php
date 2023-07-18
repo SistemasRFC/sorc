@@ -1,8 +1,8 @@
 <?
-include_once("../BaseController.php");
-include_once("../../Model/TipoDespesa/TipoDespesaModel.php");
-include_once("../../Model/Despesas/DespesasModel.php");
-include_once("../../Model/ContasBancarias/ContasBancariasModel.php");
+include_once("Controller/BaseController.php");
+include_once("Model/TipoDespesa/TipoDespesaModel.php");
+include_once("Model/Despesas/DespesasModel.php");
+include_once("Model/ContasBancarias/ContasBancariasModel.php");
 class ImportarDespesaController extends BaseController
 {
     function ImportarDespesaController(){

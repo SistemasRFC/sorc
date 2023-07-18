@@ -1,13 +1,362 @@
-.text-persian-light {
-    color: #01b2b2 !important;
+.color-primary {
+    color:#929292 !important;
 }
 
-.text-persian-dark {
-    color: #019b9b !important;
+.bg-primary {
+    background-color: #929292 !important;
 }
 
-.bg-gradient-persian {
-    background-color: #33dddd;
-    background-image: linear-gradient(180deg, #0dbdc4 20%, #0c757c 90%);
-    background-size: cover;
+.bl-1 {
+    border-left: 1px solid #222;
 }
+
+.sidebar {
+    min-height: 100%;
+}
+
+.loading{
+    background:url('../../Resources/images/loading.gif') no-repeat right center;
+    background-size:25px 25px;
+}
+
+.table tr th{
+    text-align: center;
+}
+
+.TabelaCabecalho{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    background-repeat: repeat-x;
+    background-position: center;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-right-color: black;
+    border-left-color: black;
+    border-bottom-color: black;
+    border-top-color: black;
+}
+.TabelaChecklist{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+.TDTitulo{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    vertical-align: middle;
+    font-weight:bold;
+}
+
+.TDTituloCabecalho{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.TDSUBTituloCabecalho{
+
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 18px;
+    text-align: left;
+    vertical-align: middle;
+    background-color: #B5B5B5;
+}
+.TabelaConteudo{
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 16px;
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+.colunaEsquerda{
+    border-top: 1px solid black; 
+    border-left: 1px solid black; 
+    text-align: center;
+}
+
+.colunaMeio{
+    border-top: 1px solid black; 
+    border-left: 1px solid black; 
+    text-align: center;
+}
+
+.colunaDireita{
+    border-top: 1px solid black; 
+    border-right: 1px solid black; 
+    border-left: 1px solid black; 
+    text-align: center;
+}
+
+.trcor:hover{
+    background-color: #b5b5b5;
+}
+
+a:link, a:visited{
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active{
+    text-decoration: none;
+}
+
+td{
+    font-size: .9em;
+}
+
+.label{
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont20{
+    font-size: 20px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+.labelFont12{
+    font-size: 12px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont13{
+    font-size: 13px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.labelFont14{
+    font-size: 14px;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000000;
+}
+
+.divDefault{
+    border: 1px solid #a4bed4;
+}
+
+.inputFont12{
+    font-size: 12px;
+    font-family: Verdana, sans-serif;margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.inputFont14{
+    font-size: 14px;
+    font-family: Verdana, sans-serif;margin: 0;
+    padding: 0;
+    height: 25px;
+    text-align: left;
+}
+
+.nav-link {
+    color: #FFF !important;
+}
+
+.nav-link:hover {
+    color: #DDD !important;
+}
+
+.disabledTable {
+    pointer-events: none;
+    opacity: 100;
+}
+
+content {
+    background-color: rgb(255, 255, 255);
+    display: grid;
+    grid-template-columns: 13.999rem auto; 
+    grid-template-rows: 4.5rem auto; 
+    grid-template-areas: 
+    'head head'
+    'nav body';
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+navegacao-component {
+    grid-area: nav;
+}
+header-component {
+    grid-area: head;
+    position: fixed;
+    width: inherit;
+    z-index: 40;
+}
+#wrapper {
+    grid-area: body;
+}
+
+/*Card*/
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0 0 0 / 30%);
+    margin: auto;
+    font-family: arial;
+   
+}
+.card-header {
+    background-color: #929292;
+    text-align: center;
+
+}
+.card-login {
+    max-width: 21rem;
+    margin-top: 5rem;
+    display: block;
+}
+.card-footer {
+    background-color: white;
+}
+
+/*Textos*/
+.cabecalho {
+    margin-top: 5px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    
+    
+}
+
+.titulo {
+    padding: 5px;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+/*Input*/
+
+input[type="checkbox"] {
+    width: 5%;
+}
+
+/*Botões*/
+.btn-border {
+  border: 1px solid #d1d3e2;
+  border-radius: 0.35rem;
+}
+
+.btn-border:hover {
+  background-color: #9c9da3;
+}
+
+.btn-border:focus, .btn-border.focus {
+  box-shadow: 0 0 0 0.2rem rgba(204, 208, 220, 0.5);
+}
+
+.btn-permisao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Modal*/
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Gráfico Knob*/
+#knobContainer {
+    position: relative;
+}
+.inputField {
+    left: 100px;
+    top: 180px;
+    width: 200px;
+    height: 40px;
+    color: black;
+    font-size: 26px;
+    position: absolute;
+    background: transparent;
+    text-align: center;
+    border: none;
+}
+.inputField2 {
+    left: 60px;
+    top: 60px;
+    width: 180px;
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    background: transparent;
+    text-align: center;
+    border: none;
+}
+.inputField3 {
+    left: 60px;
+    top: 190px;
+    width: 180px;
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    background: transparent;
+    text-align: center;
+    border: none;
+}
+text.jqx-knob-label {
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+}
+.inputField .jqx-input-content {
+    background: transparent;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+}
+#knob2 {
+    position: absolute !important;
+    top: 50px;
+    left: 50px;
+}
+#knob3 {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+}
+
+#linha {
+    width: 100%;
+    border-bottom: 1px solid #000000;
+  }

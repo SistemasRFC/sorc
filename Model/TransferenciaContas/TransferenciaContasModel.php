@@ -1,6 +1,6 @@
 <?
-include_once("../../Model/BaseModel.php");
-include_once("../../Dao/TransferenciaContas/TransferenciaContasDao.php");
+include_once("Model/BaseModel.php");
+include_once("Dao/TransferenciaContas/TransferenciaContasDao.php");
 class TransferenciaContasModel extends BaseModel
 {
     function TransferenciaContasModel(){

@@ -32,13 +32,13 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+    labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [{
-      label: "Pontuação: ",
-      backgroundColor: "#1cc88a",
-      hoverBackgroundColor: "#17a673",
-      borderColor: "#eaecf4",
-      data: [230, 216, 762, 0, 294, 416, 0, 309, 0, 0, 0, 0],
+      label: "Revenue",
+      backgroundColor: "#4e73df",
+      hoverBackgroundColor: "#2e59d9",
+      borderColor: "#4e73df",
+      data: [4215, 5312, 6251, 7841, 9821, 14984],
     }],
   },
   options: {
@@ -68,12 +68,12 @@ var myBarChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 1000,
-          maxTicksLimit: 10,
-          padding: 5,
+          max: 15000,
+          maxTicksLimit: 5,
+          padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return number_format(value) + ' USTBB';
+            return '$' + number_format(value);
           }
         },
         gridLines: {
@@ -103,7 +103,7 @@ var myBarChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + number_format(tooltipItem.yLabel) +' USTBB';
+          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
         }
       }
     },
