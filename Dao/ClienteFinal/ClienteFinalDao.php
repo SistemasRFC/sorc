@@ -2,6 +2,15 @@
 include_once("Dao/BaseDao.php");
 class ClienteFinalDao extends BaseDao {
 
+    protected $tableName = "EN_CLIENTE_FINAL";
+
+    protected $columns = array(
+      "dscClienteFinal"   => array("column" => "DSC_CLIENTE_FINAL", "typeColumn" => "S"),
+      "indAtivo"          => array("column" => "IND_ATIVO", "typeColumn"         => "S")
+    );
+
+    protected $columnKey = array("codClienteFinal" => array("column" => "COD_CLIENTE_FINAL", "typeColumn" => "I"));
+
     function ListarClienteFinal(){
         $select = "SELECT COD_CLIENTE_FINAL,
                           DSC_CLIENTE_FINAL,
