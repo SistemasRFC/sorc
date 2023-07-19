@@ -1,14 +1,7 @@
-<?
+<?php
 include_once("Model/BaseModel.php");
 include_once("Dao/ImportarDespesa/ImportarDespesaDao.php");
-class ImportarDespesaModel extends BaseModel
-{
-    function ImportarDespesaModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
+class ImportarDespesaModel extends BaseModel {
 
     function ImportarDespesas(){
         $form->setOrdenacao('DTA_DESPESA');
