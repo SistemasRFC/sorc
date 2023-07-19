@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("Dao/BaseDao.php");
 class TransferenciaContasDao extends BaseDao
 {
