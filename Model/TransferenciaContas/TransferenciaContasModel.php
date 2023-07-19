@@ -1,14 +1,7 @@
-<?
+<?php
 include_once("Model/BaseModel.php");
 include_once("Dao/TransferenciaContas/TransferenciaContasDao.php");
-class TransferenciaContasModel extends BaseModel
-{
-    function TransferenciaContasModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
+class TransferenciaContasModel extends BaseModel {
 
     function AddTransferenciaContas(){
         $dao = new TransferenciaContasDao();
