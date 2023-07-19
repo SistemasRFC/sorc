@@ -2,18 +2,14 @@
 include_once("Controller/BaseController.php");
 include_once("Model/TransferenciaContas/TransferenciaContasModel.php");
 include_once("Model/ContasBancarias/ContasBancariasModel.php");
-class TransferenciaContasController extends BaseController
-{
-    function TransferenciaContasController(){
-        $method = $_REQUEST['method'];
-        $string =$method.'()';
-        $method = "\$this->".$string.";";
-        //echo $method;
-        eval($method);
+class TransferenciaContasController extends BaseController {
 
+     Public Function ChamaView() {
+        $params = array();
+        echo ($this->gen_redirect_and_form(BaseController::ReturnView(BaseController::getPath(), get_class($this)), $params));
     }
 
-    Function ChamaView(){
+    Function ChamaView_old(){
         $listaMeses = $this->ListarMeses();
         $listaAnos = $this->ListarAnos();
         $contasBancariasModel = new ContasBancariasModel();
