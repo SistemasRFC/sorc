@@ -1,14 +1,7 @@
 <?php
 include_once("Model/BaseModel.php");
 include_once("Dao/Receitas/ReceitasDao.php");
-class ReceitasModel extends BaseModel
-{
-    function ReceitasModel(){
-        If (!isset($_SESSION)){
-            ob_start();
-            session_start();
-        }
-    }
+class ReceitasModel extends BaseModel {
 
     function AddReceitas(){
         $dao = new ReceitasDao();
