@@ -2,6 +2,18 @@
 include_once("Dao/BaseDao.php");
 class ReceitasDao extends BaseDao
 {
+    protected $tableName = "EN_RECEITA";
+
+    protected $columns = array(
+      "dscReceita"           => array("column" => "DSC_RECEITA", "typeColumn"       => "S"),
+      "dtaReceita"           => array("column" => "DTA_RECEITA", "typeColumn"       => "D"),
+      "codConta"             => array("column" => "COD_CONTA", "typeColumn"         => "I"),
+      "vlrReceita"           => array("column" => "VLR_RECEITA", "typeColumn"       => "F"),
+      "cod_cliente_final"    => array("column" => "COD_CLIENTE_FINAL", "typeColumn" => "I")
+    );
+
+    protected $columnKey = array("codReceita" => array("column" => "COD_RECEITA", "typeColumn" => "I"));
+    
     function ReceitasDao(){
         $this->conect();
     }
