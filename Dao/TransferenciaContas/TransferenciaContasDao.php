@@ -1,7 +1,19 @@
-<?
+<?php
 include_once("Dao/BaseDao.php");
 class TransferenciaContasDao extends BaseDao
 {
+    protected $tableName = "RE_TRANSFERENCIA_CONTAS";
+
+    protected $columns = array(
+      "codContaOrigem"       => array("column" => "COD_CONTA_ORIGEM", "typeColumn" => "I"),
+      "codContaDestino"      => array("column" => "COD_CONTA_DESTINO", "typeColumn" => "I"),
+      "dtaMovimentacao"      => array("column" => "DTA_MOVIMENTACAO", "typeColumn" => "D"),
+      "vlrMovimentacao"      => array("column" => "VLR_MOVIMENTACAO", "typeColumn" => "F"),
+      "cod_cliente_final"    => array("column" => "COD_CLIENTE_FINAL", "typeColumn" => "I")
+    );
+
+    protected $columnKey = array("nroSequencial" => array("column" => "NRO_SEQUENCIAL", "typeColumn" => "I"));
+
     function TransferenciaContasDao(){
     }
 
