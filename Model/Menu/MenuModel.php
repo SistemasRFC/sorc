@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("Model/BaseModel.php");
 include_once("Dao/Menu/MenuDao.php");
 include_once("Resources/php/FuncoesArray.php");
