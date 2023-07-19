@@ -5,17 +5,14 @@ include_once("Model/Despesas/DespesasModel.php");
 include_once("Model/ContasBancarias/ContasBancariasModel.php");
 include_once("Model/ClienteFinal/ClienteFinalModel.php");
 
-class DespesasController extends BaseController
-{
-    // function __construct(){
-    //     $method = $_REQUEST['method'];
-    //     $string =$method.'()';
-    //     $method = "\$this->".$string.";";
-    //     eval($method);
+class DespesasController extends BaseController {
 
-    // }
+     Public Function ChamaView() {
+        $params = array();
+        echo ($this->gen_redirect_and_form(BaseController::ReturnView(BaseController::getPath(), get_class($this)), $params));
+    }
     
-    Function ChamaView(){
+    Function ChamaView_old(){
         $listaMeses = $this->ListarMeses();
         $listaAnos = $this->ListarAnos();
         $contasBancariasModel = new ContasBancariasModel();
