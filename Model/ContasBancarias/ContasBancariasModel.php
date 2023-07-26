@@ -42,6 +42,12 @@ class ContasBancariasModel extends BaseModel
         return $lista;        
     }
 
+    Function ListarContasFiltro(){
+        $dao = new ContasBancariasDao();
+        $lista = $dao->ListarContasFiltro($_SESSION['cod_cliente_final']);
+        return json_encode($lista);
+    }
+
     Function ListarSaldoContasBancarias(){
         $dao = new ContasBancariasDao();
         $lista = $dao->ListarSaldoContasBancarias($_SESSION['cod_cliente_final']);

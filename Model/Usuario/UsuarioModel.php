@@ -16,6 +16,12 @@ class UsuarioModel extends BaseModel
         return json_encode($lista);
     }
 
+    function ListarResponsavelFiltro(){
+        $dao = new UsuarioDao();        
+        $lista = $dao->ListarResponsavelFiltro($_SESSION['cod_cliente_final']);
+        return json_encode($lista);
+    }
+
     function AddUsuario(){
         $dao = new UsuarioDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());

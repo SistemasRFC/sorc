@@ -2,6 +2,26 @@
 include_once("Dao/BaseDao.php");
 class DespesasDao extends BaseDao
 {
+	protected $tableName = "EN_DESPESA";
+
+	protected $columns = array(
+		"dscDespesa"            => array("column" => "DSC_DESPESA",             "typeColumn" => "S"),
+		"dtaDespesa"            => array("column" => "DTA_DESPESA",             "typeColumn" => "D"),
+		"codConta"              => array("column" => "COD_CONTA",               "typeColumn" => "I"),
+		"tpoDespesa"            => array("column" => "TPO_DESPESA",             "typeColumn" => "I"),
+		"vlrDespesa"            => array("column" => "VLR_DESPESA",             "typeColumn" => "F"),
+		"codClienteFinal"       => array("column" => "COD_CLIENTE_FINAL",       "typeColumn" => "I"),
+		"indDespesaPaga"        => array("column" => "IND_DESPESA_PAGA",        "typeColumn" => "S"),
+		"dtaPagamento"          => array("column" => "DTA_PAGAMENTO",           "typeColumn" => "D"),
+		"codDespesaImportacao"  => array("column" => "COD_DESPESA_IMPORTACAO",  "typeColumn" => "I"),
+		"qtdParcelas"           => array("column" => "QTD_PARCELAS",            "typeColumn" => "I"),
+		"nroParcelaAtual"       => array("column" => "NRO_PARCELA_ATUAL",       "typeColumn" => "I"),
+		"dtaLancDespesa"        => array("column" => "DTA_LANC_DESPESA",        "typeColumn" => "D"),
+		"codUsuarioDespesa"     => array("column" => "COD_USUARIO_DESPESA",     "typeColumn" => "I")
+	);
+
+  	protected $columnKey = array("codDespesa" => array("column" => "COD_DESPESA", "typeColumn" => "I"));
+
     Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $dtaLancamento, $nroParcelaAtual, $codDespesaImportada=0){
         $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
         $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
@@ -84,15 +104,15 @@ class DespesasDao extends BaseDao
     
     Function ListarDespesas($codClienteFinal,
                             $param = null){
-        $mes = filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_NUMBER_INT);
-        $ano = filter_input(INPUT_POST, 'nroAnoReferencia', FILTER_SANITIZE_NUMBER_INT);
+        $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT);
+        $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
         if ($mes==""){
             $mes = date("m");
         }
         if ($ano==''){
             $ano = date("Y");
         }
-        $sql = " SELECT COD_DESPESA,
+        $sql = " SELECT DISTINCT COD_DESPESA,
                         DTA_DESPESA,
                         DTA_LANC_DESPESA,
                         VLR_DESPESA,
@@ -108,29 +128,36 @@ class DespesasDao extends BaseDao
                         COALESCE(QTD_PARCELAS,1) AS QTD_PARCELAS,
                         COALESCE(NRO_PARCELA_ATUAL,1) AS NRO_PARCELA_ATUAL,
                         COALESCE(QTD_PARCELAS,1)-COALESCE(NRO_PARCELA_ATUAL,1) AS NRO_PARCELA_RESTANTES,
-                        CASE WHEN COD_DESPESA_IMPORTACAO>0 THEN 'Despesa Importada' ELSE 'Mês atual' END AS IND_ORIGEM_DESPESA
+                        CASE WHEN COD_DESPESA_IMPORTACAO>0 THEN 'Despesa Importada' ELSE 'Mês atual' END AS IND_ORIGEM_DESPESA,
+                        U.NME_USUARIO_COMPLETO AS DONO_DESPESA
                    FROM EN_DESPESA R
                   LEFT JOIN EN_CONTA C
                      ON R.COD_CONTA = C.COD_CONTA
                   INNER JOIN EN_TIPO_DESPESA TP
                      ON R.TPO_DESPESA = TP.COD_TIPO_DESPESA
+                   LEFT JOIN SE_USUARIO U
+                     ON R.COD_USUARIO_DESPESA = U.COD_USUARIO
                   WHERE r.COD_CLIENTE_FINAL = $codClienteFinal
                     AND MONTH(DTA_DESPESA)= ".$mes."
                     AND YEAR(DTA_DESPESA)=".$ano;
         if ($param!=null){
             $sql .= $param;
         }
-        $tpoDespesa = filter_input(INPUT_POST, 'tpoDespesa', FILTER_SANITIZE_STRING);
+        $tpoDespesa = filter_input(INPUT_POST, 'tpoDespesaFiltro', FILTER_SANITIZE_STRING);
         if ($tpoDespesa!="-1" && $tpoDespesa!=""){
             $sql .= "   AND R.TPO_DESPESA = ".$tpoDespesa;
         }
-        $indStatus = filter_input(INPUT_POST, 'indStatus', FILTER_SANITIZE_STRING);
+        $indStatus = filter_input(INPUT_POST, 'statusFiltro', FILTER_SANITIZE_STRING);
         if ($indStatus!="-1" && $indStatus!=""){
             $sql .= "   AND R.IND_DESPESA_PAGA = '".$indStatus."'";
         } 
-        $codConta = filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_STRING);
-        if ($codConta!="-1" && $indStatus!=""){
+        $codConta = filter_input(INPUT_POST, 'contaFiltro', FILTER_SANITIZE_STRING);
+        if ($codConta!="-1" && $codConta!=""){
             $sql .= "   AND R.COD_CONTA = ".$codConta;
+        }         
+        $codUsuario = filter_input(INPUT_POST, 'responsavelFiltro', FILTER_SANITIZE_STRING);
+        if ($codUsuario!="-1" && $codUsuario!=""){
+            $sql .= "   AND R.COD_USUARIO_DESPESA = ".$codUsuario;
         }         
         $sql .= " ORDER BY DTA_DESPESA";
         return $this->selectDB($sql, false);

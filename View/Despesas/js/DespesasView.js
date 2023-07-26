@@ -1,100 +1,231 @@
+// var anoAtual = new Date().getFullYear();
+// var mesAtual = new Date().getMonth()+1;
+var anoAtual = 2022;
+var mesAtual = 6;
+var arrDespesas;
 $(function() {
-    $("#CadastroForm").jqxWindow({ 
-        title: 'Cadastro de Despesas',
-        height: 450,
-        width: 700,
-        animationType: 'fade',
-        showAnimationDuration: 500,
-        closeAnimationDuration: 500,
-        theme: theme,
-        isModal: true,
-        autoOpen: false
+    $( "#btnNovo" ).click(() => {
+        LimparCampos();
+        $("#cadastroDespesa").modal('show');
+
+        // CadDespesa('AddDespesa', '0', '', '', '-1', '', '', '-1', '', '', 'N', '');
     });
-    $("#GraficoForm").jqxWindow({ 
-        title: 'Gráfico de Despesas',
-        height: 450,
-        width: 1200,
-        maxWidth: 1200,
-        animationType: 'fade',
-        showAnimationDuration: 500,
-        closeAnimationDuration: 500,
-        theme: theme,
-        isModal: true,
-        autoOpen: false
-    });  
-    $("#ImportarDespesaForm").jqxWindow({ 
-        title: 'Importação de Despesas',
-        height: 200,
-        width: 400,
-        animationType: 'fade',
-        showAnimationDuration: 500,
-        closeAnimationDuration: 500,
-        theme: theme,
-        isModal: true,
-        autoOpen: false
-    });
-    $( "#btnPesquisa" ).click(function( event ) {
-        CarregaGridDespesa();
-    });    
-    $( "#btnNovo" ).click(function( event ) {
-        CadDespesa('AddDespesa', '0', '', '', '-1', '', '', '-1', '', '', 'N', '');        
-    });      
-    contextMenu = $("#jqxMenu").jqxMenu({ width: '120px', autoOpenPopup: false, mode: 'popup', theme: theme });;
-    $("#jqxMenu").on('itemclick', function (event) {
-        var args = event.args;
-        var rowindex = $('#'+nomeGrid).jqxGrid('getselectedrowindex');
-        if ($.trim($(args).text()) == "Importar") {
-            $( "#ImportarDespesaForm" ).jqxWindow( "open" );
-//            ImportarDespesa($("#codDespesa").val(),
-//                            $("#dtaDespesa").val());
-        }else if($.trim($(args).text()) == "Editar"){
-            CadDespesa('UpdateDespesa',
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).COD_DESPESA,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DSC_DESPESA,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).VLR_DESPESA,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).TPO_DESPESA,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).QTD_PARCELAS,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).NRO_PARCELA_ATUAL,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).COD_CONTA,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_DESPESA,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_LANC_DESPESA,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).IND_PAGO,
-                       $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_PAGAMENTO);
-        }else if($.trim($(args).text()) == "Excluir"){
-            deletarDespesa($("#codDespesa").val());
-        }else if($.trim($(args).text()) == "Quitar Parcelas"){
-            quitarParcelas($("#codDespesa").val());
-        }else if($.trim($(args).text()) == "Pagar por conta"){
-            pagarPorConta($("#codDespesa").val());
+    
+    var checkBoxes = '';
+    $(".ckbDespesa").each(() => {
+        if ($(this).prop('checked')) {
+            checkBoxes += $(this).attr('codDespesa') + '=>SP';
+        } else {
+            checkBoxes += $(this).attr('codDespesa') + '=>NP';
         }
-    });    
-    $("#btnExportar").click(function(){
-        $("#ListagemForm").jqxGrid('exportdata', 'xls', 'jqxGrid');
     });
+
+    $("#btnImportar").click(() => {
+
+    });
+
+    // $( "#btnPesquisa" ).click(function( event ) {
+    //     CarregaGridDespesa();
+    // });   
+ 
+    // contextMenu = $("#jqxMenu").jqxMenu({ width: '120px', autoOpenPopup: false, mode: 'popup', theme: theme });;
+    // $("#jqxMenu").on('itemclick', function (event) {
+    //     var args = event.args;
+    //     var rowindex = $('#'+nomeGrid).jqxGrid('getselectedrowindex');
+    //     if ($.trim($(args).text()) == "Importar") {
+    //         $( "#ImportarDespesaForm" ).jqxWindow( "open" );
+    //     }else if($.trim($(args).text()) == "Editar"){
+    //         CadDespesa('UpdateDespesa',
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).COD_DESPESA,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DSC_DESPESA,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).VLR_DESPESA,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).TPO_DESPESA,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).QTD_PARCELAS,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).NRO_PARCELA_ATUAL,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).COD_CONTA,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_DESPESA,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_LANC_DESPESA,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).IND_PAGO,
+    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_PAGAMENTO);
+    //     }else if($.trim($(args).text()) == "Excluir"){
+    //         deletarDespesa($("#codDespesa").val());
+    //     }else if($.trim($(args).text()) == "Quitar Parcelas"){
+    //         quitarParcelas($("#codDespesa").val());
+    //     }else if($.trim($(args).text()) == "Pagar por conta"){
+    //         pagarPorConta($("#codDespesa").val());
+    //     }
+    // });
+
+    // $("#btnExportar").click(function(){
+    //     $("#ListagemForm").jqxGrid('exportdata', 'xls', 'jqxGrid');
+    // });
 });
+function CarregaGridDespesa() {
+    $("#cadastroDespesa").modal("hide");
+    ExecutaDispatch('Despesas', 'ListarDespesas', undefined, MontaGridDespesa);
+}
 
+function MontaGridDespesa(listaDespesa) {
+    var objeto = listaDespesa[1];
+    arrDespesas = listaDespesa[1];
+    somarValorTotal();
+    var tabela = "";
+    tabela += "<table class='table table-striped table-hover table-bordered' id='tableDespesas' width='100%' >";
+    tabela += " <thead>";
+    tabela += "     <tr>";
+    tabela += "         <th class='align-top'>";
+    tabela += "             <div class='form-check'>";
+    tabela += "                 <input type='checkbox' class='form-check-input mb-2' id='allDespesas' onClick='marcarTodas()'>";
+    tabela += "             </div>";
+    tabela += "         </th>";
+    tabela += "         <th>Descrição</th>";
+    tabela += "         <th>Vencimento</th>";
+    tabela += "         <th>Lançamento</th>";
+    tabela += "         <th>Valor</th>";
+    tabela += "         <th>Parcela</th>";
+    tabela += "         <th>Tipo</th>";
+    tabela += "         <th>Conta</th>";
+    tabela += "         <th>Dono</th>";
+    tabela += "         <th>Status</th>";
+    tabela += "         <th>Ações</th>";
+    tabela += "     </tr>";
+    tabela += " </thead>";
+    tabela += " <tbody>";
 
+    if (objeto != null) {
+        for (var i in objeto) {
+            var status = objeto[i].PAGO? 'Paga' : 'Em aberto';
+            var parcela = objeto[i].NRO_PARCELA_ATUAL&&objeto[i].QTD_PARCELAS? objeto[i].NRO_PARCELA_ATUAL+'/'+objeto[i].QTD_PARCELAS : 'unica';
+            tabela += " <tr>";
+            tabela += "     <td>";
+            tabela += "         <div class='form-check'>";
+            tabela += "             <input type='checkbox' class='form-check-input ckbDespesa' id='ckb"+objeto[i].COD_DESPESA+"' codDespesa='"+objeto[i].COD_DESPESA+"' onClick='habilitaImport()'>";
+            tabela += "         </div>";
+            tabela += "     </td>";
+            tabela += "     <td>" + (objeto[i].DSC_DESPESA != null ? objeto[i].DSC_DESPESA : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].DTA_DESPESA != null ? objeto[i].DTA_DESPESA : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].DTA_LANC_DESPESA != null ? objeto[i].DTA_LANC_DESPESA : '') + "</td>";
+            tabela += "     <td align='end'>" + (objeto[i].VLR_DESPESA != null ? objeto[i].VLR_DESPESA : '') + "</td>";
+            tabela += "     <td align='center'>" + parcela + "</td>";
+            tabela += "     <td>" + (objeto[i].DSC_TIPO_DESPESA != null ? objeto[i].DSC_TIPO_DESPESA : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].CONTA != null ? objeto[i].CONTA : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].DONO_DESPESA != null ? objeto[i].DONO_DESPESA : '') + "</td>";
+            tabela += "     <td align='center'>" + status + "</td>";
+            tabela += "     <td class='btn-group' align='center'>";
+            tabela += "         <button class='btn btn-outline-primary btn-sm p-1' title='Editar' onclick='javascript:ChamaCadastroDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-pen'></i></button>";
+            tabela += "         <button class='btn btn-outline-secondary btn-sm p-1' title='Quitar parcelas' onclick='javascript:quitarParcelas(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-circle-dollar-to-slot'></i></button>";
+            tabela += "         <button class='btn btn-outline-success btn-sm' title='Pagar por conta' onclick='javascript:pagarPorConta(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-dollar-sign'></i></button>";
+            tabela += "         <button class='btn btn-outline-danger btn-sm p-1' title='Excluir' onclick='javascript:deletarDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-trash'></i></button>";
+            tabela += "     </td>";
+            tabela += " </tr>";
+        }
+    }
+    tabela += " </tbody>";
+    tabela += "</table>";
+    $("#listaDespesas").html(tabela);
 
-$(document).ready(function(){
-    $(document).on('contextmenu', function (e) {
-        return false;
+    MontaDataTable('tableDespesas', false, 1);
+
+}
+
+function somarValorTotal() {
+    var vlrTotal = 0;
+    for(var i in arrDespesas) {
+        vlrTotal = parseFloat(vlrTotal)+ parseFloat(arrDespesas[i].VLR_DESPESA.replace('.',''));
+    }
+    vlrTotal = vlrTotal.toFixed(2);
+    $("#vlrTotal").html('R$ '+vlrTotal);
+}
+
+function marcarTodas() {
+    if($("#allDespesas").is(":checked")) {
+        $(".ckbDespesa").each(function () {
+            $(this).prop('checked', true);
+        });
+        $("#btnImportar").attr('disabled', false);
+        $("#btnImportar").attr('title', 'Importar despesa(s).');
+    } else {
+        $(".ckbDespesa").each(function () {
+            $(this).prop('checked', false);
+        });
+        $("#btnImportar").attr('disabled', true);
+        $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
+    }
+}
+
+function habilitaImport() {
+    $("#btnImportar").attr('disabled', true);
+    $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
+    var vlrSelecionado = 0;
+    $(".ckbDespesa").each(function() {
+        if ($(this).is(":checked")) {
+            $("#btnImportar").attr('disabled', false);
+            $("#btnImportar").attr('title', 'Importar despesa(s).');
+            for(var i in arrDespesas) {
+                if (arrDespesas[i].COD_DESPESA==$(this).attr('codDespesa')){
+                    console.log($(this).attr('codDespesa'), arrDespesas[i].COD_DESPESA);
+                    vlrSelecionado += parseFloat(arrDespesas[i].VLR_DESPESA.replace('.',''));
+                }
+            }
+        }
     });
-    MontaComboFixo('comboIndStatus', 'indStatus', '0',100);
-    MontaComboFixo('comboTpoDespesa', 'tpoDespesa', '0',200);
-    data = new Date();
-    ano = data.getFullYear();
-    mes = data.getMonth();
-    mes++;
-    if (mes<10){
-        mes = '0'+mes;
-    }
-    MontaComboFixo('comboNroAnoReferencia', 'nroAnoReferencia', ano, 100);
-    MontaComboFixo('comboNroMesReferencia', 'nroMesReferencia', mes, 100);
-    MontaComboFixo('comboCodConta', 'codConta', '-1', 300);
-    MontaComboFixo('comboCodTipoDespesa', 'codTipoDespesa', '-1', 300);
-    MontaComboFixo('comboCodContaPesquisa', 'codContaPesquisa', '-1',300);
-    if ($("#codPerfil").val()==3){
-        MontaComboFixo('comboCodCliente', 'codCliente', '-1');
-    }
-    CarregaGridDespesa();    
+    vlrSelecionado = vlrSelecionado.toFixed(2);
+    $("#vlrSelecionado").html(vlrSelecionado);
+}
+
+function montaComboAnoFiltro(arr) {
+    CriarSelect('anoFiltro', arr, anoAtual, false);
+    $("#anoFiltro").change(function() {
+        CarregaGridDespesa();
+    });
+}
+
+function montaComboMesFiltro(arr) {
+    CriarSelect('mesFiltro', arr, mesAtual, false);
+    $("#mesFiltro").change(function() {
+        CarregaGridDespesa();
+    });
+}
+
+function montaComboTpoDespesaFiltro(arr) {
+    CriarSelect('tpoDespesaFiltro', arr, -1, false);
+    $("#tpoDespesaFiltro").change(function() {
+        CarregaGridDespesa();
+    });
+}
+
+function montaComboStatusDespesaFiltro() {
+    let arr = [true, [{ID: 'S', DSC: 'Paga'}, {ID: 'NULL', DSC: 'Em aberto'}]]
+    CriarSelect('statusFiltro', arr, -1, false);
+    $("#statusFiltro").change(function() {
+        CarregaGridDespesa();
+    });
+
+}
+
+function montaComboContaFiltro(arr) {
+    CriarSelect('contaFiltro', arr, -1, false);
+    $("#contaFiltro").change(function() {
+        CarregaGridDespesa();
+    });
+}
+
+function montaComboResponsavelFiltro(arr) {
+    CriarSelect('responsavelFiltro', arr, -1, false);
+    $("#responsavelFiltro").change(function() {
+        CarregaGridDespesa();
+    });
+}
+
+
+$(document).ready(function() {
+    $("#btnImportar").attr('disabled', true);
+    $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
+    ExecutaDispatch('Despesas', 'ListarAnosFiltro', undefined, montaComboAnoFiltro);
+    ExecutaDispatch('Despesas', 'ListarMesesFiltro', undefined, montaComboMesFiltro);
+    ExecutaDispatch('TipoDespesa', 'ListarTiposDespesaFiltro', undefined, montaComboTpoDespesaFiltro);
+    montaComboStatusDespesaFiltro();
+    ExecutaDispatch('ContasBancarias', 'ListarContasFiltro', undefined, montaComboContaFiltro);
+    ExecutaDispatch('Usuario', 'ListarResponsavelFiltro', undefined, montaComboResponsavelFiltro);
+    ExecutaDispatch('Despesas', 'ListarDespesas', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, MontaGridDespesa);
 });

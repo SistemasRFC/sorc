@@ -33,8 +33,7 @@ class LoginDao extends BaseDao
               INNER JOIN EN_CLIENTE_FINAL C
                  ON U.COD_CLIENTE_FINAL = C.COD_CLIENTE_FINAL
               WHERE NME_USUARIO = '$obj->nmeUsuario'
-                AND TXT_SENHA_W = '$obj->txtSenhaW'"; 
-                
+                AND TXT_SENHA_W = '$obj->txtSenhaW'";    
     return $this->selectDB($sql, false);
   }
 

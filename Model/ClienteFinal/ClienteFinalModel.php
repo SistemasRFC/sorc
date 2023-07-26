@@ -7,11 +7,7 @@ class ClienteFinalModel extends BaseModel {
     Public Function ListarClienteFinal($Json=true){
         $dao = new ClienteFinalDao();
         $lista = $dao->ListarClienteFinal($_SESSION['cod_usuario'], $_SESSION['cod_perfil']);
-        if ($lista[0]) {
-            for ($i=0;$i<count($lista);$i++){
-                $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATIVO' , 'ATIVO');
-            }
-        }
+        $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATIVO' , 'ATIVO');
         if ($Json) {
             $lista = json_encode($lista);
         }

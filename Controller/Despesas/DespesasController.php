@@ -123,6 +123,16 @@ class DespesasController extends BaseController {
         }
         return $anos;
     }
+
+    function ListarAnosFiltro() {
+        $model = new DespesaModel();
+        echo $model->ListarAnosFiltro();
+    }
+
+    function ListarMesesFiltro() {
+        $model = new DespesaModel();
+        echo $model->ListarMesesFiltro();
+    }
     
     Public Function QuitarParcelas(){
         $model = new DespesaModel();

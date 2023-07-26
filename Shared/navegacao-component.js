@@ -28,7 +28,7 @@ function MontaMenu(DadosMenu) {
                     html += "        <div class='bg-white py-2 collapse-inner'>";
                     for (var j in DadosMenu) {
                         if (DadosMenu[j].COD_MENU_PAI_W == DadosMenu[i].COD_MENU_W) {
-                            html += "   <a class='collapse-item px-1' href='/sorc/Dispatch.php?controller=" + DadosMenu[j].NME_CONTROLLER + "&method=" + DadosMenu[j].NME_METHOD + "' style='white-space: pre-wrap;'>";
+                            html += "   <a class='collapse-item' style='white-space: normal;' href='/sorc/Dispatch.php?controller=" + DadosMenu[j].NME_CONTROLLER + "&method=" + DadosMenu[j].NME_METHOD + "' style='white-space: pre-wrap;'>";
                             // html += "       <i class='" + DadosMenu[j].dscIcone + "'></i>";
                             html += "       <span><b>" + DadosMenu[j].DSC_MENU_W + "</b></span>";
                             html += "   </a>";

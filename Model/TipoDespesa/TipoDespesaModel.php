@@ -47,5 +47,11 @@ class TipoDespesaModel extends BaseModel
         }
         return $lista;                
     }
+    
+    function ListarTiposDespesaFiltro() {
+        $dao = new TiposDespesaDao();
+        $lista = $dao->ListarTiposDespesasFiltro($_SESSION['cod_cliente_final']);
+        return $lista = json_encode($lista);              
+    }
 }
 ?>

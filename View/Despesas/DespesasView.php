@@ -1,180 +1,104 @@
-<?php
-include_once "../../View/MenuPrincipal/Cabecalho.php";
-?>
 <html>
-    <head>
-        <title>Controle de Receitas</title>
-    <meta http-equiv="Content-Type" content="text/HTML; charset=utf-8">
-    <script language="JavaScript" src="js/Funcoes.js?<?php echo time();?>"></script>
-    <script language="JavaScript" src="js/DespesasView.js?<?php echo time();?>"></script>
-    </head>
-    <body> 
-        <table width="100%">
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td>Ano</td>
-                        <td>
-                            <div id="comboNroAnoReferencia"></div>
-                            <select name="nroAnoReferencia" id="nroAnoReferencia" style="display:none">
-                            <?$result_receitas = unserialize(urldecode($_POST['ListaAnos']));
-                            $nroAnoReferencia = unserialize(urldecode($_POST['nroAnoReferencia']));
-                            for($i=0;$i<count($result_receitas);$i++){
-                                if ($nroAnoReferencia==$result_receitas[$i]['NRO_ANO_REFERENCIA']){
-                                    echo "<option value=\"".$result_receitas[$i]['NRO_ANO_REFERENCIA']."\" selected=\"selected\">".$result_receitas[$i]['NRO_ANO_REFERENCIA']."</option>";
-                                }else{
-                                    echo "<option value=\"".$result_receitas[$i]['NRO_ANO_REFERENCIA']."\">".$result_receitas[$i]['NRO_ANO_REFERENCIA']."</option>";
-                                }
-                            }
-                            ?>
-                            </select>
-                        </td>
-                        <td>Mês</td>
-                        <td>
-                            <div id="comboNroMesReferencia"></div>
-                            <select name="nroMesReferencia" id="nroMesReferencia" style="display:none">
-                            <?$result_receitas = unserialize(urldecode($_POST['ListaMeses']));
-                            $nroMesReferencia = unserialize(urldecode($_POST['nroMesReferencia']));
-                            for($i=0;$i<count($result_receitas);$i++){
-                                if ($nroMesReferencia==$result_receitas[$i]['NRO_MES_REFERENCIA']){
-                                    echo "<option value=\"".$result_receitas[$i]['NRO_MES_REFERENCIA']."\" selected=\"selected\">".$result_receitas[$i]['DSC_MES_REFERENCIA']."</option>";
-                                }else{
-                                    echo "<option value=\"".$result_receitas[$i]['NRO_MES_REFERENCIA']."\">".$result_receitas[$i]['DSC_MES_REFERENCIA']."</option>";
-                                }
-                            }
-                            ?>
-                            </select>
-                        </td>
-                        <td>
-                        Tipo de Conta
-                        </td>
-                        <td>
-                            <div id="comboTpoDespesa"></div>
-                            <select name="tpoDespesa" id="tpoDespesa" style="display:none">
-                                    <?
-                                    $rs_tpoDespesa = unserialize(urldecode($_POST['ListaTipoDespesa']));
+<head>
+    <title>SORC - Despesas</title>
+    <?php include_once('../../Shared/Imports.php'); ?>
 
-                                    $total = count($rs_tpoDespesa[1]);
-                                    $i=0;
-                                    echo "<option value=\"-1\">Todos</option>";
-                                    while($i<$total ) {
-                                        echo "<option value=\"".$rs_tpoDespesa[1][$i]['COD_TIPO_DESPESA']."\">".$rs_tpoDespesa[1][$i]['DSC_TIPO_DESPESA']."</option>";
-                                        $i++;
-                                    }
-                                    ?>
-                            </select>
-                        </td>
-                        <td>
-                        Status
-                        </td>
-                        <td>
-                            <div id="comboIndStatus"></div>
-                            <select name="indStatus" id="indStatus" style="display:none">
-                                <option value="-1">Todos</option>
-                                <option value="N">Em Aberto</option>
-                                <option value="S">Despesa Paga</option>
-                            </select>
-                        </td>
-                        <td>
-                        Conta
-                        </td>
-                        <td>
-                            <div id="comboCodContaPesquisa"></div>
-                            <select name="codContaPesquisa" id="codContaPesquisa" style="display:none;">
-                                <?$rs_conta = unserialize(urldecode($_POST['ListaContasBancarias']));
-                                $total = count($rs_conta[1]);
-                                $i=0;
-                                echo "<option value=\"-1\">Selecione</option>";
-                                while($i<$total ) {
-                                    echo "<option value=\"".$rs_conta[1][$i]['COD_CONTA']."\">".$rs_conta[1][$i]['CONTA']."</option>";
-                                    $i++;
-                                }
-                                ?>
-                            </select>                            
-                        </td>
-                    </tr>
-                </table>
-                <?php
-                    echo "<input type='hidden' id='codPerfil' value='".$_SESSION['cod_perfil']."'>";
-                ?>
-                <table>
-                    <tr>
-                        <td>
-                            <input type="button" id="btnPesquisa" value="Pesquisar">
-                        </td>
-                        <?php if ($rs_usuario[1][0]["COD_PERFIL_W"]!=3){?>
-                        <td>
-                            <input type="button" id="btnNovo" value="Nova Despesa">
-                        </td>
-                        <?php 
-                        }
-                        ?>
-                        <td>
-                            <input type="button" id="btnGrafico" value="Gráfico">
-                        </td>  
-<!--                        <td>
-                            <input type="button" id="btnExportar" value="Exportar">
-                        </td>                       -->
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td>Valor Total</td>
-                        <td>Valor Selecionado</td>
-                    </tr>
-                    <tr>
-                        <td id="vlrTotal">0</td>
-                        <td id="vlrSelecionado">0</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td id="tdGrid">
-                <div id="ListagemForm">
-                </div>   
-            </td>
-        </tr>
-        <tr>
-            <td id="tdMenu">
-                <div id='jqxMenu'>
-                    <ul>
-                        <li><a href="#">Importar</a></li>
-                        <li><a href="#">Editar</a></li>
-                        <li><a href="#">Excluir</a></li>
-                        <li><a href="#">Quitar Parcelas</a></li>
-                        <li><a href="#">Pagar por conta</a></li>
-                    </ul>
-                </div>  
-            </td>
-        </tr>
-        </table>        
-      <div id="CadastroForm">
-            <div id="windowHeader">
-            </div>
-            <div style="overflow: hidden;" id="windowContent">
-                <? include_once "CadDespesasView.php";?>
-            </div>            
-      </div> 
-      <div id="ImportarDespesaForm">
-            <div id="windowHeader">
-            </div>
-            <div style="overflow: hidden;" id="windowContent">
-                <? include_once "CadImportarDespesaView.php";?>
-            </div>            
-      </div>         
-      <div id="GraficoForm">
-            <div id="windowHeader">
-            </div>
-            <div style="overflow: hidden;" id="windowContent">        
-                <div id="divResumo" style="display:block;border: 0px solid #a4bed4;overflow:scroll;width:100%;height:500px;">
-                    <div id='host' style="margin: 0 auto; width: 1200px; height: 400px;">
-                         <div id='jqxChart' style="width: 1100px; height: 400px; position: relative; left: 0px; top: 0px;">
-                         </div>
-                     </div>
+    <script src="js/DespesasView.js?rdm=<?php echo time(); ?>"></script>
+</head>
+
+<body id="page-top">
+    <content>
+        <navegacao-component></navegacao-component>
+        <header-component></header-component>
+
+        <div id="wrapper">
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <div class="container-fluid">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h3 class="my-2 text-gray-800">Movimentações</h3>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12 mx-0 px-0">
+                                <div class="card mt-2">
+                                    <div class="card-body">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-1 pr-0">
+                                                <label class="mb-0">Ano: </label>
+                                                <div id="tdanoFiltro"></div>
+                                            </div>
+                                            <div class="col-11 px-0">
+                                                <div class="row m-0">
+                                                    <div class="col-2 pr-0">
+                                                        <label class="mb-0">Mês: </label>
+                                                        <div id="tdmesFiltro"></div>
+                                                    </div>
+                                                    <div class="col-2 pr-0">
+                                                        <label class="mb-0">Tipo de despesa: </label>
+                                                        <div id="tdtpoDespesaFiltro"></div>
+                                                    </div>
+                                                    <div class="col-2 pr-0">
+                                                        <label class="mb-0">Status: </label>
+                                                        <div id="tdstatusFiltro"></div>
+                                                    </div>
+                                                    <div class="col-4 pr-0">
+                                                        <label class="mb-0">Conta: </label>
+                                                        <div id="tdcontaFiltro"></div>
+                                                    </div>
+                                                    <div class="col-2 pr-0">
+                                                        <label class="mb-0">Responsável: </label>
+                                                        <div id="tdresponsavelFiltro"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12 mx-0 px-0">
+                                <div class="card mt-2">
+                                    <div class="card-header d-flex flex-row align-items-center justify-content-between">
+                                        <h5 class="m-0 text-white">Despesas</h5>
+                                        <div>
+                                            <button id="btnImportar" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#importarDespesa">
+                                                <i class="fas fa-file-export text-white"></i>
+                                                Importar 
+                                            </button>
+                                            <button id="btnGrafico" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#viewGrafico">
+                                                <i class="fas fa-chart-column text-white"></i>
+                                                Gráfico
+                                            </button>
+                                            <button id="btnNovo" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#cadastroDespesa">
+                                                <i class="fas fa-plus text-white"></i>
+                                                Nova Despesa
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row mb-1">
+                                            <div class="col-3"><b>Valor Total: </b><span id='vlrTotal'></span></div>
+                                            <div class="col-3"><b>Valor Selecionado: </b><span id='vlrSelecionado'></span></div>
+                                        </div>
+                                        <div id="listaDespesas"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>            
-      </div>                 
-    </body>
+            </div>
+        </div>
+
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </content>
+</body>
+
+<?php // include_once "CadDespesasView.php";?>
+<?php // include_once "CadImportarDespesaView.php";?>
 </html>

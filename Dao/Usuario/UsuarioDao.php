@@ -54,6 +54,14 @@ class UsuarioDao extends BaseDao
         
         return $this->selectDB($sql, false);
     }
+
+    function ListarResponsavelFiltro($codClienteFinal) {
+        $sql = "SELECT COD_USUARIO as ID,
+                       NME_USUARIO_COMPLETO as DSC
+                  FROM SE_USUARIO
+                 WHERE COD_CLIENTE_FINAL = $codClienteFinal";
+        return $this->selectDB($sql, false);
+    }
     
     function AddUsuario(stdClass $obj) {
         return $this->MontarInsert($obj);       

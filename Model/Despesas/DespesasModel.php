@@ -77,19 +77,19 @@ class DespesaModel extends BaseModel
     Function ListarDespesas(){
         $dao = new DespesasDao();
         $codCliente = $_SESSION['cod_cliente_final'];
-        if ($_SESSION['cod_perfil']==3){
-            $codCliente = filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
-        }
+        // if ($_SESSION['cod_perfil']==3) {
+        //     $codCliente = filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
+        // }
         $lista = $dao->ListarDespesas($codCliente);
-        $lista = FuncoesData::AtualizaDataInArray($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO');
-        $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
-        for($i=0;$i<count($lista[1]);$i++) {
-            $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
-            // $lista[1][$i]['DTA_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_DESPESA']);
-            // $lista[1][$i]['DTA_LANC_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_LANC_DESPESA']);
-            // $lista[1][$i]['DTA_PAGAMENTO'] = $this->ConverteDataBanco($lista[1][$i]['DTA_PAGAMENTO']);
-            // $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'],2,'.','');
-        }        
+        if($lista[0] && $lista[1] != null) {
+            $lista = FuncoesData::AtualizaDataInArray($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO');
+            $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
+            $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_PAGO', 'PAGO');
+            $total = count($lista[1]);
+            // for($i=0;$i<$total;$i++) {
+            //     $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
+            // }
+        }
         return json_encode($lista);
     }
     
@@ -148,6 +148,27 @@ class DespesaModel extends BaseModel
             );
         }
         return json_encode($data);
+    }
+
+    function ListarAnosFiltro() {
+        $nroAno = date("Y")+1;
+        $result = [true, []];
+        for($i=2012; $i<=$nroAno; $i++) {
+            $ref = (object) array('ID' => $i, 'DSC' => $i);
+            array_push($result[1], $ref);
+        }
+        return json_encode($result);
+    }
+
+    function ListarMesesFiltro() {
+        $result = [true, []];
+        $meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        for($i= 0; $i < count($meses); $i++) {
+            $ref = (object) array('ID' => $i+1, 'DSC' => $meses[$i]);
+            array_push($result[1], $ref);
+        }
+        return json_encode($result);
     }
     
     Public Function QuitarParcelas(){

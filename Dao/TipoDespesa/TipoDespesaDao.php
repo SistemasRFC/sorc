@@ -49,5 +49,15 @@ class TiposDespesaDao extends BaseDao
                   ORDER BY DSC_TIPO_DESPESA";
         return $this->selectDB($sql, false);
     }
+
+    Function ListarTiposDespesasFiltro($codClienteFinal){
+        $sql = " SELECT COD_TIPO_DESPESA as ID,
+                        DSC_TIPO_DESPESA as DSC
+                   FROM EN_TIPO_DESPESA
+                  WHERE COD_CLIENTE_FINAL = $codClienteFinal
+                    AND IND_ATIVO = 'S'
+                  ORDER BY DSC_TIPO_DESPESA";
+        return $this->selectDB($sql, false);
+    }
 }
 ?>

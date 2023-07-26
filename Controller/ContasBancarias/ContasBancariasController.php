@@ -24,6 +24,11 @@ class ContasBancariasController extends BaseController
         echo $model->ListarContasBancarias();
     }
 
+    function ListarContasFiltro(){
+        $model = new ContasBancariasModel();
+        echo $model->ListarContasFiltro();
+    }
+
     function ListarSaldoContasBancarias(){
         $model = new ContasBancariasModel();
         echo $model->ListarSaldoContasBancarias();

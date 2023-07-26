@@ -15,6 +15,11 @@ class UsuarioController extends BaseController
     echo $model->ListarUsuario();
   }
 
+  function ListarResponsavelFiltro() {
+    $model = new UsuarioModel();
+    echo $model->ListarResponsavelFiltro();
+  }
+
   function AddUsuario() {
     $UsuarioModel = new UsuarioModel();
     echo $UsuarioModel->AddUsuario();
