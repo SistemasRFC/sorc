@@ -3,6 +3,7 @@ include_once("Model/BaseModel.php");
 include_once("Dao/Despesas/DespesasDao.php");
 include_once("Resources/php/FuncoesData.php");
 include_once("Resources/php/FuncoesMoeda.php");
+include_once("Resources/php/FuncoesArray.php");
 class DespesaModel extends BaseModel
 {
     
@@ -64,7 +65,9 @@ class DespesaModel extends BaseModel
 
     function UpdateDespesa(){
         $dao = new DespesasDao();
-        return json_encode($dao->UpdateDespesa($_SESSION['cod_cliente_final']));
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
+        return json_encode($dao->UpdateDespesa($this->objRequest));
     }
 
     function DeletarDespesa(){
@@ -84,8 +87,8 @@ class DespesaModel extends BaseModel
         if($lista[0] && $lista[1] != null) {
             $lista = FuncoesData::AtualizaDataInArray($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO');
             $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
-            $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_PAGO', 'PAGO');
-            $total = count($lista[1]);
+            $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_DESPESA_PAGA', 'PAGO');
+            // $total = count($lista[1]);
             // for($i=0;$i<$total;$i++) {
             //     $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
             // }
@@ -98,6 +101,7 @@ class DespesaModel extends BaseModel
         $lista = $dao->ListarDespesas($_SESSION['cod_cliente_final']);
         $lista = FuncoesData::AtualizaDataInArray($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO');
         $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
+        $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_DESPESA_PAGA', 'PAGO');
         
         for($i=0;$i<count($lista[1]);$i++) {
             $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);

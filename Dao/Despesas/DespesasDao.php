@@ -63,26 +63,27 @@ class DespesasDao extends BaseDao
         return $result;
     }
 
-    Function UpdateDespesa($codClienteFinal){
-        $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
-        $sql = "UPDATE EN_DESPESA SET
-                DSC_DESPESA = '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
-                DTA_DESPESA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING))."',
-                DTA_LANC_DESPESA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaLancDespesa', FILTER_SANITIZE_STRING))."',
-                COD_CONTA  =  ".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT).",
-                TPO_DESPESA = ".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT).",
-                VLR_DESPESA = '".$vlrDespesa."',
-                IND_DESPESA_PAGA = '".filter_input(INPUT_POST, 'indDespesaPaga', FILTER_SANITIZE_STRING)."',";
-                if (filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING)=='//'){
-                    $sql .= " DTA_PAGAMENTO =NULL, ";
-                }else{
-                    $sql .= " DTA_PAGAMENTO ='".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING))."', ";
-                }        
-                $sql .= " QTD_PARCELAS = ".filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT).",
-                NRO_PARCELA_ATUAL = ".filter_input(INPUT_POST, 'nroParcelaAtual', FILTER_SANITIZE_NUMBER_INT)."
-                WHERE COD_DESPESA = ".filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
-        //echo $sql; exit;
-        return $this->insertDB($sql);
+    Function UpdateDespesa(stdClass $obj) {
+        return $this->MontarUpdate($obj);
+        // $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
+        // $sql = "UPDATE EN_DESPESA SET
+        //         DSC_DESPESA = '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
+        //         DTA_DESPESA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING))."',
+        //         DTA_LANC_DESPESA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaLancDespesa', FILTER_SANITIZE_STRING))."',
+        //         COD_CONTA  =  ".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT).",
+        //         TPO_DESPESA = ".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT).",
+        //         VLR_DESPESA = '".$vlrDespesa."',
+        //         IND_DESPESA_PAGA = '".filter_input(INPUT_POST, 'indDespesaPaga', FILTER_SANITIZE_STRING)."',";
+        //         if (filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING)=='//'){
+        //             $sql .= " DTA_PAGAMENTO =NULL, ";
+        //         }else{
+        //             $sql .= " DTA_PAGAMENTO ='".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING))."', ";
+        //         }        
+        //         $sql .= " QTD_PARCELAS = ".filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT).",
+        //         NRO_PARCELA_ATUAL = ".filter_input(INPUT_POST, 'nroParcelaAtual', FILTER_SANITIZE_NUMBER_INT)."
+        //         WHERE COD_DESPESA = ".filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
+        // //echo $sql; exit;
+        // return $this->insertDB($sql);
     }
 
     Function DeletarDespesa($codDepesaImportada=null){
@@ -123,12 +124,13 @@ class DespesasDao extends BaseDao
                         CONCAT(NME_BANCO,'(Ag: ',NRO_AGENCIA,' Conta: ',NRO_CONTA,')') AS CONTA,
                         R.COD_CONTA,
                         CASE WHEN R.IND_DESPESA_PAGA='S' THEN 'Despesa Paga' ELSE 'Em Aberto' END AS IND_DESPESA_PAGA,
-                        IND_DESPESA_PAGA AS IND_PAGO,
+                        IND_DESPESA_PAGA AS IND_DESPESA_PAGA,
                         R.DTA_PAGAMENTO,
                         COALESCE(QTD_PARCELAS,1) AS QTD_PARCELAS,
                         COALESCE(NRO_PARCELA_ATUAL,1) AS NRO_PARCELA_ATUAL,
                         COALESCE(QTD_PARCELAS,1)-COALESCE(NRO_PARCELA_ATUAL,1) AS NRO_PARCELA_RESTANTES,
                         CASE WHEN COD_DESPESA_IMPORTACAO>0 THEN 'Despesa Importada' ELSE 'Mês atual' END AS IND_ORIGEM_DESPESA,
+                        R.COD_USUARIO_DESPESA,
                         U.NME_USUARIO_COMPLETO AS DONO_DESPESA
                    FROM EN_DESPESA R
                   LEFT JOIN EN_CONTA C

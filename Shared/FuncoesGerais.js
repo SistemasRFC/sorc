@@ -7,15 +7,15 @@ const API = PATH_RAIZ = '/sorc/';
  * @param {String} valor Valor padrão para ser selecionado
  * @param {String} disabled Marca o combo como desabilitado
  */
-function CriarSelect(nmeCombo, arrDados, valor, disabled) {
+function CriarSelect(nmeCombo, arrDados, valor, disabled, persist='persist') {
     if (disabled == undefined) {
         disabled = false;
     }
     $("#td" + nmeCombo).html('');
     if (disabled == true) {
-        var select = '<select id="' + nmeCombo + '" disabled class="persist form-control">';
+        var select = '<select id="' + nmeCombo + '" disabled class="'+persist+' form-control">';
     } else {
-        var select = '<select id="' + nmeCombo + '" class="persist form-control">';
+        var select = '<select id="' + nmeCombo + '" class="'+persist+' form-control">';
     }
     select += '<option value="-1">Selecione...</option>';
     for (i = 0; i < arrDados[1].length; i++) {

@@ -50,7 +50,7 @@ class TiposDespesaDao extends BaseDao
         return $this->selectDB($sql, false);
     }
 
-    Function ListarTiposDespesasFiltro($codClienteFinal){
+    Function ListarTiposDespesaFiltro($codClienteFinal) {
         $sql = " SELECT COD_TIPO_DESPESA as ID,
                         DSC_TIPO_DESPESA as DSC
                    FROM EN_TIPO_DESPESA

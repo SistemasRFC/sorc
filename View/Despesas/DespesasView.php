@@ -80,8 +80,8 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row mb-1">
-                                            <div class="col-3"><b>Valor Total: </b><span id='vlrTotal'></span></div>
-                                            <div class="col-3"><b>Valor Selecionado: </b><span id='vlrSelecionado'></span></div>
+                                            <div class="col-3"><b>Valor Total: </b><span id='vlrTotal'>R$ 0,00</span></div>
+                                            <div class="col-3"><b>Valor Selecionado: </b><span id='vlrSelecionado'>R$ 0,00</span></div>
                                         </div>
                                         <div id="listaDespesas"></div>
                                     </div>
@@ -99,6 +99,6 @@
     </content>
 </body>
 
-<?php // include_once "CadDespesasView.php";?>
+<?php include_once("CadDespesasView.php");?>
 <?php // include_once "CadImportarDespesaView.php";?>
 </html>

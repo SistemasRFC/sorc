@@ -50,7 +50,7 @@ class TipoDespesaModel extends BaseModel
     
     function ListarTiposDespesaFiltro() {
         $dao = new TiposDespesaDao();
-        $lista = $dao->ListarTiposDespesasFiltro($_SESSION['cod_cliente_final']);
+        $lista = $dao->ListarTiposDespesaFiltro($_SESSION['cod_cliente_final']);
         return $lista = json_encode($lista);              
     }
 }

@@ -4,8 +4,10 @@ var anoAtual = 2022;
 var mesAtual = 6;
 var arrDespesas;
 $(function() {
-    $( "#btnNovo" ).click(() => {
+    $("#btnNovo").click(() => {
         LimparCampos();
+        $("#divDtaPagamento").hide();
+        $("#cadastroDespesaTitle").html('Nova Despesa');
         $("#cadastroDespesa").modal('show');
 
         // CadDespesa('AddDespesa', '0', '', '', '-1', '', '', '-1', '', '', 'N', '');
@@ -18,6 +20,10 @@ $(function() {
         } else {
             checkBoxes += $(this).attr('codDespesa') + '=>NP';
         }
+    });
+    
+    $( "#btnGrafico" ).click(() => {
+        CarregaGrafico(); 
     });
 
     $("#btnImportar").click(() => {
@@ -62,7 +68,10 @@ $(function() {
 });
 function CarregaGridDespesa() {
     $("#cadastroDespesa").modal("hide");
-    ExecutaDispatch('Despesas', 'ListarDespesas', undefined, MontaGridDespesa);
+    var params = 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val();
+    params += '|tpoDespesaFiltro<=>'+$("#tpoDespesaFiltro").val()+'|statusFiltro<=>'+$("#statusFiltro").val();
+    params += '|contaFiltro<=>'+$("#contaFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val();
+    ExecutaDispatch('Despesas', 'ListarDespesas', params, MontaGridDespesa);
 }
 
 function MontaGridDespesa(listaDespesa) {
@@ -99,7 +108,7 @@ function MontaGridDespesa(listaDespesa) {
             tabela += " <tr>";
             tabela += "     <td>";
             tabela += "         <div class='form-check'>";
-            tabela += "             <input type='checkbox' class='form-check-input ckbDespesa' id='ckb"+objeto[i].COD_DESPESA+"' codDespesa='"+objeto[i].COD_DESPESA+"' onClick='habilitaImport()'>";
+            tabela += "             <input type='checkbox' class='form-check-input ckbDespesa' id='ckb"+objeto[i].COD_DESPESA+"' codDespesa='"+objeto[i].COD_DESPESA+"' onClick='eventosCheckbox()'>";
             tabela += "         </div>";
             tabela += "     </td>";
             tabela += "     <td>" + (objeto[i].DSC_DESPESA != null ? objeto[i].DSC_DESPESA : '') + "</td>";
@@ -111,11 +120,13 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "     <td>" + (objeto[i].CONTA != null ? objeto[i].CONTA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].DONO_DESPESA != null ? objeto[i].DONO_DESPESA : '') + "</td>";
             tabela += "     <td align='center'>" + status + "</td>";
-            tabela += "     <td class='btn-group' align='center'>";
-            tabela += "         <button class='btn btn-outline-primary btn-sm p-1' title='Editar' onclick='javascript:ChamaCadastroDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-pen'></i></button>";
-            tabela += "         <button class='btn btn-outline-secondary btn-sm p-1' title='Quitar parcelas' onclick='javascript:quitarParcelas(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-circle-dollar-to-slot'></i></button>";
-            tabela += "         <button class='btn btn-outline-success btn-sm' title='Pagar por conta' onclick='javascript:pagarPorConta(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-dollar-sign'></i></button>";
-            tabela += "         <button class='btn btn-outline-danger btn-sm p-1' title='Excluir' onclick='javascript:deletarDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-trash'></i></button>";
+            tabela += "     <td class='px-1' align='center'>";
+            tabela += "         <div class='btn-group'>";
+            tabela += "             <button class='btn btn-outline-primary px-2' title='Editar' onclick='javascript:chamaCadastroDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-pen'></i></button>";
+            tabela += "             <button class='btn btn-outline-secondary px-2' title='Quitar parcelas' onclick='javascript:quitarParcelas(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-circle-dollar-to-slot'></i></button>";
+            tabela += "             <button class='btn btn-outline-success px-2' title='Pagar por conta' onclick='javascript:pagarPorConta(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-dollar-sign'></i></button>";
+            tabela += "             <button class='btn btn-outline-danger px-2' title='Excluir' onclick='javascript:deletarDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-trash'></i></button>";
+            tabela += "         </div>";
             tabela += "     </td>";
             tabela += " </tr>";
         }
@@ -133,7 +144,7 @@ function somarValorTotal() {
     for(var i in arrDespesas) {
         vlrTotal = parseFloat(vlrTotal)+ parseFloat(arrDespesas[i].VLR_DESPESA.replace('.',''));
     }
-    vlrTotal = vlrTotal.toFixed(2);
+    vlrTotal = vlrTotal.toFixed(2).replace('.', ',');
     $("#vlrTotal").html('R$ '+vlrTotal);
 }
 
@@ -153,7 +164,7 @@ function marcarTodas() {
     }
 }
 
-function habilitaImport() {
+function eventosCheckbox() {
     $("#btnImportar").attr('disabled', true);
     $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
     var vlrSelecionado = 0;
@@ -169,26 +180,36 @@ function habilitaImport() {
             }
         }
     });
-    vlrSelecionado = vlrSelecionado.toFixed(2);
-    $("#vlrSelecionado").html(vlrSelecionado);
+    vlrSelecionado = vlrSelecionado.toFixed(2).replace('.', ',');
+    $("#vlrSelecionado").html('R$ '+vlrSelecionado);
+}
+
+function chamaCadastroDespesa(codDespesa) {
+    var despesaSelecionada = arrDespesas.filter(elm => elm.COD_DESPESA == codDespesa)[0];
+    PreencheCamposForm(despesaSelecionada, 'indDespesaPaga;B');
+    $("#divDtaPagamento").show();
+    $("#cadastroDespesaTitle").html('Editar Despesa');
+    $("#cadastroDespesa").modal('show');
+
 }
 
 function montaComboAnoFiltro(arr) {
-    CriarSelect('anoFiltro', arr, anoAtual, false);
+    CriarSelect('anoFiltro', arr, anoAtual, false, '');
     $("#anoFiltro").change(function() {
         CarregaGridDespesa();
     });
 }
 
 function montaComboMesFiltro(arr) {
-    CriarSelect('mesFiltro', arr, mesAtual, false);
+    CriarSelect('mesFiltro', arr, mesAtual, false, '');
     $("#mesFiltro").change(function() {
         CarregaGridDespesa();
     });
 }
 
 function montaComboTpoDespesaFiltro(arr) {
-    CriarSelect('tpoDespesaFiltro', arr, -1, false);
+    CriarSelect('tpoDespesa', arr, -1, false);
+    CriarSelect('tpoDespesaFiltro', arr, -1, false, '');
     $("#tpoDespesaFiltro").change(function() {
         CarregaGridDespesa();
     });
@@ -196,7 +217,7 @@ function montaComboTpoDespesaFiltro(arr) {
 
 function montaComboStatusDespesaFiltro() {
     let arr = [true, [{ID: 'S', DSC: 'Paga'}, {ID: 'NULL', DSC: 'Em aberto'}]]
-    CriarSelect('statusFiltro', arr, -1, false);
+    CriarSelect('statusFiltro', arr, -1, false, '');
     $("#statusFiltro").change(function() {
         CarregaGridDespesa();
     });
@@ -204,14 +225,16 @@ function montaComboStatusDespesaFiltro() {
 }
 
 function montaComboContaFiltro(arr) {
-    CriarSelect('contaFiltro', arr, -1, false);
+    CriarSelect('codConta', arr, -1, false);
+    CriarSelect('contaFiltro', arr, -1, false, '');
     $("#contaFiltro").change(function() {
         CarregaGridDespesa();
     });
 }
 
 function montaComboResponsavelFiltro(arr) {
-    CriarSelect('responsavelFiltro', arr, -1, false);
+    CriarSelect('codUsuarioDespesa', arr, -1, false);
+    CriarSelect('responsavelFiltro', arr, -1, false, '');
     $("#responsavelFiltro").change(function() {
         CarregaGridDespesa();
     });
