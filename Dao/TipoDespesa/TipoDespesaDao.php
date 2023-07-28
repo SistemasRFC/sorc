@@ -59,5 +59,20 @@ class TiposDespesaDao extends BaseDao
                   ORDER BY DSC_TIPO_DESPESA";
         return $this->selectDB($sql, false);
     }
+
+    Function ListarSomaTipoDespesas($codClienteFinal, $mes, $ano){
+        $sql = " SELECT TP.COD_TIPO_DESPESA,
+                        DSC_TIPO_DESPESA,
+                        SUM(VLR_DESPESA) AS VALOR
+                   FROM EN_DESPESA D
+                  INNER JOIN EN_TIPO_DESPESA TP
+                     ON D.TPO_DESPESA = TP.COD_TIPO_DESPESA
+                  WHERE D.COD_CLIENTE_FINAL = $codClienteFinal
+                    AND MONTH(D.DTA_DESPESA)= $mes
+                    AND YEAR(D.DTA_DESPESA)= $ano
+                  GROUP BY TP.COD_TIPO_DESPESA, DSC_TIPO_DESPESA
+                  ORDER BY VALOR";
+        return $this->selectDB($sql, false);
+    }
 }
 ?>

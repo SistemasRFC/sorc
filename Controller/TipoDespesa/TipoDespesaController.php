@@ -27,6 +27,11 @@ class TipoDespesaController extends BaseController
         $model = new TipoDespesaModel();
         echo $model->ListarTiposDespesaFiltro();
     }
+    
+    Function ListarSomaTipoDespesas(){
+        $model = new TipoDespesaModel();
+        echo $model->ListarSomaTipoDespesas();
+    }
 }
 $TipoDespesaController = new TipoDespesaController();
 ?>

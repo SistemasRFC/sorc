@@ -1,7 +1,5 @@
-// var anoAtual = new Date().getFullYear();
-// var mesAtual = new Date().getMonth()+1;
-var anoAtual = 2022;
-var mesAtual = 6;
+var anoAtual = new Date().getFullYear();
+var mesAtual = new Date().getMonth()+1;
 var arrDespesas;
 $(function() {
     $("#btnNovo").click(() => {
@@ -27,7 +25,7 @@ $(function() {
     });
 
     $("#btnImportar").click(() => {
-
+        $("#importarDespesa").modal('show');
     });
 
     // $( "#btnPesquisa" ).click(function( event ) {
@@ -112,8 +110,8 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "         </div>";
             tabela += "     </td>";
             tabela += "     <td>" + (objeto[i].DSC_DESPESA != null ? objeto[i].DSC_DESPESA : '') + "</td>";
-            tabela += "     <td>" + (objeto[i].DTA_DESPESA != null ? objeto[i].DTA_DESPESA : '') + "</td>";
-            tabela += "     <td>" + (objeto[i].DTA_LANC_DESPESA != null ? objeto[i].DTA_LANC_DESPESA : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].DTA_DESPESA != null ? objeto[i].DTA_DESPESA_FORMATADO : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].DTA_LANC_DESPESA != null ? objeto[i].DTA_LANC_DESPESA_FORMATADO : '') + "</td>";
             tabela += "     <td align='end'>" + (objeto[i].VLR_DESPESA != null ? objeto[i].VLR_DESPESA : '') + "</td>";
             tabela += "     <td align='center'>" + parcela + "</td>";
             tabela += "     <td>" + (objeto[i].DSC_TIPO_DESPESA != null ? objeto[i].DSC_TIPO_DESPESA : '') + "</td>";
@@ -149,37 +147,44 @@ function somarValorTotal() {
 }
 
 function marcarTodas() {
+    var codDespesasMarcadas = '';
     if($("#allDespesas").is(":checked")) {
         $(".ckbDespesa").each(function () {
             $(this).prop('checked', true);
+            codDespesasMarcadas += $(this).attr('codDespesa')+'d';
         });
         $("#btnImportar").attr('disabled', false);
         $("#btnImportar").attr('title', 'Importar despesa(s).');
     } else {
+        codDespesasMarcadas = '';
         $(".ckbDespesa").each(function () {
             $(this).prop('checked', false);
         });
         $("#btnImportar").attr('disabled', true);
         $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
     }
+    $("#codDespesasImportacao").val(codDespesasMarcadas.substring(0, codDespesasMarcadas.length-1));
 }
 
 function eventosCheckbox() {
     $("#btnImportar").attr('disabled', true);
     $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
+    var codDespesasMarcadas = '';
     var vlrSelecionado = 0;
     $(".ckbDespesa").each(function() {
         if ($(this).is(":checked")) {
             $("#btnImportar").attr('disabled', false);
             $("#btnImportar").attr('title', 'Importar despesa(s).');
+            codDespesasMarcadas += $(this).attr('codDespesa')+'d';
             for(var i in arrDespesas) {
-                if (arrDespesas[i].COD_DESPESA==$(this).attr('codDespesa')){
-                    console.log($(this).attr('codDespesa'), arrDespesas[i].COD_DESPESA);
+                if (arrDespesas[i].COD_DESPESA==$(this).attr('codDespesa')) {
+                    // console.log($(this).attr('codDespesa'), arrDespesas[i].COD_DESPESA);
                     vlrSelecionado += parseFloat(arrDespesas[i].VLR_DESPESA.replace('.',''));
                 }
             }
         }
     });
+    $("#codDespesasImportacao").val(codDespesasMarcadas.substring(0, codDespesasMarcadas.length-1));
     vlrSelecionado = vlrSelecionado.toFixed(2).replace('.', ',');
     $("#vlrSelecionado").html('R$ '+vlrSelecionado);
 }
@@ -194,6 +199,7 @@ function chamaCadastroDespesa(codDespesa) {
 }
 
 function montaComboAnoFiltro(arr) {
+    CriarSelect('anoRefImportacao', arr, anoAtual, false, '');
     CriarSelect('anoFiltro', arr, anoAtual, false, '');
     $("#anoFiltro").change(function() {
         CarregaGridDespesa();
@@ -201,6 +207,7 @@ function montaComboAnoFiltro(arr) {
 }
 
 function montaComboMesFiltro(arr) {
+    CriarSelect('mesRefImportacao', arr, mesAtual, false, '');
     CriarSelect('mesFiltro', arr, mesAtual, false, '');
     $("#mesFiltro").change(function() {
         CarregaGridDespesa();

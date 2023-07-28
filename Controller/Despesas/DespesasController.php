@@ -43,11 +43,7 @@ class DespesasController extends BaseController {
         $view = $this->getPath()."/View/Despesas/RelatorioTipoDespesaView.php";
         echo ($this->gen_redirect_and_form($view, $params));  
     }
-    
-    Function ImportarDespesa(){
-        $model = new DespesaModel();
-        echo $model->ImportarDespesa();
-    }
+
     Function AddDespesa(){
         $model = new DespesaModel();
         echo $model->AddDespesa();
@@ -72,57 +68,56 @@ class DespesasController extends BaseController {
         $model = new DespesaModel();
         echo $model->ListarDespesasGrid();
     }
-
-    Function ListarSomaTipoDespesas(){
-        $model = new DespesaModel();
-        echo $model->ListarSomaTipoDespesas();
-        flush();
-    }
-
-    Function PegaLimiteTipoDespesa(){
-        $model = new DespesaModel();
-        echo $model->PegaLimiteTipoDespesa();
-        flush();
-    }
     
-    Function ListarMeses(){
-        $meses = array(array('NRO_MES_REFERENCIA' => '01',
-                             'DSC_MES_REFERENCIA' => 'Janeiro'),
-                       array('NRO_MES_REFERENCIA' => '02',
-                             'DSC_MES_REFERENCIA' => 'Fevereiro'),
-                       array('NRO_MES_REFERENCIA' => '03',
-                             'DSC_MES_REFERENCIA' => 'Março'),
-                       array('NRO_MES_REFERENCIA' => '04',
-                             'DSC_MES_REFERENCIA' => 'Abril'),
-                       array('NRO_MES_REFERENCIA' => '05',
-                             'DSC_MES_REFERENCIA' => 'Maio'),
-                       array('NRO_MES_REFERENCIA' => '06',
-                             'DSC_MES_REFERENCIA' => 'Junho'),
-                       array('NRO_MES_REFERENCIA' => '07',
-                             'DSC_MES_REFERENCIA' => 'Julho'),
-                       array('NRO_MES_REFERENCIA' => '08',
-                             'DSC_MES_REFERENCIA' => 'Agosto'),
-                       array('NRO_MES_REFERENCIA' => '09',
-                             'DSC_MES_REFERENCIA' => 'Setembro'),
-                       array('NRO_MES_REFERENCIA' => '10',
-                             'DSC_MES_REFERENCIA' => 'Outubro'),
-                       array('NRO_MES_REFERENCIA' => '11',
-                             'DSC_MES_REFERENCIA' => 'Novembro'),
-                       array('NRO_MES_REFERENCIA' => '12',
-                             'DSC_MES_REFERENCIA' => 'Dezembro'));
-        return $meses;
+    Function ImportarDespesas(){
+        $model = new DespesaModel();
+        echo $model->ImportarDespesas();
     }
+
+    // Function PegaLimiteTipoDespesa(){
+    //     $model = new DespesaModel();
+    //     echo $model->PegaLimiteTipoDespesa();
+    //     flush();
+    // }
     
-    Function ListarAnos(){
-        $nroAno = date("Y")+1;
-        $anos = array();
-        $j=0;
-        for($i=2012;$i<=$nroAno;$i++){            
-            $anos[$j] = array('NRO_ANO_REFERENCIA' => $i);
-            $j++;
-        }
-        return $anos;
-    }
+    // Function ListarMeses(){
+    //     $meses = array(array('NRO_MES_REFERENCIA' => '01',
+    //                          'DSC_MES_REFERENCIA' => 'Janeiro'),
+    //                    array('NRO_MES_REFERENCIA' => '02',
+    //                          'DSC_MES_REFERENCIA' => 'Fevereiro'),
+    //                    array('NRO_MES_REFERENCIA' => '03',
+    //                          'DSC_MES_REFERENCIA' => 'Março'),
+    //                    array('NRO_MES_REFERENCIA' => '04',
+    //                          'DSC_MES_REFERENCIA' => 'Abril'),
+    //                    array('NRO_MES_REFERENCIA' => '05',
+    //                          'DSC_MES_REFERENCIA' => 'Maio'),
+    //                    array('NRO_MES_REFERENCIA' => '06',
+    //                          'DSC_MES_REFERENCIA' => 'Junho'),
+    //                    array('NRO_MES_REFERENCIA' => '07',
+    //                          'DSC_MES_REFERENCIA' => 'Julho'),
+    //                    array('NRO_MES_REFERENCIA' => '08',
+    //                          'DSC_MES_REFERENCIA' => 'Agosto'),
+    //                    array('NRO_MES_REFERENCIA' => '09',
+    //                          'DSC_MES_REFERENCIA' => 'Setembro'),
+    //                    array('NRO_MES_REFERENCIA' => '10',
+    //                          'DSC_MES_REFERENCIA' => 'Outubro'),
+    //                    array('NRO_MES_REFERENCIA' => '11',
+    //                          'DSC_MES_REFERENCIA' => 'Novembro'),
+    //                    array('NRO_MES_REFERENCIA' => '12',
+    //                          'DSC_MES_REFERENCIA' => 'Dezembro'));
+    //     return $meses;
+    // }
+    
+    // Function ListarAnos(){
+    //     $nroAno = date("Y")+1;
+    //     $anos = array();
+    //     $j=0;
+    //     for($i=2012;$i<=$nroAno;$i++){            
+    //         $anos[$j] = array('NRO_ANO_REFERENCIA' => $i);
+    //         $j++;
+    //     }
+    //     return $anos;
+    // }
 
     function ListarAnosFiltro() {
         $model = new DespesaModel();

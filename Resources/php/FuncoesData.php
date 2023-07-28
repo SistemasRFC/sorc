@@ -49,6 +49,18 @@ class FuncoesData{
         return $listaAtualizada;
     }
 
+    Public Static Function AtualizaDataInArrayCamposNovos($lista, $campo, $campoNovo, $hora = false) {
+        $listaAtualizada = $lista;
+        $datas = explode('|', $campo);
+        $campo = explode('|', $campoNovo);
+        for ($i = 0; $i < count($listaAtualizada[1]); $i++) {
+            for ($j = 0; $j < count($datas); $j++) {
+                $listaAtualizada[1][$i][$campo[$j]] = self::ConverteDataBanco($listaAtualizada[1][$i][$datas[$j]], $hora);
+            }
+        }
+        return $listaAtualizada;
+    }
+
     /**
      * Adiciona dias, meses ou anos em uma data
      * @param type $date

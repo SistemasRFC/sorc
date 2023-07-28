@@ -22,45 +22,45 @@ class DespesasDao extends BaseDao
 
   	protected $columnKey = array("codDespesa" => array("column" => "COD_DESPESA", "typeColumn" => "I"));
 
-    Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $dtaLancamento, $nroParcelaAtual, $codDespesaImportada=0){
-        $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
-        $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
-        $sql = "INSERT INTO EN_DESPESA (
-                COD_DESPESA,
-                DSC_DESPESA,
-                DTA_DESPESA,
-                DTA_LANC_DESPESA,
-                COD_CONTA,
-                TPO_DESPESA,
-                VLR_DESPESA,
-                COD_CLIENTE_FINAL,
-                IND_DESPESA_PAGA,
-                DTA_PAGAMENTO,
-                QTD_PARCELAS,
-                NRO_PARCELA_ATUAL,
-                COD_DESPESA_IMPORTACAO)
-                VALUES(
-                ".$codDespesa.",
-                '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
-                '".$this->ConverteDataForm($dtaDespesa)."',
-                '".$this->ConverteDataForm($dtaLancamento)."',
-                '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT)."',
-                '".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT)."',
-                '".$vlrDespesa."',
-                '".$codClienteFinal."',
-                '".$indDespesaPaga."',";
-                if ($dtaPagamento==''){
-                    $sql .= "NULL, ";
-                }else{
-                    $sql .= "'".$this->ConverteDataForm($dtaPagamento)."', ";
-                }
-                $sql .= filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT). ",
-                ".$nroParcelaAtual.",
-                ".$codDespesaImportada.")";
+    Function AddDespesa(stdClass $obj){
+        // $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
+        $obj->codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
+        return $this->MontarInsert($obj);
+        // $sql = "INSERT INTO EN_DESPESA (
+        //         COD_DESPESA,
+        //         DSC_DESPESA,
+        //         DTA_DESPESA,
+        //         DTA_LANC_DESPESA,
+        //         COD_CONTA,
+        //         TPO_DESPESA,
+        //         VLR_DESPESA,
+        //         COD_CLIENTE_FINAL,
+        //         IND_DESPESA_PAGA,
+        //         DTA_PAGAMENTO,
+        //         QTD_PARCELAS,
+        //         NRO_PARCELA_ATUAL,
+        //         COD_DESPESA_IMPORTACAO)
+        //         VALUES(
+        //         $codDespesa,
+        //         '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
+        //         '$dtaDespesa',
+        //         '".$this->ConverteDataForm($dtaLancamento)."',
+        //         '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT)."',
+        //         '".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT)."',
+        //         '".$vlrDespesa."',
+        //         '".$codClienteFinal."',
+        //         '".$indDespesaPaga."',";
+        //         if ($dtaPagamento==''){
+        //             $sql .= "NULL, ";
+        //         }else{
+        //             $sql .= "'".$this->ConverteDataForm($dtaPagamento)."', ";
+        //         }
+        //         $sql .= filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT). ",
+        //         ".$nroParcelaAtual.",
+        //         ".$codDespesaImportada.")";
 //echo $sql; die;
-        $result = $this->insertDB($sql);
-        $result[2] = $codDespesa;
-        return $result;
+        // $result[2] = $codDespesa;
+        // return $result;
     }
 
     Function UpdateDespesa(stdClass $obj) {
@@ -165,22 +165,6 @@ class DespesasDao extends BaseDao
         return $this->selectDB($sql, false);
     }
 
-
-    Function ListarSomaTipoDespesas($codClienteFinal, $mes, $ano){
-        $sql = " SELECT TP.COD_TIPO_DESPESA,
-                        DSC_TIPO_DESPESA,
-                        SUM(VLR_DESPESA) AS VALOR
-                   FROM EN_DESPESA D
-                  INNER JOIN EN_TIPO_DESPESA TP
-                     ON D.TPO_DESPESA = TP.COD_TIPO_DESPESA
-                  WHERE D.COD_CLIENTE_FINAL = $codClienteFinal
-                    AND MONTH(D.DTA_DESPESA)= $mes
-                    AND YEAR(D.DTA_DESPESA)= $ano
-                  GROUP BY TP.COD_TIPO_DESPESA, DSC_TIPO_DESPESA
-                  ORDER BY VALOR";
-        return $this->selectDB($sql, false);
-    }
-
     Function PegaLimiteTipoDespesa($codClienteFinal){
         $sql = " SELECT TP.VLR_PISO,
                         TP.VLR_TETO,
@@ -199,22 +183,25 @@ class DespesasDao extends BaseDao
         return $this->selectDB($sql, false);
     }
     
-    Public Function ImportarDespesa($codDespesaNovo, $dtaAtual, $codCliente, $dtaDespesa, $codDespesa){
-        $sql = "INSERT INTO EN_DESPESA (COD_DESPESA, DSC_DESPESA, DTA_DESPESA, DTA_LANC_DESPESA, COD_CONTA, TPO_DESPESA, VLR_DESPESA, COD_CLIENTE_FINAL,
-                                        IND_DESPESA_PAGA, DTA_PAGAMENTO, COD_DESPESA_IMPORTACAO)
-                SELECT ".$codDespesaNovo.", 
+    Public Function ImportarDespesas($codDespesaRef, $dtaDespesa, $codClienteFinal){
+        $codigo = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
+        $sql = "INSERT INTO EN_DESPESA (COD_DESPESA, DSC_DESPESA, DTA_DESPESA, DTA_LANC_DESPESA, COD_CONTA, TPO_DESPESA,
+                                        VLR_DESPESA, COD_CLIENTE_FINAL, IND_DESPESA_PAGA, DTA_PAGAMENTO,
+                                        COD_DESPESA_IMPORTACAO, COD_USUARIO_DESPESA)
+                SELECT $codigo,
                        DSC_DESPESA,
-                       '".$this->ConverteDataForm($dtaDespesa)."',
-                       '".$dtaAtual."',
+                       '$dtaDespesa',
+                       NOW(),
                        COD_CONTA,
                        TPO_DESPESA,
                        VLR_DESPESA,
-                       $codCliente,
+                       $codClienteFinal,
                        'N',
                        NULL,
-                       $codDespesa
+                       $codDespesaRef,
+                       COD_USUARIO_DESPESA
                   FROM EN_DESPESA
-                 WHERE COD_DESPESA = $codDespesa";
+                 WHERE COD_DESPESA = $codDespesaRef";
         return $this->insertDB($sql);
     }
     

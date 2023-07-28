@@ -69,7 +69,7 @@ function MontaTabelaAtalhos(listaAtalhos) {
     $("#divAtalhos").html(tabela);
 }
 function CarregaGrafico(){
-    ExecutaDispatch('Despesas', 'ListarSomaTipoDespesas', undefined, MontaGrafico);
+    ExecutaDispatch('TipoDespesa', 'ListarSomaTipoDespesas', undefined, MontaGrafico);
 
     // $.post('../../Controller/Despesas/DespesasController.php',
     //     {method: 'ListarSomaTipoDespesas',

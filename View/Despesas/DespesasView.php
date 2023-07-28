@@ -14,6 +14,8 @@
         <div id="wrapper">
             <div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
+                    <input type="hidden" id="codDespesa" name="codDespesa" value="0" class="persist">
+                    <input type="hidden" id="codDespesasImportacao" />
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="my-2 text-gray-800">Movimentações</h3>
@@ -100,5 +102,5 @@
 </body>
 
 <?php include_once("CadDespesasView.php");?>
-<?php // include_once "CadImportarDespesaView.php";?>
+<?php include_once("CadImportarDespesaView.php");?>
 </html>

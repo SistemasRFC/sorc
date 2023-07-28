@@ -212,29 +212,6 @@ function MontaTabelaDespesa(listaDespesas){
     $("#dialogInformacao" ).jqxWindow("close");  
 }
 
-function ImportarDespesa(codDespesa, dtaDespesa, nroMes, nroAno){
-    $( "#dialogInformacao" ).jqxWindow('setContent', "Aguarde, Removendo a despesa!");
-    $( "#dialogInformacao" ).jqxWindow("open"); 
-    $.post('../../Controller/Despesas/DespesasController.php',
-        {method:'ImportarDespesa',
-         codDespesa: codDespesa,
-         dtaDespesa: dtaDespesa,
-         nroMesReferencia: nroMes,
-         nroAnoReferencia: nroAno,
-         qtdParcelas: 0,
-         nroParcelaAtual:0}, function(data){
-            data = eval('('+data+')');
-            if(data[0]){
-                $( "#dialogInformacao" ).jqxWindow('setContent', 'Despesa importada com sucesso!'); 
-                setTimeout(function(){
-                    $( "#dialogInformacao" ).jqxWindow("close");
-                },"2000");                
-            }else{
-                $( "#dialogInformacao" ).jqxWindow('setContent', 'Erro ao importada despesa! '+data[1]);                
-            }
-         }
-    );
-}
 function AtualizaValores(soma){
     soma = String(soma);
     soma = soma.replace(',','');
