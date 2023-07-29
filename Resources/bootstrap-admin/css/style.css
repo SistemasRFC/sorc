@@ -207,6 +207,9 @@ content {
 
 navegacao-component {
     grid-area: nav;
+    position: fixed;
+    height: inherit;
+    top: 72px;
 }
 header-component {
     grid-area: head;

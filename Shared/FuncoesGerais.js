@@ -328,16 +328,38 @@ function LimparCampos() {
     });
 }
 
-function MontaDataTable(idCampo, isFilter, orderColum = 0) {
-    $('#' + idCampo).DataTable({
-        "searching": isFilter,
-        "pagingType": "simple_numbers",
-        "lengthChange": false,
-        "language": {
-            "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
-        },
-        "order": [[orderColum, 'asc']]
-    });
+function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura='50vh') {
+    if(scroll) {
+        $('#' + idCampo).DataTable({
+            "searching": isFilter,
+            "pagingType": "simple_numbers",
+            "lengthChange": false,
+            "scrollCollapse": true,
+            "scrollY": altura,
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+            },
+            "order": [[orderColum, 'asc']],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, 'All']
+            ]
+        });
+    } else {
+        $('#' + idCampo).DataTable({
+            "searching": isFilter,
+            "pagingType": "simple_numbers",
+            "lengthChange": false,
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+            },
+            "order": [[orderColum, 'asc']],
+            "lengthMenu": [
+                [15, 25, 50, -1],
+                [15, 25, 50, 'All']
+            ]
+        });
+    }
 }
 
 function number_format(number, decimals, dec_point, thousands_sep) {

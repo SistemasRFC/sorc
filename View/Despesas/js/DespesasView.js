@@ -96,7 +96,7 @@ function MontaGridDespesa(listaDespesa) {
     tabela += "</table>";
     $("#listaDespesas").html(tabela);
 
-    MontaDataTable('tableDespesas', false, 1);
+    MontaDataTable('tableDespesas', false, 1, true, '37vh');
 
 }
 
