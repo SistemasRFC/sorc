@@ -363,22 +363,22 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     return s.join(dec);
 }
 
-function CriarGraficoBarras(nmeCampo, dados) {
-
+function CriarGraficoBarras(nmeCampo, dados, arrLabels) {
     var campo = document.getElementById("" + nmeCampo + "");
     var valores = [];
     for (var i in dados) {
-        valores.push(dados[i].QTD_TOTAL_PONTOS);
+        valores.push(dados[i].VALOR);
     }
 
     new Chart(campo, {
         type: 'bar',
         data: {
-            labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+            labels: arrLabels,
+            // labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
             datasets: [{
-                label: "Pontuação: ",
-                backgroundColor: "#1cc88a",
-                hoverBackgroundColor: "#17a673",
+                label: "Total: ",
+                backgroundColor: "#191970",
+                hoverBackgroundColor: "#0000CD",
                 borderColor: "#eaecf4",
                 data: valores,
             }],
@@ -395,9 +395,9 @@ function CriarGraficoBarras(nmeCampo, dados) {
             },
             scales: {
                 xAxes: [{
-                    time: {
-                        unit: 'month'
-                    },
+                    // time: {
+                    //     unit: 'month'
+                    // },
                     gridLines: {
                         display: false,
                         drawBorder: false
@@ -405,22 +405,22 @@ function CriarGraficoBarras(nmeCampo, dados) {
                     ticks: {
                         maxTicksLimit: 6
                     },
-                    maxBarThickness: 25,
+                    maxBarThickness: 50,
                 }],
                 yAxes: [{
                     ticks: {
                         min: 0,
-                        max: 1000,
+                        max: 5000,
                         maxTicksLimit: 10,
                         padding: 5,
                         // Include a dollar sign in the ticks
                         callback: function (value, index, values) {
-                            return number_format(value) + ' Pontos';
+                            return 'R$ ' + number_format(value, 2, ',', '.');
                         }
                     },
                     gridLines: {
-                        color: "rgb(234, 236, 244)",
-                        zeroLineColor: "rgb(234, 236, 244)",
+                        color: "rgb(200, 200, 200)",
+                        zeroLineColor: "rgb(150, 150, 150)",
                         drawBorder: false,
                         borderDash: [2],
                         zeroLineBorderDash: [2]
@@ -445,7 +445,7 @@ function CriarGraficoBarras(nmeCampo, dados) {
                 callbacks: {
                     label: function (tooltipItem, chart) {
                         var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                        return datasetLabel + number_format(tooltipItem.yLabel, 1, ',', '.') + ' Pontos';
+                        return datasetLabel + 'R$ ' + number_format(tooltipItem.yLabel, 2, ',', '.');
                     }
                 }
             },

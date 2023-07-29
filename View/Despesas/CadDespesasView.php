@@ -1,6 +1,6 @@
 <script src="js/CadDespesasView.js?<?php echo time();?>"></script>
 <div class="modal fade bd-example-modal-lg" id="cadastroDespesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog modal-lg" role="document" style="min-width: 900px;">
 		<div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="cadastroDespesaTitle"></h5>
@@ -9,22 +9,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- <form name="CadastroForm" method="post"> -->
-                    <!-- <input type="hidden" id="method" name="method"> -->
                 <div class="row mb-2">
                     <div class="col-8">
                         <label for="dscDespesa" class="mb-0">Descrição</label>
                         <input type="text" id="dscDespesa" name="dscDespesa" class='persist input form-control'>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-4">
-                        <label for="dtaLancDespesa" class="mb-0">Data Lançamento</label>
-                        <input type="date" id="dtaLancDespesa" name="dtaLancDespesa" class='persist input form-control'>
-                    </div>
-                    <div class="col-4">
-                        <label for="dtaDespesa" class="mb-0">Data Vencimento</label>
-                        <input type="date" id="dtaDespesa" name="dtaDespesa" class='persist input form-control'>
                     </div>
                     <div class="col-4">
                         <label class="mb-0">Tipo de Despesa</label>
@@ -43,6 +31,12 @@
                     <div class="col-3">
                         <label for="nroParcelaAtual" class="mb-0">Nro. Parcela Atual</label>
                         <input type="text" id="nroParcelaAtual" name="nroParcelaAtual" class='persist input form-control'>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <label for="dtaDespesa" class="mb-0">Data Vencimento</label>
+                        <input type="date" id="dtaDespesa" name="dtaDespesa" class='persist input form-control'>
                     </div>
                 </div>
                 <div class="row mb-2">

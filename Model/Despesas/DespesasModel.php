@@ -14,10 +14,7 @@ class DespesaModel extends BaseModel
         $nroParcelaAtual = $this->objRequest->nroParcelaAtual;        
         $dta = explode('-', $this->objRequest->dtaDespesa);
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
-        // $dtaLancamento = filter_input(INPUT_POST, 'dtaLancDespesa', FILTER_SANITIZE_STRING);
-        // $indDespesaPaga = filter_input(INPUT_POST, 'indDespesaPaga', FILTER_SANITIZE_STRING);
-        // $dtaPagamento = filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING);
-        // echo isset($this->objRequest->dtaPagamento); die;
+        $this->objRequest->dtaLancDespesa = date('Y-m-d');
         if (isset($this->objRequest->dtaPagamento)==1) {
             unset($this->objRequest->dtaPagamento);
         }
@@ -62,49 +59,35 @@ class DespesaModel extends BaseModel
     Function ListarDespesas(){
         $dao = new DespesasDao();
         $codCliente = $_SESSION['cod_cliente_final'];
-        // if ($_SESSION['cod_perfil']==3) {
-        //     $codCliente = filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT);
-        // }
         $lista = $dao->ListarDespesas($codCliente);
         if($lista[0] && $lista[1] != null) {
             $lista = FuncoesData::AtualizaDataInArrayCamposNovos($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO', 'DTA_DESPESA_FORMATADO|DTA_LANC_DESPESA_FORMATADO|DTA_PAGAMENTO_FORMATADO');
             $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
             $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_DESPESA_PAGA', 'PAGO');
-            // $total = count($lista[1]);
-            // for($i=0;$i<$total;$i++) {
-            //     $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
-            // }
         }
         return json_encode($lista);
     }
     
-    Function ListarDespesasGrid(){
-        $dao = new DespesasDao();
-        $lista = $dao->ListarDespesas($_SESSION['cod_cliente_final']);
-        $lista = FuncoesData::AtualizaDataInArrayCamposNovos($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO', 'DTA_DESPESA_FORMATADO|DTA_LANC_DESPESA_FORMATADO|DTA_PAGAMENTO_FORMATADO');
-        $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
-        $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_DESPESA_PAGA', 'PAGO');
+    // Function ListarDespesasGrid(){
+    //     $dao = new DespesasDao();
+    //     $lista = $dao->ListarDespesas($_SESSION['cod_cliente_final']);
+    //     $lista = FuncoesData::AtualizaDataInArrayCamposNovos($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO', 'DTA_DESPESA_FORMATADO|DTA_LANC_DESPESA_FORMATADO|DTA_PAGAMENTO_FORMATADO');
+    //     $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
+    //     $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_DESPESA_PAGA', 'PAGO');
         
-        for($i=0;$i<count($lista[1]);$i++) {
-            $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
-            // $lista[1][$i]['DTA_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_DESPESA']);
-            // $lista[1][$i]['DTA_LANC_DESPESA'] = $this->ConverteDataBanco($lista[1][$i]['DTA_LANC_DESPESA']);
-            // $lista[1][$i]['DTA_PAGAMENTO'] = $this->ConverteDataBanco($lista[1][$i]['DTA_PAGAMENTO']);
-            // $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'],2,'.','');
-        }        
-        return json_encode($lista[1]);
-    }
+    //     for($i=0;$i<count($lista[1]);$i++) {
+    //         $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
+    //     }        
+    //     return json_encode($lista[1]);
+    // }
 
     function ImportarDespesas(){
         $dao = new DespesasDao();
-        // $strDtaDespesa = filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING);  
         $codigos = filter_input(INPUT_POST, 'codDespesas', FILTER_SANITIZE_STRING); 
         $nroAno = filter_input(INPUT_POST, 'anosRef', FILTER_SANITIZE_STRING); 
         $nroMes = filter_input(INPUT_POST, 'mesRef', FILTER_SANITIZE_STRING); 
-        
         $arrCodigos = explode("d", $codigos);
-        // $arrDtaDespesa = explode(";", $strDtaDespesa);
-        // $dtaAtual = $dao->GetDataAtual();
+
         for($i=0; $i < count($arrCodigos); $i++) {
             $dtaDespesa = $nroAno.'-'.$nroMes.'-01';
             $despesaRef = $dao->GetDespesaById($arrCodigos[$i]);
@@ -114,10 +97,9 @@ class DespesaModel extends BaseModel
                 $dtaDespesa = $nroAno.'-'.$nroMes.'-'.$data[2];
             }
             $codigoRef = $arrCodigos[$i];
-            // $dtaDespesa = $data[0].'/'.$nroMes.'/'.$nroAno;
             $lista = $dao->ImportarDespesas($codigoRef, $dtaDespesa, $_SESSION['cod_cliente_final']);
-            // $ultimoCodigo++;
         }
+
         return json_encode($lista);
     }
 

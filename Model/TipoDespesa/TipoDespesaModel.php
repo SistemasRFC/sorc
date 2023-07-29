@@ -56,8 +56,8 @@ class TipoDespesaModel extends BaseModel
     
     Function ListarSomaTipoDespesas(){
         $dao = new TiposDespesaDao();
-        $mes = filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_STRING);
-        $ano = filter_input(INPUT_POST, 'nroAnoReferencia', FILTER_SANITIZE_STRING);
+        $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_STRING);
+        $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_STRING);
         if ($mes==''){
             $mes=date('m');
         }
@@ -65,9 +65,16 @@ class TipoDespesaModel extends BaseModel
             $ano=date('Y');
         }        
         $lista = $dao->ListarSomaTipoDespesas($_SESSION['cod_cliente_final'], $mes, $ano);
-        for($i=0;$i<count($lista[1]);$i++) {
-            $lista[1][$i]['VALOR'] = number_format($lista[1][$i]['VALOR'],2,'.','');
+        $arrTipos = [];
+        $count = count($lista[1]);
+        if($lista[0] && $count > 0) {
+            for($i=0;$i<$count;$i++) {
+                array_push($arrTipos, $lista[1][$i]['DSC_TIPO_DESPESA']);
+                $lista[1][$i]['VALOR'] = number_format($lista[1][$i]['VALOR'],2,'.','');
+            }
         }
+        $lista[2] = $arrTipos;
+
         return json_encode($lista);
     }
 }

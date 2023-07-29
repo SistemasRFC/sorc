@@ -103,4 +103,5 @@
 
 <?php include_once("CadDespesasView.php");?>
 <?php include_once("CadImportarDespesaView.php");?>
+<?php include_once("ModalGraficoView.php");?>
 </html>

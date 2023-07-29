@@ -7,8 +7,6 @@ $(function() {
         $("#divDtaPagamento").hide();
         $("#cadastroDespesaTitle").html('Nova Despesa');
         $("#cadastroDespesa").modal('show');
-
-        // CadDespesa('AddDespesa', '0', '', '', '-1', '', '', '-1', '', '', 'N', '');
     });
     
     var checkBoxes = '';
@@ -21,51 +19,18 @@ $(function() {
     });
     
     $( "#btnGrafico" ).click(() => {
-        CarregaGrafico(); 
+        carregaGrafico();
     });
 
     $("#btnImportar").click(() => {
         $("#importarDespesa").modal('show');
     });
-
-    // $( "#btnPesquisa" ).click(function( event ) {
-    //     CarregaGridDespesa();
-    // });   
- 
-    // contextMenu = $("#jqxMenu").jqxMenu({ width: '120px', autoOpenPopup: false, mode: 'popup', theme: theme });;
-    // $("#jqxMenu").on('itemclick', function (event) {
-    //     var args = event.args;
-    //     var rowindex = $('#'+nomeGrid).jqxGrid('getselectedrowindex');
-    //     if ($.trim($(args).text()) == "Importar") {
-    //         $( "#ImportarDespesaForm" ).jqxWindow( "open" );
-    //     }else if($.trim($(args).text()) == "Editar"){
-    //         CadDespesa('UpdateDespesa',
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).COD_DESPESA,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DSC_DESPESA,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).VLR_DESPESA,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).TPO_DESPESA,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).QTD_PARCELAS,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).NRO_PARCELA_ATUAL,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).COD_CONTA,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_DESPESA,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_LANC_DESPESA,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).IND_PAGO,
-    //                    $('#'+nomeGrid).jqxGrid('getrowdatabyid', rowindex).DTA_PAGAMENTO);
-    //     }else if($.trim($(args).text()) == "Excluir"){
-    //         deletarDespesa($("#codDespesa").val());
-    //     }else if($.trim($(args).text()) == "Quitar Parcelas"){
-    //         quitarParcelas($("#codDespesa").val());
-    //     }else if($.trim($(args).text()) == "Pagar por conta"){
-    //         pagarPorConta($("#codDespesa").val());
-    //     }
-    // });
-
-    // $("#btnExportar").click(function(){
-    //     $("#ListagemForm").jqxGrid('exportdata', 'xls', 'jqxGrid');
-    // });
 });
+
 function CarregaGridDespesa() {
     $("#cadastroDespesa").modal("hide");
+    $("#importarDespesa").modal("hide");
+    $("#vlrSelecionado").html('R$ 0,00');
     var params = 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val();
     params += '|tpoDespesaFiltro<=>'+$("#tpoDespesaFiltro").val()+'|statusFiltro<=>'+$("#statusFiltro").val();
     params += '|contaFiltro<=>'+$("#contaFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val();
@@ -87,7 +52,6 @@ function MontaGridDespesa(listaDespesa) {
     tabela += "         </th>";
     tabela += "         <th>Descrição</th>";
     tabela += "         <th>Vencimento</th>";
-    tabela += "         <th>Lançamento</th>";
     tabela += "         <th>Valor</th>";
     tabela += "         <th>Parcela</th>";
     tabela += "         <th>Tipo</th>";
@@ -111,7 +75,6 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "     </td>";
             tabela += "     <td>" + (objeto[i].DSC_DESPESA != null ? objeto[i].DSC_DESPESA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].DTA_DESPESA != null ? objeto[i].DTA_DESPESA_FORMATADO : '') + "</td>";
-            tabela += "     <td>" + (objeto[i].DTA_LANC_DESPESA != null ? objeto[i].DTA_LANC_DESPESA_FORMATADO : '') + "</td>";
             tabela += "     <td align='end'>" + (objeto[i].VLR_DESPESA != null ? objeto[i].VLR_DESPESA : '') + "</td>";
             tabela += "     <td align='center'>" + parcela + "</td>";
             tabela += "     <td>" + (objeto[i].DSC_TIPO_DESPESA != null ? objeto[i].DSC_TIPO_DESPESA : '') + "</td>";
@@ -122,7 +85,7 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "         <div class='btn-group'>";
             tabela += "             <button class='btn btn-outline-primary px-2' title='Editar' onclick='javascript:chamaCadastroDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-pen'></i></button>";
             tabela += "             <button class='btn btn-outline-secondary px-2' title='Quitar parcelas' onclick='javascript:quitarParcelas(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-circle-dollar-to-slot'></i></button>";
-            tabela += "             <button class='btn btn-outline-success px-2' title='Pagar por conta' onclick='javascript:pagarPorConta(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-dollar-sign'></i></button>";
+            // tabela += "             <button class='btn btn-outline-success px-2' title='Pagar por conta' onclick='javascript:pagarPorConta(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-dollar-sign'></i></button>";
             tabela += "             <button class='btn btn-outline-danger px-2' title='Excluir' onclick='javascript:deletarDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-trash'></i></button>";
             tabela += "         </div>";
             tabela += "     </td>";
@@ -246,7 +209,6 @@ function montaComboResponsavelFiltro(arr) {
         CarregaGridDespesa();
     });
 }
-
 
 $(document).ready(function() {
     $("#btnImportar").attr('disabled', true);

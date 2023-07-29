@@ -64,10 +64,10 @@ class DespesasController extends BaseController {
         echo $model->ListarDespesas();
     }
 
-    Function ListarDespesasGrid(){
-        $model = new DespesaModel();
-        echo $model->ListarDespesasGrid();
-    }
+    // Function ListarDespesasGrid(){
+    //     $model = new DespesaModel();
+    //     echo $model->ListarDespesasGrid();
+    // }
     
     Function ImportarDespesas(){
         $model = new DespesaModel();
