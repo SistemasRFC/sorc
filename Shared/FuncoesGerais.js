@@ -337,12 +337,14 @@ function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura=
             "scrollCollapse": true,
             "scrollY": altura,
             "language": {
-                "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+                "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+                decimal: ',',
+                thousands: '.'
             },
             "order": [[orderColum, 'asc']],
             "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, 'All']
+                [100, 25, 50, -1],
+                [100, 25, 50, 'All']
             ]
         });
     } else {
