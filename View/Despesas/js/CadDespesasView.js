@@ -1,31 +1,4 @@
 $(function() {
-    // $( "#dtaDespesa" ).datepicker({
-    //     dateFormat: 'dd/mm/yy',
-    //     dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-    //     dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-    //     dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-    //     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-    //     monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-    //     nextText: 'Próximo',
-    //     prevText: 'Anterior'});
-    // $( "#dtaPagamento" ).datepicker({
-    //     dateFormat: 'dd/mm/yy',
-    //     dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-    //     dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-    //     dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-    //     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-    //     monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-    //     nextText: 'Próximo',
-    //     prevText: 'Anterior'});
-    // $( "#dtaLancDespesa" ).datepicker({
-    //     dateFormat: 'dd/mm/yy',
-    //     dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-    //     dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-    //     dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-    //     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-    //     monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-    //     nextText: 'Próximo',
-    //     prevText: 'Anterior'});
     $( "#btnDeletar" ).click(() => {
         deletarDespesa($("#codDespesa").val()); 
     });
@@ -48,37 +21,7 @@ $(function() {
             return;
         }
 
-        ExecutaDispatch('Despesas', method, undefined, CarregaGridDespesa, 'Aguarde! Salvando despesa.', 'Despesa salva com sucesso!')
-//         $( "#dialogInformacao" ).jqxWindow('setContent', "Aguarde, salvando!");
-//         $( "#dialogInformacao" ).jqxWindow("open");   
-
-//         $.post('../../Controller/Despesas/DespesasController.php',
-//             {method: $("#method").val(),
-//             codDespesa: $("#codDespesa").val(),
-//             dscDespesa: $("#dscDespesa").val(),
-//             dtaDespesa: $("#dtaDespesa").val(),
-//             dtaLancDespesa: $("#dtaLancDespesa").val(),
-//             dtaPagamento: $("#dtaPagamento").val(),
-//             vlrDespesa: $("#vlrDespesa").val(),
-//             codConta: $("#comboCodConta").val(),
-//             codTipoDespesa: $("#comboCodTipoDespesa").val(),
-//             indDespesaPaga: check,
-//             qtdParcelas: $("#qtdParcelas").val(),
-//             nroParcelaAtual: $("#nroParcelaAtual").val()
-//         }, function(data){
-//             data = eval('('+data+')');
-//             if (data[0]){
-//                 CarregaGridDespesa();
-//                 $( "#dialogInformacao" ).jqxWindow('setContent', 'Despesa salva com sucesso!');
-//                 $( "#CadastroForm" ).jqxWindow( "close" );
-//                 setTimeout(function(){
-//                     $( "#dialogInformacao" ).jqxWindow("close");
-// //                    CarregaGridTurma();
-//                 },"2000");                
-//             }else{
-//                 $( "#dialogInformacao" ).jqxWindow('setContent', 'Erro ao salvar despesa!');                
-//             }
-//         });
+        ExecutaDispatch('Despesas', method, undefined, CarregaGridDespesa, 'Aguarde! Salvando despesa.', 'Despesa salva com sucesso!');
     });
     
     $("#indDespesaPaga").change(function(){

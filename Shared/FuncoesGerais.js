@@ -309,7 +309,7 @@ function PreencheCamposForm(arrCampos, valorPadrao) {
 
 function LimparCampos() {
     $(".persist").each(function (index) {
-        switch ($(this).attr('type')) {
+        switch ($(this).prop('type')) {
             case 'radio':
             case 'checkbox':
                 $(this).prop("checked", false);
@@ -321,6 +321,9 @@ function LimparCampos() {
             case 'hidden':
                 $(this).val('');
                 break;
+            case 'select-one':
+                $(this).val('-1');
+                break;
             default:
                 $(this).val('0');
                 break;
@@ -328,24 +331,20 @@ function LimparCampos() {
     });
 }
 
-function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura='50vh') {
+function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura=50) {
     if(scroll) {
         $('#' + idCampo).DataTable({
             "searching": isFilter,
-            "pagingType": "simple_numbers",
+            "paging": false,
             "lengthChange": false,
             "scrollCollapse": true,
-            "scrollY": altura,
+            "scrollY": altura+'vh',
             "language": {
                 "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
-                decimal: ',',
-                thousands: '.'
+                "decimal": ',',
+                "thousands": '.'
             },
-            "order": [[orderColum, 'asc']],
-            "lengthMenu": [
-                [100, 25, 50, -1],
-                [100, 25, 50, 'All']
-            ]
+            "order": [[orderColum, 'asc']]
         });
     } else {
         $('#' + idCampo).DataTable({
@@ -353,12 +352,14 @@ function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura=
             "pagingType": "simple_numbers",
             "lengthChange": false,
             "language": {
-                "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+                "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+                "decimal": ',',
+                "thousands": '.'
             },
             "order": [[orderColum, 'asc']],
             "lengthMenu": [
-                [15, 25, 50, -1],
-                [15, 25, 50, 'All']
+                [10, 25, 50, -1],
+                [10, 25, 50, 'All']
             ]
         });
     }

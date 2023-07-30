@@ -9,24 +9,24 @@ class ReceitasController extends BaseController {
         echo ($this->gen_redirect_and_form(BaseController::ReturnView(BaseController::getPath(), get_class($this)), $params));
     }
 
-    Function ChamaView_old(){
-        $listaMeses = $this->ListarMeses();
-        $listaAnos = $this->ListarAnos();
-        $contasBancariasModel = new ContasBancariasModel();
-        $listaContasBancarias = $contasBancariasModel->ListarContasBancariasAtivas(false);
-        $params = array('ListaContasBancarias' => urlencode(serialize($listaContasBancarias)),
-                        'ListaMeses' => urlencode(serialize($listaMeses)),
-                        'ListaAnos' => urlencode(serialize($listaAnos)),
-                        'codTipoReceitas' => urlencode(serialize(0)),
-                        'nroMesReferencia' => urlencode(serialize(date("m"))),
-                        'nroAnoReferencia' => urlencode(serialize(date("Y"))));
-        $view = $this->getPath()."/View/Receitas/".str_replace("Controller", "View", get_class($this)).".php";
-        echo ($this->gen_redirect_and_form($view, $params));
-    }
+//     Function ChamaView_old(){
+//         $listaMeses = $this->ListarMeses();
+//         $listaAnos = $this->ListarAnos();
+//         $contasBancariasModel = new ContasBancariasModel();
+//         $listaContasBancarias = $contasBancariasModel->ListarContasBancariasAtivas(false);
+//         $params = array('ListaContasBancarias' => urlencode(serialize($listaContasBancarias)),
+//                         'ListaMeses' => urlencode(serialize($listaMeses)),
+//                         'ListaAnos' => urlencode(serialize($listaAnos)),
+//                         'codTipoReceitas' => urlencode(serialize(0)),
+//                         'nroMesReferencia' => urlencode(serialize(date("m"))),
+//                         'nroAnoReferencia' => urlencode(serialize(date("Y"))));
+//         $view = $this->getPath()."/View/Receitas/".str_replace("Controller", "View", get_class($this)).".php";
+//         echo ($this->gen_redirect_and_form($view, $params));
+//     }
     
-    Function ImportarReceita(){
+    Function ImportarReceitas(){
         $model = new ReceitasModel();
-        echo $model->ImportarReceita();
+        echo $model->ImportarReceitas();
     }
 
     Function AddReceita(){
@@ -50,44 +50,15 @@ class ReceitasController extends BaseController {
         flush();
     }
 
-    Function ListarMeses(){
-        $meses = array(array('NRO_MES_REFERENCIA' => '01',
-                             'DSC_MES_REFERENCIA' => 'Janeiro'),
-                       array('NRO_MES_REFERENCIA' => '02',
-                             'DSC_MES_REFERENCIA' => 'Fevereiro'),
-                       array('NRO_MES_REFERENCIA' => '03',
-                             'DSC_MES_REFERENCIA' => 'Março'),
-                       array('NRO_MES_REFERENCIA' => '04',
-                             'DSC_MES_REFERENCIA' => 'Abril'),
-                       array('NRO_MES_REFERENCIA' => '05',
-                             'DSC_MES_REFERENCIA' => 'Maio'),
-                       array('NRO_MES_REFERENCIA' => '06',
-                             'DSC_MES_REFERENCIA' => 'Junho'),
-                       array('NRO_MES_REFERENCIA' => '07',
-                             'DSC_MES_REFERENCIA' => 'Julho'),
-                       array('NRO_MES_REFERENCIA' => '08',
-                             'DSC_MES_REFERENCIA' => 'Agosto'),
-                       array('NRO_MES_REFERENCIA' => '09',
-                             'DSC_MES_REFERENCIA' => 'Setembro'),
-                       array('NRO_MES_REFERENCIA' => '10',
-                             'DSC_MES_REFERENCIA' => 'Outubro'),
-                       array('NRO_MES_REFERENCIA' => '11',
-                             'DSC_MES_REFERENCIA' => 'Novembro'),
-                       array('NRO_MES_REFERENCIA' => '12',
-                             'DSC_MES_REFERENCIA' => 'Dezembro'));
-        return $meses;
-    }
+    function ListarAnosFiltro() {
+		$model = new ReceitasModel();
+		echo $model->ListarAnosFiltro();
+	}
 
-    Function ListarAnos(){
-        $nroAno = date("Y");
-        $anos = array();
-        $j=0;
-        for($i=2012;$i<=$nroAno;$i++){
-            $anos[$j] = array('NRO_ANO_REFERENCIA' => $i);
-            $j++;
-        }
-        return $anos;
-    }
+	function ListarMesesFiltro() {
+		$model = new ReceitasModel();
+		echo $model->ListarMesesFiltro();
+	}
 }
 $ReceitasController = new ReceitasController();
 ?>

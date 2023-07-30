@@ -5,7 +5,7 @@ $(function() {
 });
 
 function ImportarDespesas() {
-    var params = 'codDespesas<=>'+$("#codDespesasImportacao").val()+'|anosRef<=>'+$("#anoRefImportacao").val()+'|mesRef<=>'+$("#mesRefImportacao").val();
+    var params = 'codDespesas<=>'+$("#codDespesasImportacao").val()+'|anoRef<=>'+$("#anoRefImportacao").val()+'|mesRef<=>'+$("#mesRefImportacao").val();
     ExecutaDispatch('Despesas', 'ImportarDespesas', params, CarregaGridDespesa, 'Aguarde, importando despesa(s).', 'Despesa(s) importada(s) com sucesso!');
 }
 

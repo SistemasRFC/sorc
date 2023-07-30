@@ -22,7 +22,7 @@ class DespesasDao extends BaseDao
 
   	protected $columnKey = array("codDespesa" => array("column" => "COD_DESPESA", "typeColumn" => "I"));
 
-    Function AddDespesa(stdClass $obj){
+    function AddDespesa(stdClass $obj){
         // $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
         $obj->codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
         return $this->MontarInsert($obj);

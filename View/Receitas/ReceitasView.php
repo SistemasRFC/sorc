@@ -1,113 +1,84 @@
-<?php include_once "../../View/MenuPrincipal/Cabecalho.php";?>
 <html>
-    <head>
-        <title>Controle de Receitas</title>
-    <meta http-equiv="Content-Type" content="text/HTML; charset=utf-8">
-    <script language="JavaScript" src="js/Funcoes.js"></script>
-    <script language="JavaScript" src="js/ReceitasView.js?rdm=<?php echo time();?>"></script>
-    </head>
-    <body> 
-        <table width="100%">
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td>Ano</td>
-                        <td>
-                            <div id="comboNroAnoReferencia"></div>
-                            <select name="nroAnoReferencia" id="nroAnoReferencia" style="display:none">
-                            <?$result_receitas = unserialize(urldecode($_POST['ListaAnos']));
-                            $nroAnoReferencia = unserialize(urldecode($_POST['nroAnoReferencia']));
-                            for($i=0;$i<count($result_receitas);$i++){
-                                if ($nroAnoReferencia==$result_receitas[$i]['NRO_ANO_REFERENCIA']){
-                                    echo "<option value=\"".$result_receitas[$i]['NRO_ANO_REFERENCIA']."\" selected=\"selected\">".$result_receitas[$i]['NRO_ANO_REFERENCIA']."</option>";
-                                }else{
-                                    echo "<option value=\"".$result_receitas[$i]['NRO_ANO_REFERENCIA']."\">".$result_receitas[$i]['NRO_ANO_REFERENCIA']."</option>";
-                                }
-                            }
-                            ?>
-                            </select>
-                        </td>
-                        <td>Mês</td>
-                        <td>
-                            <div id="comboNroMesReferencia"></div>
-                            <select name="nroMesReferencia" id="nroMesReferencia" style="display:none">
-                            <?$result_receitas = unserialize(urldecode($_POST['ListaMeses']));
-                            $nroMesReferencia = unserialize(urldecode($_POST['nroMesReferencia']));
-                            for($i=0;$i<count($result_receitas);$i++){
-                                if ($nroMesReferencia==$result_receitas[$i]['NRO_MES_REFERENCIA']){
-                                    echo "<option value=\"".$result_receitas[$i]['NRO_MES_REFERENCIA']."\" selected=\"selected\">".$result_receitas[$i]['DSC_MES_REFERENCIA']."</option>";
-                                }else{
-                                    echo "<option value=\"".$result_receitas[$i]['NRO_MES_REFERENCIA']."\">".$result_receitas[$i]['DSC_MES_REFERENCIA']."</option>";
-                                }
-                            }
-                            ?>
-                            </select>
-                        </td>
+<head>
+    <title>SORC - Receitas</title>
+    <?php include_once('../../Shared/Imports.php'); ?>
 
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td>
-                            <input type="button" id="btnPesquisa" value="Pesquisar">
-                        </td>
-                        <td>
-                            <input type="button" id="btnNovo" value="Nova Receita">
-                        </td>                       
-                        <td>
-                            <input type="button" id="btnExcel" value="Gerar Excel">
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td>Valor Total</td>
-                        <td>Valor Selecionado</td>
-                    </tr>
-                    <tr>
-                        <td id="vlrTotal">0</td>
-                        <td id="vlrSelecionado">0</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td id="tdGrid">
-                <div id="ListagemForm">
-                </div>   
-            </td>
-        </tr>
-        <tr>
-            <td id="tdMenu">
-                <div id='jqxMenu'>
-                    <ul>
-                        <li><a href="#">Importar</a></li>
-                        <li><a href="#">Editar</a></li>
-                        <li><a href="#">Excluir</a></li>
-                    </ul>
-                </div>  
-            </td>
-        </tr>
-        </table>        
-      <div id="CadastroForm">
-            <div id="windowHeader">
-            </div>
-            <div style="overflow: hidden;" id="windowContent">
-                <? include_once "CadReceitasView.php";?>
-            </div>            
-      </div> 
-      <div id="GraficoForm">
-            <div id="windowHeader">
-            </div>
-            <div style="overflow: hidden;" id="windowContent">        
-                <div id="divResumo" style="display:block;border: 0px solid #a4bed4;overflow:scroll;width:100%;height:500px;">
-                    <div id='host' style="margin: 0 auto; width: 599px; height: 400px;">
-                         <div id='jqxChart' style="width: 500px; height: 400px; position: relative; left: 0px; top: 0px;">
-                         </div>
-                     </div>
+    <script src="js/ReceitasView.js?rdm=<?php echo time(); ?>"></script>
+</head>
+
+<body id="page-top">
+    <content>
+        <navegacao-component></navegacao-component>
+        <header-component></header-component>
+
+        <div id="wrapper">
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <input type="hidden" id="codReceita" name="codReceita" value="0" class="persist">
+                    <input type="hidden" id="codReceitasImportacao" />
+                    <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 mx-0 px-0">
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-2 pr-0">
+                                            <label class="mb-0">Ano: </label>
+                                            <div id="tdanoFiltro"></div>
+                                        </div>
+                                        <div class="col-2 pr-0">
+                                            <label class="mb-0">Mês: </label>
+                                            <div id="tdmesFiltro"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><div class="row">
+                            <div class="col-xl-12 col-md-12 mx-0 px-0">
+                                <div class="card mt-2">
+                                    <div class="card-header d-flex flex-row align-items-center justify-content-between">
+                                        <h5 class="m-0 text-white">RECEITAS</h5>
+                                        <div>
+                                            <div class="text-white"><b>Valor Total: </b><br><span id='vlrTotal'>R$ 0,00</span></div>
+                                        </div> 
+                                        <div>
+                                            <div class="text-white"><b>Valor Selecionado: </b><br><span id='vlrSelecionado'>R$ 0,00</span></div>
+                                        </div> 
+                                        <div>
+                                            <button id="btnImportar" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#importarReceita">
+                                                <i class="fas fa-file-export text-white"></i>
+                                                Importar 
+                                            </button>
+                                            <button id="btnExcel" class="btn btn-outline-secondary text-white border-white">
+                                                <i class="fas fa-chart-column text-white"></i>
+                                                Gerar Excel
+                                            </button>
+                                            <button id="btnNovo" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#cadastroReceita">
+                                                <i class="fas fa-plus text-white"></i>
+                                                Nova Receita
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="listaReceitas"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>            
-      </div>                 
-    </body>
+            </div>
+        </div>
+
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </content>
+</body>
+
+<?php include_once("CadReceitasView.php");?>
+<?php include_once("CadImportarReceitaView.php");?>
+
 </html>

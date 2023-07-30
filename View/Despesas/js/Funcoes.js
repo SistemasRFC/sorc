@@ -19,7 +19,7 @@ var nomeGrid = 'ListagemForm';
 // }
 
 function deletarDespesa(codDespesa){   
-    ExecutaDispatch('Despesas', 'QuitarParcelas', 'codDespesa<=>'+codDespesa, CarregaGridDespesa, 'Aguarde, excluindo despesa.', 'Despesa excluida com sucesso!');
+    ExecutaDispatch('Despesas', 'DeletarDespesa', 'codDespesa<=>'+codDespesa, CarregaGridDespesa, 'Aguarde, excluindo despesa.', 'Despesa excluida com sucesso!');
 }
 
 function quitarParcelas(codDespesa) {

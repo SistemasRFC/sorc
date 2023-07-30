@@ -5,47 +5,47 @@ class ReceitasDao extends BaseDao
     protected $tableName = "EN_RECEITA";
 
     protected $columns = array(
-      "dscReceita"           => array("column" => "DSC_RECEITA", "typeColumn"       => "S"),
-      "dtaReceita"           => array("column" => "DTA_RECEITA", "typeColumn"       => "D"),
-      "codConta"             => array("column" => "COD_CONTA", "typeColumn"         => "I"),
-      "vlrReceita"           => array("column" => "VLR_RECEITA", "typeColumn"       => "F"),
-      "cod_cliente_final"    => array("column" => "COD_CLIENTE_FINAL", "typeColumn" => "I")
+        "dtaReceita"            => array("column" => "DTA_RECEITA",             "typeColumn" => "D"),
+        "vlrReceita"            => array("column" => "VLR_RECEITA",             "typeColumn" => "F"),
+        "codConta"              => array("column" => "COD_CONTA",               "typeColumn" => "I"),
+        "dscReceita"            => array("column" => "DSC_RECEITA",             "typeColumn" => "S"),
+        "codClienteFinal"       => array("column" => "COD_CLIENTE_FINAL",       "typeColumn" => "I"),
+        "codReceitaImportacao"  => array("column" => "COD_RECEITA_IMPORTACAO",  "typeColumn" => "I")
     );
 
     protected $columnKey = array("codReceita" => array("column" => "COD_RECEITA", "typeColumn" => "I"));
-    
-    function ReceitasDao(){
-        $this->conect();
+
+    function AddReceitas(stdClass $obj){
+        $obj->codReceita = $this->CatchUltimoCodigo('EN_RECEITA', 'COD_RECEITA');
+        return $this->MontarInsert($obj);
+        // $vlrReceita = str_replace(',', '.', filter_input(INPUT_POST, 'vlrReceita', FILTER_SANITIZE_STRING));
+        // $sql = "INSERT INTO EN_RECEITA (
+        //         COD_RECEITA,
+        //         DSC_RECEITA,
+        //         DTA_RECEITA,
+        //         COD_CONTA,
+        //         VLR_RECEITA,
+        //         COD_CLIENTE_FINAL)
+        //         VALUES(
+        //         ".$this->CatchUltimoCodigo('EN_RECEITA', 'COD_RECEITA').",
+        //         '".filter_input(INPUT_POST, 'dscReceita', FILTER_SANITIZE_STRING)."',
+        //         '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaReceita', FILTER_SANITIZE_STRING))."',
+        //         '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_STRING)."',
+        //         '".$vlrReceita."',
+        //         '".$codClienteFinal."')";
+        // return $this->insertDB($sql);
     }
 
-    Function AddReceitas($codClienteFinal){
-        $vlrReceita = str_replace(',', '.', filter_input(INPUT_POST, 'vlrReceita', FILTER_SANITIZE_STRING));
-        $sql = "INSERT INTO EN_RECEITA (
-                COD_RECEITA,
-                DSC_RECEITA,
-                DTA_RECEITA,
-                COD_CONTA,
-                VLR_RECEITA,
-                COD_CLIENTE_FINAL)
-                VALUES(
-                ".$this->CatchUltimoCodigo('EN_RECEITA', 'COD_RECEITA').",
-                '".filter_input(INPUT_POST, 'dscReceita', FILTER_SANITIZE_STRING)."',
-                '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaReceita', FILTER_SANITIZE_STRING))."',
-                '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_STRING)."',
-                '".$vlrReceita."',
-                '".$codClienteFinal."')";
-        return $this->insertDB($sql);
-    }
-
-    Function UpdateReceitas(){
-        $vlrReceita = str_replace(',', '.', filter_input(INPUT_POST, 'vlrReceita', FILTER_SANITIZE_STRING));
-        $sql = " UPDATE EN_RECEITA
-                    SET DSC_RECEITA = '".filter_input(INPUT_POST, 'dscReceita', FILTER_SANITIZE_STRING)."',
-                        DTA_RECEITA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaReceita', FILTER_SANITIZE_STRING))."',
-                        COD_CONTA = '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_STRING)."',
-                        VLR_RECEITA = '".$vlrReceita."'
-                  WHERE COD_RECEITA = ".filter_input(INPUT_POST, 'codReceita', FILTER_SANITIZE_NUMBER_INT);
-        return $this->insertDB($sql);
+    function UpdateReceitas(stdClass $obj) {
+        return $this->MontarUpdate($obj);
+        // $vlrReceita = str_replace(',', '.', filter_input(INPUT_POST, 'vlrReceita', FILTER_SANITIZE_STRING));
+        // $sql = " UPDATE EN_RECEITA
+        //             SET DSC_RECEITA = '".filter_input(INPUT_POST, 'dscReceita', FILTER_SANITIZE_STRING)."',
+        //                 DTA_RECEITA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaReceita', FILTER_SANITIZE_STRING))."',
+        //                 COD_CONTA = '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_STRING)."',
+        //                 VLR_RECEITA = '".$vlrReceita."'
+        //           WHERE COD_RECEITA = ".filter_input(INPUT_POST, 'codReceita', FILTER_SANITIZE_NUMBER_INT);
+        // return $this->insertDB($sql);
     }
 
     Function DeletarReceita(){
@@ -54,8 +54,7 @@ class ReceitasDao extends BaseDao
         return $this->insertDB($sql);
     }
 
-    Function ListarReceitas($codClienteFinal,
-                            $param = null){
+    Function ListarReceitas($codClienteFinal){
         $sql = " SELECT COD_RECEITA,
                         DTA_RECEITA,
                         VLR_RECEITA,
@@ -66,24 +65,28 @@ class ReceitasDao extends BaseDao
                   INNER JOIN EN_CONTA C
                      ON R.COD_CONTA = C.COD_CONTA
                   WHERE R.COD_CLIENTE_FINAL = $codClienteFinal
-                    AND MONTH(DTA_RECEITA)= ".filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_NUMBER_INT)."
-                    AND YEAR(DTA_RECEITA)=".filter_input(INPUT_POST, 'nroAnoReferencia', FILTER_SANITIZE_NUMBER_INT);
-        if ($param!=null){
-            $sql .= $param;
-        }
+                    AND MONTH(DTA_RECEITA)= ".filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT)."
+                    AND YEAR(DTA_RECEITA)=".filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
+        return $this->selectDB($sql, false);
+    }
+
+    function GetReceitaById($codReceita) {
+        $sql = "SELECT COD_CONTA, DTA_RECEITA FROM EN_RECEITA WHERE COD_RECEITA = ".$codReceita;
         return $this->selectDB($sql, false);
     }
     
-    Public Function ImportarReceita($codCliente, $dtaReceita, $codReceita){
-        $sql = "INSERT INTO EN_RECEITA (COD_RECEITA, DSC_RECEITA, DTA_RECEITA, COD_CONTA, VLR_RECEITA, COD_CLIENTE_FINAL)
-                SELECT ".$this->CatchUltimoCodigo('EN_RECEITA', 'COD_RECEITA').", 
+    Public Function ImportarReceita($codCliente, $dtaReceita, $codReceitaRef){
+        $codReceita = $this->CatchUltimoCodigo('EN_RECEITA', 'COD_RECEITA');
+        $sql = "INSERT INTO EN_RECEITA (COD_RECEITA, DSC_RECEITA, DTA_RECEITA, COD_CONTA, VLR_RECEITA, COD_CLIENTE_FINAL, COD_RECEITA_IMPORTACAO)
+                SELECT $codReceita, 
                        DSC_RECEITA,
-                       '".$this->ConverteDataForm($dtaReceita)."',
+                       '$dtaReceita',
                        COD_CONTA,
                        VLR_RECEITA,
-                       $codCliente
+                       $codCliente,
+                       $codReceitaRef
                   FROM EN_RECEITA
-                 WHERE COD_RECEITA = $codReceita";
+                 WHERE COD_RECEITA = $codReceitaRef";
         return $this->insertDB($sql);
     }
     

@@ -42,7 +42,7 @@ function MontaGridDespesa(listaDespesa) {
     arrDespesas = listaDespesa[1];
     somarValorTotal();
     var tabela = "";
-    tabela += "<table class='table table-striped table-hover table-bordered' id='tableDespesas' width='100%' >";
+    tabela += "<table class='table table-striped table-hover table-bordered mb-0' id='tableDespesas' width='100%' >";
     tabela += " <thead>";
     tabela += "     <tr>";
     tabela += "         <th class='align-top'>";
@@ -96,7 +96,7 @@ function MontaGridDespesa(listaDespesa) {
     tabela += "</table>";
     $("#listaDespesas").html(tabela);
 
-    MontaDataTable('tableDespesas', false, 1, true, '37vh');
+    MontaDataTable('tableDespesas', false, 1, true, 44);
 
 }
 
@@ -186,7 +186,7 @@ function montaComboTpoDespesaFiltro(arr) {
 }
 
 function montaComboStatusDespesaFiltro() {
-    let arr = [true, [{ID: 'S', DSC: 'Paga'}, {ID: 'NULL', DSC: 'Em aberto'}]]
+    let arr = [true, [{ID: 'S', DSC: 'Paga'}, {ID: 'N', DSC: 'Em aberto'}]]
     CriarSelect('statusFiltro', arr, -1, false, '');
     $("#statusFiltro").change(function() {
         CarregaGridDespesa();

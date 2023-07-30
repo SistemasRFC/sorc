@@ -84,7 +84,7 @@ class DespesaModel extends BaseModel
     function ImportarDespesas(){
         $dao = new DespesasDao();
         $codigos = filter_input(INPUT_POST, 'codDespesas', FILTER_SANITIZE_STRING); 
-        $nroAno = filter_input(INPUT_POST, 'anosRef', FILTER_SANITIZE_STRING); 
+        $nroAno = filter_input(INPUT_POST, 'anoRef', FILTER_SANITIZE_STRING); 
         $nroMes = filter_input(INPUT_POST, 'mesRef', FILTER_SANITIZE_STRING); 
         $arrCodigos = explode("d", $codigos);
 
@@ -128,24 +128,11 @@ class DespesaModel extends BaseModel
     // }
 
     function ListarAnosFiltro() {
-        $nroAno = date("Y")+1;
-        $result = [true, []];
-        for($i=2012; $i<=$nroAno; $i++) {
-            $ref = (object) array('ID' => $i, 'DSC' => $i);
-            array_push($result[1], $ref);
-        }
-        return json_encode($result);
+        return BaseModel::ListarAnosCombo();
     }
 
     function ListarMesesFiltro() {
-        $result = [true, []];
-        $meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-        for($i= 0; $i < count($meses); $i++) {
-            $ref = (object) array('ID' => $i+1, 'DSC' => $meses[$i]);
-            array_push($result[1], $ref);
-        }
-        return json_encode($result);
+        return BaseModel::ListarMesesCombo();
     }
     
     Public Function QuitarParcelas(){

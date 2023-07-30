@@ -49,7 +49,7 @@
                                                         <div id="tdcontaFiltro"></div>
                                                     </div>
                                                     <div class="col-2 pr-0">
-                                                        <label class="mb-0">Responsável: </label>
+                                                        <label class="mb-0">Dono: </label>
                                                         <div id="tdresponsavelFiltro"></div>
                                                     </div>
                                                 </div>
@@ -64,7 +64,7 @@
                             <div class="col-xl-12 col-md-12 mx-0 px-0">
                                 <div class="card mt-2">
                                     <div class="card-header d-flex flex-row align-items-center justify-content-between">
-                                        <h5 class="m-0 text-white">Despesas</h5>
+                                        <h5 class="m-0 text-white">DESPESAS</h5>
                                         <div>
                                             <div class="text-white"><b>Valor Total: </b><br><span id='vlrTotal'>R$ 0,00</span></div>
                                         </div> 
@@ -87,10 +87,6 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <!-- <div class="row mb-1">
-                                            <div class="col-3"><b>Valor Total: </b><span id='vlrTotal'>R$ 0,00</span></div>
-                                            <div class="col-3"><b>Valor Selecionado: </b><span id='vlrSelecionado'>R$ 0,00</span></div>
-                                        </div> -->
                                         <div id="listaDespesas"></div>
                                     </div>
                                 </div>
