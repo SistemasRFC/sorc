@@ -1,4 +1,5 @@
 function carregaGrafico() {
+    $("#graficoTipoDespesa").html('');
     ExecutaDispatch('TipoDespesa', 'ListarSomaTipoDespesas', 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val(), montaGrafico);
 }
 function montaGrafico(dados) {

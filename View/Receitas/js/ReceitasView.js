@@ -1,11 +1,7 @@
 var anoAtual = new Date().getFullYear();
 var mesAtual = new Date().getMonth()+1;
 var arrReceitas;
-$(function() {
-    $("#btnExcel").click(() => {
-        alert('xls');
-        $("#ListagemForm").jqxGrid('exportdata', 'xls', 'jqxGrid');           
-    });    
+$(function() {   
     $("#btnNovo").click(() => {
         LimparCampos();
         $("#cadastroReceitaTitle").html('Nova Receita');
@@ -14,6 +10,9 @@ $(function() {
     // $( "#btnImportar" ).click(() => {
     //     $("#importarReceita").modal('show');
     // });
+    $("#btnExcel").click(() => {
+        $("#dtBtnExcel").click();
+    });
 });
 
 function CarregaGridReceita() {
@@ -38,8 +37,8 @@ function MontaGridReceita(listaReceita) {
     tabela += "             </div>";
     tabela += "         </th>";
     tabela += "         <th>Descrição</th>";
-    tabela += "         <th>Data</th>";
-    tabela += "         <th>Valor</th>";
+    tabela += "         <th width='10%'>Data</th>";
+    tabela += "         <th width='12%'>Valor</th>";
     tabela += "         <th>Conta</th>";
     tabela += "         <th>Ações</th>";
     tabela += "     </tr>";
@@ -49,13 +48,13 @@ function MontaGridReceita(listaReceita) {
     if (objeto != null) {
         for (var i in objeto) {
             tabela += " <tr>";
-            tabela += "     <td>";
+            tabela += "     <td align='center'>";
             tabela += "         <div class='form-check'>";
             tabela += "             <input type='checkbox' class='form-check-input ckbReceita' id='ckb"+objeto[i].COD_RECEITA+"' codReceita='"+objeto[i].COD_RECEITA+"' onClick='eventosCheckbox()'>";
             tabela += "         </div>";
             tabela += "     </td>";
             tabela += "     <td>" + (objeto[i].DSC_RECEITA != null ? objeto[i].DSC_RECEITA : '') + "</td>";
-            tabela += "     <td>" + (objeto[i].DTA_RECEITA_FORMATADA != null ? objeto[i].DTA_RECEITA_FORMATADA : '') + "</td>";
+            tabela += "     <td align='center'>" + (objeto[i].DTA_RECEITA_FORMATADA != null ? objeto[i].DTA_RECEITA_FORMATADA : '') + "</td>";
             tabela += "     <td align='end'>" + (objeto[i].VLR_RECEITA != null ? objeto[i].VLR_RECEITA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].CONTA != null ? objeto[i].CONTA : '') + "</td>";
             tabela += "     <td class='px-1' align='center'>";

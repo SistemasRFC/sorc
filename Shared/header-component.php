@@ -32,9 +32,9 @@ if(!$_SESSION['cod_usuario']) {
                 <label class="pt-2 text-white"><?php echo $_SESSION['dadosUsuario']['NME_USUARIO_COMPLETO'] ?></label>
                 <div class="topbar-divider d-none d-sm-block"></div>
     
-                <li class="pt-2">
+                <li>
                     <a href="../../Index.php" title="Sair">
-                        <i class="icon fas fa-sign-out-alt text-white"></i>
+                        <i class="fas fa-person-running text-white fa-2x"></i>
                     </a>
                 </li>
             </ul>

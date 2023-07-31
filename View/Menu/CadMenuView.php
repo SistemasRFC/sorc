@@ -10,7 +10,7 @@
 		</div>
 		<div class="modal-body">
 			<input type="hidden" id="codMenuW" name="codMenuW" value="0" class="persist">
-			<input type="hidden" id="dscCaminhoImagem" name="dscCaminhoImagem" class="persist">
+			<!-- <input type="hidden" id="dscCaminhoImagem" name="dscCaminhoImagem" class="persist"> -->
 			<div class="container">
 				<div class="row">
 					<div class="form-group col-10">
@@ -50,14 +50,17 @@
 						<div id="tdcodMenuPaiW"></div>
 					</div>
 					<div class="col-6">
-						<form name="menuForm" enctype="multpart/form-data" id="cadastroMenuForm" method="post" action="../../Controller/Menu/MenuController.php">
+						<label for="dscCaminhoImagem" class="mb-0">Icone de Atalho</label>
+						<input type="text" id="dscCaminhoImagem" name="dscCaminhoImagem" class='persist input form-control'>
+
+						<!-- <form name="menuForm" enctype="multpart/form-data" id="cadastroMenuForm" method="post" action="../../Controller/Menu/MenuController.php">
 							<label for="imagem" class="mb-0">Selecione o arquivo:</label>
 							<input type="file" name="arquivo" id="imagem" size="45" />
 							<br />
 							<progress value="0" max="100"></progress>
 							<span id="porcentagem">0%</span>
 							<br />
-						</form>
+						</form> -->
 					</div>
 				</div>
 				<div class="row">

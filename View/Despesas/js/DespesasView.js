@@ -25,6 +25,9 @@ $(function() {
     $("#btnImportar").click(() => {
         $("#importarDespesa").modal('show');
     });
+    $("#btnExcel").click(() => {
+        $("#dtBtnExcel").click();
+    });
 });
 
 function CarregaGridDespesa() {

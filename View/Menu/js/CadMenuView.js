@@ -12,12 +12,12 @@ $(function() {
             swal('Atenção!', 'Informe uma descrição para esse menu.', 'warning');
             return false;
         }
-        if ($("#imagem").val() != "") {
-            // var formData = new FormData($('form')[0]);
-            ExecutaDispatch('Menu', 'uploadArquivo', undefined, preencherCaminhoArquivo, "Aguarde, fazendo upload do arquivo.");
-        } else {
+        // if ($("#imagem").val() != "") {
+        //     // var formData = new FormData($('form')[0]);
+        //     ExecutaDispatch('Menu', 'uploadArquivo', undefined, preencherCaminhoArquivo, "Aguarde, fazendo upload do arquivo.");
+        // } else {
             salvarMenu();
-        }
+        // }
     });
 
     $("#btnController").click(function () {

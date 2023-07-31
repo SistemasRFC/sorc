@@ -351,3 +351,17 @@ text.jqx-knob-label {
     width: 100%;
     border-bottom: 1px solid #000000;
   }
+
+/*DataTable*/
+/* .dt-buttons button {
+    color: #393939;
+    background-color: #f7f7f7;
+    border-color: #aaa;
+    border-radius: 0.35rem;
+}
+
+.dt-buttons button:hover {
+    color: #fff;
+    background-color: #858796;
+    border-color: #858796;
+} */

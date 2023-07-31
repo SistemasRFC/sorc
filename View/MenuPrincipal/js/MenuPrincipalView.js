@@ -1,13 +1,13 @@
 $(function() {
-    $( "#dialogDespesa" ).jqxWindow({
-        autoOpen: false,
-        isModal: true,
-        theme: theme,
-        width: $(window).width()-100,
-        height: $(window).height()-200,
-        position: 'center',
-        title: 'Lista'
-    });
+    // $( "#dialogDespesa" ).jqxWindow({
+    //     autoOpen: false,
+    //     isModal: true,
+    //     theme: theme,
+    //     width: $(window).width()-100,
+    //     height: $(window).height()-200,
+    //     position: 'center',
+    //     title: 'Lista'
+    // });
     
 });
 function CarregaAtalhos(){
@@ -28,6 +28,31 @@ function CarregaAtalhos(){
     // );
 }
 
+function MontaTabelaAtalhos(listaAtalhos){
+    listaAtalhos = listaAtalhos[1];
+    grid = '';
+    if (listaAtalhos!=null) {
+        j=0;
+        for(i=0;i<listaAtalhos.length;i++){
+            if (j==0) {
+                grid = '<div class="row">';
+            }
+            grid += '<div class="col-1">';
+            grid += '   <button class="btn btn-link border-white" onClick="javascript:window.location.href="'+listaAtalhos[i].NME_CONTROLLER+'?method='+listaAtalhos[i].NME_METHOD+'" title="'+listaAtalhos[i].DSC_MENU_W+'">';
+            grid += '       <i class="'+listaAtalhos[i].DSC_CAMINHO_IMAGEM+' fa-3x"></i> ';
+            grid += '   </button>';
+            grid += '</div> ';
+            // grid += "<a style='padding-left:45px;' href='"+listaAtalhos[i].NME_CONTROLLER+"?method="+listaAtalhos[i].NME_METHOD+"'><img src='"+listaAtalhos[i].DSC_CAMINHO_IMAGEM+"' title='"+listaAtalhos[i].DSC_MENU_W+"' width='65' height='65'></a>";
+            j++;
+            if (j==12){
+                grid += "</div>";
+                j=0;
+            }
+        }
+    }
+    $("#divAtalhos").html(grid);
+}
+
 function MontaTabelaNoticias(listaNoticias){
     if (listaNoticias!=null){
         tabela = '<table width="100%">';
@@ -42,32 +67,11 @@ function MontaTabelaNoticias(listaNoticias){
     }
     $("#divNoticias").html(tabela);
 }
+
 function chamaAtalho(controller, method){    
     window.location.href = controller+'?method='+method;
 }
-function MontaTabelaAtalhos(listaAtalhos) {
-    listaAtalhos = listaAtalhos[1];
-    if (listaAtalhos!=null){
-        tabela = '<table width="100%" border="0">';
-        colunas = 5;
-        j=5;
-        for(i=0;i<listaAtalhos.length;i++){
-            if (j==colunas){
-                tabela = tabela + "<tr style=''><td style='font-size:20;font-family: arial, helvetica, serif;height:10%;padding-top:20px;'>"
-                j=0;
-            }
-            tabela = tabela + "<a style='padding-left:45px;' href='"+listaAtalhos[i].NME_CONTROLLER+"?method="+listaAtalhos[i].NME_METHOD+"'><img src='"+listaAtalhos[i].DSC_CAMINHO_IMAGEM+"' title='"+listaAtalhos[i].DSC_MENU_W+"' width='65' height='65'></a>";
-            j++;
-            if (j==colunas){
-                tabela = tabela + "</td></tr>";
-            }
-        }
-        tabela = tabela + '</table>';
-    }else{
-        tabela = '';
-    }
-    $("#divAtalhos").html(tabela);
-}
+
 function CarregaGrafico(){
     ExecutaDispatch('TipoDespesa', 'ListarSomaTipoDespesas', undefined, MontaGrafico);
 
@@ -198,6 +202,7 @@ function MontaGrafico(Data) {
         }
     }    
 };
+
 function CarregaDespesas(codTipoDespesa){
     $( "#dialogDespesa" ).jqxWindow('setContent', '');
     $( "#dialogDespesa" ).jqxWindow('setContent', '<div id="grid"></div>');

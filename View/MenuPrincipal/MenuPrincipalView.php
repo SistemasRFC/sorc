@@ -24,7 +24,42 @@
         <div id="wrapper">
             <div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
-                    <form name="menuPrincipal" method="post">
+                <div class="container-fluid">
+                    <div class="row mt-2">
+                        <div class="col-xl-12 col-md-12 mb-4">
+                            <div class="card border-left-secondary">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class=" font-weight-bold text-secondary mb-1">ATALHOS</div>
+                                            <div id="divAtalhos"></div>
+                                        </div>
+                                        <!-- <div class="col-auto">
+                                            <i class="fas fa-project-diagram fa-3x text-gray-400"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-white">RESUMO</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="graficoResumo"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- <form name="menuPrincipal" method="post">
                         <input type="hidden" name="horaInicial">
                         <input type="hidden" name="data">
                         <input type="hidden" name="habilita">
@@ -84,7 +119,7 @@
                       </div>
                       <div id="windowContent">
                       </div>
-                    </div>    
+                    </div>     -->
                 </div>
             </div>
         </div>

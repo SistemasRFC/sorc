@@ -52,7 +52,7 @@
                                                 Importar 
                                             </button>
                                             <button id="btnExcel" class="btn btn-outline-secondary text-white border-white">
-                                                <i class="fas fa-chart-column text-white"></i>
+                                                <i class="fas fa-file-excel text-white"></i>
                                                 Gerar Excel
                                             </button>
                                             <button id="btnNovo" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#cadastroReceita">

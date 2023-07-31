@@ -25,7 +25,7 @@
                                     <div class="card-header d-flex flex-row align-items-center justify-content-between">
                                         <h5 class="m-0 text-white">Tipo de Despesa</h5> 
                                         <div class="btn-border">
-                                            <button id="btnNovo" class="btn btn-link d-lg-inline text-white" data-toggle="modal" data-target="#cadastroTipoDespesa">
+                                            <button id="btnNovo" class="btn btn-link d-lg-inline text-white border-white" data-toggle="modal" data-target="#cadastroTipoDespesa">
                                                 <i class="fas fa-plus text-white"></i>
                                                 Novo Tipo de Despesa
                                             </button>

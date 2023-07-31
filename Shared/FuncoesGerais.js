@@ -334,17 +334,26 @@ function LimparCampos() {
 function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura=50) {
     if(scroll) {
         $('#' + idCampo).DataTable({
-            "searching": isFilter,
-            "paging": false,
-            "lengthChange": false,
-            "scrollCollapse": true,
-            "scrollY": altura+'vh',
-            "language": {
+            searching: isFilter,
+            paging: false,
+            lengthChange: false,
+            scrollCollapse: true,
+            scrollY: altura+'vh',
+            language: {
                 "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
                 "decimal": ',',
                 "thousands": '.'
             },
-            "order": [[orderColum, 'asc']]
+            order: [[orderColum, 'asc']],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excel',
+                    text: '<span id="dtBtnExcel"></span>',
+                    className: 'd-none',
+                },
+                // 'copy', 'csv', 'excel', 'pdf', 'print' -- opções de exportação nativas dos DataTable
+            ]
         });
     } else {
         $('#' + idCampo).DataTable({

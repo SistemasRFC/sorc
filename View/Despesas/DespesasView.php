@@ -76,6 +76,10 @@
                                                 <i class="fas fa-file-export text-white"></i>
                                                 Importar 
                                             </button>
+                                            <button id="btnExcel" class="btn btn-outline-secondary text-white border-white">
+                                                <i class="fas fa-file-excel text-white"></i>
+                                                Gerar Excel
+                                            </button>
                                             <button id="btnGrafico" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#viewGrafico">
                                                 <i class="fas fa-chart-column text-white"></i>
                                                 Gráfico

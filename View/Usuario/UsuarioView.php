@@ -26,7 +26,7 @@
                                     <div class="card-header d-flex flex-row align-items-center justify-content-between">
                                         <h5 class="m-0 text-white">Usuários</h5> 
                                         <div class="btn-border">
-                                            <button id="btnNovo" class="btn btn-link d-lg-inline text-white" data-toggle="modal" data-target="#cadastroUsuario">
+                                            <button id="btnNovo" class="btn btn-link d-lg-inline text-white border-white" data-toggle="modal" data-target="#cadastroUsuario">
                                                 <i class="fas fa-plus text-white"></i>
                                                 Novo Usuário
                                             </button>

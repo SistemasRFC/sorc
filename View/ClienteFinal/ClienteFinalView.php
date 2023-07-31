@@ -25,7 +25,7 @@
                                     <div class="card-header d-flex flex-row align-items-center justify-content-between">
                                         <h5 class="m-0 text-white">Clientes</h5> 
                                         <div class="btn-border">
-                                            <button id="btnNovo" class="btn btn-link d-lg-inline text-white" data-toggle="modal" data-target="#cadastroCliente">
+                                            <button id="btnNovo" class="btn btn-link d-lg-inline text-white border-white" data-toggle="modal" data-target="#cadastroCliente">
                                                 <i class="fas fa-plus text-white"></i>
                                                 Novo Cliente
                                             </button>

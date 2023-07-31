@@ -20,6 +20,13 @@
 <!-- datatables -->
 <script src="/sorc/Resources/bootstrap-admin/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="/sorc/Resources/bootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/sorc/Resources/bootstrap-admin/vendor/datatables/buttons/dataTables.buttons.min.js"></script>
+<script src="/sorc/Resources/bootstrap-admin/vendor/datatables/ajax/jszip.min.js"></script>
+<script src="/sorc/Resources/bootstrap-admin/vendor/datatables/ajax/pdfmake.min.js"></script>
+<script src="/sorc/Resources/bootstrap-admin/vendor/datatables/ajax/vfs_fonts.js"></script>
+<script src="/sorc/Resources/bootstrap-admin/vendor/datatables/buttons/buttons.html5.min.js"></script>
+<script src="/sorc/Resources/bootstrap-admin/vendor/datatables/buttons/buttons.print.min.js"></script>
+
 <!-- CSS -->
 <link rel="stylesheet" href="/sorc/Resources/bootstrap-admin/css/sb-admin-2.css">
 </link>
