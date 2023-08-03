@@ -487,6 +487,50 @@ function CriarGraficoBarras(nmeCampo, dados, arrLabels) {
     });
 }
 
+function CriarGraficoBarrasNovo(nmeCampo, arrLabels, arrColunaUm, arrColunaDois) {
+    var campo = document.getElementById("" + nmeCampo + "");
+    var arrDiff = [];
+    for(var i in arrColunaUm) {
+        arrDiff.push(arrColunaUm[i]-arrColunaDois[i]);
+    }
+
+    new Chart(campo, {
+        type: 'bar',
+        data: {
+            labels: arrLabels,
+            datasets: [
+                {
+                    label: 'Receita',
+                    data: arrColunaUm,
+                    backgroundColor: 'rgb(60,179,113)',
+                    stack: 'Stack 0',
+                    barPercentage: .6,
+                },
+                {
+                    label: 'Despesa',
+                    data: arrColunaDois,
+                    backgroundColor: 'rgb(250,128,114)',
+                    stack: 'Stack 1',
+                    barPercentage: .6,
+                },
+                {
+                    label: 'Saldo Final',
+                    data: arrDiff,
+                    backgroundColor: 'rgb(30,144,255)',
+                    stack: 'Stack 3',
+                    barPercentage: .6,
+                },
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+              intersect: false,
+            },
+          }
+    });
+}
+
 function CriarGraficoArea(nmeCampo, dados) {
     var campo = document.getElementById("" + nmeCampo + "");
     var valores = [];

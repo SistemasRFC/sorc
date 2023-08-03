@@ -36,6 +36,11 @@ class MenuPrincipalController extends BaseController
         $menuModel = new MenuPrincipalModel();
         echo $menuModel->CarregaAtalhos($this->getPath());
     }
+    
+    Public Function CarregaDespesasReceitasAnoAtual(){
+        $menuModel = new MenuPrincipalModel();
+        echo $menuModel->CarregaDespesasReceitasAnoAtual();
+    }
 }
 $menuPrincipalController = new MenuPrincipalController();
 ?>

@@ -37,11 +37,12 @@ function MontaTabelaAtalhos(listaAtalhos){
             if (j==0) {
                 grid = '<div class="row">';
             }
-            grid += '<div class="col-1">';
-            grid += '   <button class="btn btn-link border-white" onClick="javascript:window.location.href="'+listaAtalhos[i].NME_CONTROLLER+'?method='+listaAtalhos[i].NME_METHOD+'" title="'+listaAtalhos[i].DSC_MENU_W+'">';
+            grid += '<div class="col-1 text-center">';
+            grid += '   <button class="btn btn-link border-white" onClick="javascript:chamaAtalho(\''+listaAtalhos[i].NME_CONTROLLER+'\', \''+listaAtalhos[i].NME_METHOD+'\')" title="'+listaAtalhos[i].DSC_MENU_W+'">';
             grid += '       <i class="'+listaAtalhos[i].DSC_CAMINHO_IMAGEM+' fa-3x"></i> ';
             grid += '   </button>';
-            grid += '</div> ';
+            grid += '   <span>'+listaAtalhos[i].DSC_MENU_W+'</span>';
+            grid += '</div>';
             // grid += "<a style='padding-left:45px;' href='"+listaAtalhos[i].NME_CONTROLLER+"?method="+listaAtalhos[i].NME_METHOD+"'><img src='"+listaAtalhos[i].DSC_CAMINHO_IMAGEM+"' title='"+listaAtalhos[i].DSC_MENU_W+"' width='65' height='65'></a>";
             j++;
             if (j==12){
@@ -69,11 +70,11 @@ function MontaTabelaNoticias(listaNoticias){
 }
 
 function chamaAtalho(controller, method){    
-    window.location.href = controller+'?method='+method;
+    window.location.href = "/sorc/Dispatch.php?controller="+controller+"&method="+method;
 }
 
 function CarregaGrafico(){
-    ExecutaDispatch('TipoDespesa', 'ListarSomaTipoDespesas', undefined, MontaGrafico);
+    ExecutaDispatch('MenuPrincipal', 'CarregaDespesasReceitasAnoAtual', undefined, MontaGrafico);
 
     // $.post('../../Controller/Despesas/DespesasController.php',
     //     {method: 'ListarSomaTipoDespesas',
@@ -92,30 +93,46 @@ function CarregaGrafico(){
     //     }
     // });
 }
-function MontaGrafico(Data) {
-    Data = Data[1];
-    // prepare chart data as an array
-    total = 0;
-    for (i=0;i<Data.length;i++){
-        total = parseFloat(Data[i].VALOR.replace(',', ''))+parseFloat(total);
+
+function MontaGrafico(dados) {
+    var lista = dados[1];
+    let arrLabels = [];
+    let arrReceitas = [];
+    let arrDespesas = [];
+    for(var i in lista) {
+        arrLabels.push(lista[i].DSC_MES);
+        arrReceitas.push(lista[i].VLR_RECEITA);
+        arrDespesas.push(lista[i].VLR_DESPESA);
     }
-    for (i=0;i<Data.length;i++){
-        Data[i].VALOR = (parseFloat(Data[i].VALOR.replace(',', ''))/parseFloat(total))*100;
-        Data[i].DSC_TIPO_DESPESA = Data[i].DSC_TIPO_DESPESA+' '+Formata(Data[i].VALOR,2,',','.')+'%';
-    }
-    console.log(Data);
-    var source =
-    {
-        localdata: Data,
-        datatype: "json",
-        datafields: [
-            { name: 'DSC_TIPO_DESPESA' },
-            { name: 'COD_TIPO_DESPESA' },
-            { name: 'VALOR' }
-        ]        
-    };
-    var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); } });
-    // prepare jqxChart settings
+    CriarGraficoBarrasNovo('graficoResumo', arrLabels, arrReceitas, arrDespesas);
+}
+
+// function MontaGrafico(Data) {
+//     CriarGraficoBarrasNovo();
+
+//     Data = Data[1];
+//     prepare chart data as an array
+//     total = 0;
+//     for (i=0;i<Data.length;i++){
+//         total = parseFloat(Data[i].VALOR.replace(',', ''))+parseFloat(total);
+//     }
+//     for (i=0;i<Data.length;i++){
+//         Data[i].VALOR = (parseFloat(Data[i].VALOR.replace(',', ''))/parseFloat(total))*100;
+//         Data[i].DSC_TIPO_DESPESA = Data[i].DSC_TIPO_DESPESA+' '+Formata(Data[i].VALOR,2,',','.')+'%';
+//     }
+//     console.log(Data);
+//     var source =
+//     {
+//         localdata: Data,
+//         datatype: "json",
+//         datafields: [
+//             { name: 'DSC_TIPO_DESPESA' },
+//             { name: 'COD_TIPO_DESPESA' },
+//             { name: 'VALOR' }
+//         ]        
+//     };
+//     var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); } });
+//     prepare jqxChart settings
 //    var settings = {
 //        title: "Resumo Mensal de Gastos",
 //        description: "",
@@ -146,62 +163,62 @@ function MontaGrafico(Data) {
 //                }
 //            ]
 //    };
-    var settings = {
-        title: "Despesas por Tipo",
-        description: "",
-        enableAnimations: true,
-        showLegend: false,
-        legendLayout: { left: 400, top: 140, width: 300, height: 300, flow: 'vertical' },
-        padding: { left: 5, top: 5, right: 10, bottom: 5 },
-        titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
-        source: dataAdapter,
-        colorScheme: 'scheme01',
-        xAxis:
-                    {
-                        dataField: 'DSC_TIPO_DESPESA',
-                        showGridLines: true,
-                        flip: false
-                    },        
-        seriesGroups:
-            [
-                {
-                    type: 'column',
-                    valueAxis:
-                    {
-                        unitInterval: 50,
-                        minValue: 0,
-                        maxValue: 100,
-                        displayValueAxis: true,
-                    },
-                    showLabels: true,
-                    series: [
-                            { 
-                                dataField: 'VALOR',
-                                displayText: 'Tipos ',
-                                labelRadius: 170,
-                                initialAngle: 35,
-                                radius: 155,
-                                centerOffset: 0,
-                                formatSettings: { sufix: ' %', decimalPlaces: 2 } }
-                        ]
-                }
-            ]
-    };    
-    // setup the chart
-    $('#jqxChart').jqxChart(settings);
-    var groups = $('#jqxChart').jqxChart('seriesGroups');
+//     var settings = {
+//         title: "Despesas por Tipo",
+//         description: "",
+//         enableAnimations: true,
+//         showLegend: false,
+//         legendLayout: { left: 400, top: 140, width: 300, height: 300, flow: 'vertical' },
+//         padding: { left: 5, top: 5, right: 10, bottom: 5 },
+//         titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
+//         source: dataAdapter,
+//         colorScheme: 'scheme01',
+//         xAxis:
+//                     {
+//                         dataField: 'DSC_TIPO_DESPESA',
+//                         showGridLines: true,
+//                         flip: false
+//                     },        
+//         seriesGroups:
+//             [
+//                 {
+//                     type: 'column',
+//                     valueAxis:
+//                     {
+//                         unitInterval: 50,
+//                         minValue: 0,
+//                         maxValue: 100,
+//                         displayValueAxis: true,
+//                     },
+//                     showLabels: true,
+//                     series: [
+//                             { 
+//                                 dataField: 'VALOR',
+//                                 displayText: 'Tipos ',
+//                                 labelRadius: 170,
+//                                 initialAngle: 35,
+//                                 radius: 155,
+//                                 centerOffset: 0,
+//                                 formatSettings: { sufix: ' %', decimalPlaces: 2 } }
+//                         ]
+//                 }
+//             ]
+//     };    
+//     setup the chart
+//     $('#jqxChart').jqxChart(settings);
+//     var groups = $('#jqxChart').jqxChart('seriesGroups');
     
-    // add a click event handler function to the 1st group    
-    if (groups.length > 0)
-    {
-        groups[0].click = function(e)
-        {
-            CarregaDespesas(dataAdapter.records[e.elementIndex].COD_TIPO_DESPESA);
-            console.log(e.elementIndex);
-            console.log(e.serie.dataField);
-        }
-    }    
-};
+//     add a click event handler function to the 1st group    
+//     if (groups.length > 0)
+//     {
+//         groups[0].click = function(e)
+//         {
+//             CarregaDespesas(dataAdapter.records[e.elementIndex].COD_TIPO_DESPESA);
+//             console.log(e.elementIndex);
+//             console.log(e.serie.dataField);
+//         }
+//     }    
+// };
 
 function CarregaDespesas(codTipoDespesa){
     $( "#dialogDespesa" ).jqxWindow('setContent', '');

@@ -7,7 +7,7 @@ include_once("Resources/php/FuncoesArray.php");
 class DespesaModel extends BaseModel
 {
     
-    function AddDespesa(){
+    function AddDespesa() {
         $dao = new DespesasDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
         $qtdParcelas = $this->objRequest->qtdParcelas;
@@ -42,21 +42,24 @@ class DespesaModel extends BaseModel
         return json_encode($result);
     }
 
-    function UpdateDespesa(){
+    function UpdateDespesa() {
         $dao = new DespesasDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        if (isset($this->objRequest->dtaPagamento)==1) {
+            unset($this->objRequest->dtaPagamento);
+        }
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
         return json_encode($dao->UpdateDespesa($this->objRequest));
     }
 
-    function DeletarDespesa(){
+    function DeletarDespesa() {
         $dao = new DespesasDao();
         $result = $dao->PegaDespesaPai();
 
         return json_encode($dao->DeletarDespesa($result[1][0]['COD_DESPESA_IMPORTACAO']));
     }
     
-    Function ListarDespesas(){
+    Function ListarDespesas() {
         $dao = new DespesasDao();
         $codCliente = $_SESSION['cod_cliente_final'];
         $lista = $dao->ListarDespesas($codCliente);
@@ -67,21 +70,8 @@ class DespesaModel extends BaseModel
         }
         return json_encode($lista);
     }
-    
-    // Function ListarDespesasGrid(){
-    //     $dao = new DespesasDao();
-    //     $lista = $dao->ListarDespesas($_SESSION['cod_cliente_final']);
-    //     $lista = FuncoesData::AtualizaDataInArrayCamposNovos($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO', 'DTA_DESPESA_FORMATADO|DTA_LANC_DESPESA_FORMATADO|DTA_PAGAMENTO_FORMATADO');
-    //     $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
-    //     $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_DESPESA_PAGA', 'PAGO');
-        
-    //     for($i=0;$i<count($lista[1]);$i++) {
-    //         $lista[1][$i]['DSC_DESPESA'] = strtoupper($lista[1][$i]['DSC_DESPESA']);
-    //     }        
-    //     return json_encode($lista[1]);
-    // }
 
-    function ImportarDespesas(){
+    function ImportarDespesas() {
         $dao = new DespesasDao();
         $codigos = filter_input(INPUT_POST, 'codDespesas', FILTER_SANITIZE_STRING); 
         $nroAno = filter_input(INPUT_POST, 'anoRef', FILTER_SANITIZE_STRING); 
@@ -103,30 +93,6 @@ class DespesaModel extends BaseModel
         return json_encode($lista);
     }
 
-    // Function PegaLimiteTipoDespesa(){
-    //     $dao = new DespesasDao();
-    //     $lista = $dao->PegaLimiteTipoDespesa($_SESSION['cod_cliente_final']);
-    //     $total = count($lista);
-    //     $i=0;
-    //     $data = array();
-    //     while($i<$total ) {
-    //         $data[] = array(
-    //             'vlrLimite' => number_format($lista[$i]['VLR_LIMITE'],2,',','.'),
-    //             'vlrPiso' => number_format($lista[$i]['VLR_PISO'],2,',','.'),
-    //             'vlrTeto' => number_format($lista[$i]['VLR_TETO'],2,',','.')
-    //         );
-    //         $i++;
-    //     }
-    //     if (empty($data)){
-    //         $data[] = array(
-    //             'value' => '',
-    //             'label' => 'Sem dados para a pesquisa',
-    //             'id' => 0
-    //         );
-    //     }
-    //     return json_encode($data);
-    // }
-
     function ListarAnosFiltro() {
         return BaseModel::ListarAnosCombo();
     }
@@ -135,7 +101,7 @@ class DespesaModel extends BaseModel
         return BaseModel::ListarMesesCombo();
     }
     
-    Public Function QuitarParcelas(){
+    Public Function QuitarParcelas() {
         $dao = new DespesasDao();
         $codDespesa = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
         $result = $dao->PegaDespesaFilha($codDespesa);
@@ -156,4 +122,3 @@ class DespesaModel extends BaseModel
         return json_encode($result);
     }
 }
-?>

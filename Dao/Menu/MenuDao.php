@@ -69,7 +69,7 @@ class MenuDao extends BaseDao
                                       AND MA.COD_MENU_PAI_W = M.COD_MENU_W) AS QTD,
                                   M2.DSC_MENU_W AS DSC_MENU_PAI
                              FROM SE_MENU M
-                            INNER JOIN SE_MENU M2
+                        LEFT JOIN SE_MENU M2
                                ON M.COD_MENU_PAI_W = M2.COD_MENU_W";
             $lista = $this->selectDB("$sql_lista", false);
         }catch(Exception $e){

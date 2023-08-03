@@ -12,6 +12,14 @@ class BaseDao
     {
         self::disconnect();
     }
+    private static $dbtype   = "mysql";
+    private static $host     = "192.168.0.74";
+    private static $port     = PORT;
+    private static $user     = USER;
+    private static $password = PASSWORD;
+    private static $conexao  = CONEXAO;
+    private static $db       = DB;
+    public static $qtdRegistros = 0;
 
     /*Metodos que trazem o conteudo da variavel desejada
     @return   $xxx = conteudo da variavel solicitada*/

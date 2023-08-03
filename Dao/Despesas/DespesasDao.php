@@ -22,68 +22,13 @@ class DespesasDao extends BaseDao
 
   	protected $columnKey = array("codDespesa" => array("column" => "COD_DESPESA", "typeColumn" => "I"));
 
-    function AddDespesa(stdClass $obj){
-        // $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
+    function AddDespesa(stdClass $obj) {
         $obj->codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
         return $this->MontarInsert($obj);
-        // $sql = "INSERT INTO EN_DESPESA (
-        //         COD_DESPESA,
-        //         DSC_DESPESA,
-        //         DTA_DESPESA,
-        //         DTA_LANC_DESPESA,
-        //         COD_CONTA,
-        //         TPO_DESPESA,
-        //         VLR_DESPESA,
-        //         COD_CLIENTE_FINAL,
-        //         IND_DESPESA_PAGA,
-        //         DTA_PAGAMENTO,
-        //         QTD_PARCELAS,
-        //         NRO_PARCELA_ATUAL,
-        //         COD_DESPESA_IMPORTACAO)
-        //         VALUES(
-        //         $codDespesa,
-        //         '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
-        //         '$dtaDespesa',
-        //         '".$this->ConverteDataForm($dtaLancamento)."',
-        //         '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT)."',
-        //         '".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT)."',
-        //         '".$vlrDespesa."',
-        //         '".$codClienteFinal."',
-        //         '".$indDespesaPaga."',";
-        //         if ($dtaPagamento==''){
-        //             $sql .= "NULL, ";
-        //         }else{
-        //             $sql .= "'".$this->ConverteDataForm($dtaPagamento)."', ";
-        //         }
-        //         $sql .= filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT). ",
-        //         ".$nroParcelaAtual.",
-        //         ".$codDespesaImportada.")";
-//echo $sql; die;
-        // $result[2] = $codDespesa;
-        // return $result;
     }
 
-    Function UpdateDespesa(stdClass $obj) {
+    function UpdateDespesa(stdClass $obj) {
         return $this->MontarUpdate($obj);
-        // $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
-        // $sql = "UPDATE EN_DESPESA SET
-        //         DSC_DESPESA = '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
-        //         DTA_DESPESA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaDespesa', FILTER_SANITIZE_STRING))."',
-        //         DTA_LANC_DESPESA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaLancDespesa', FILTER_SANITIZE_STRING))."',
-        //         COD_CONTA  =  ".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT).",
-        //         TPO_DESPESA = ".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT).",
-        //         VLR_DESPESA = '".$vlrDespesa."',
-        //         IND_DESPESA_PAGA = '".filter_input(INPUT_POST, 'indDespesaPaga', FILTER_SANITIZE_STRING)."',";
-        //         if (filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING)=='//'){
-        //             $sql .= " DTA_PAGAMENTO =NULL, ";
-        //         }else{
-        //             $sql .= " DTA_PAGAMENTO ='".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaPagamento', FILTER_SANITIZE_STRING))."', ";
-        //         }        
-        //         $sql .= " QTD_PARCELAS = ".filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT).",
-        //         NRO_PARCELA_ATUAL = ".filter_input(INPUT_POST, 'nroParcelaAtual', FILTER_SANITIZE_NUMBER_INT)."
-        //         WHERE COD_DESPESA = ".filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
-        // //echo $sql; exit;
-        // return $this->insertDB($sql);
     }
 
     Function DeletarDespesa($codDepesaImportada=null){
@@ -235,7 +180,6 @@ class DespesasDao extends BaseDao
                 IND_DESPESA_PAGA = 'S',
                 DTA_PAGAMENTO ='".$dtaDespesa."' ";
                 $sql .= " WHERE COD_CONTA = ".$codConta. " AND DTA_DESPESA = '".$dtaDespesa."'";
-//        echo $sql; exit;
         return $this->insertDB($sql);        
     }
 }

@@ -54,14 +54,14 @@ class TipoDespesaModel extends BaseModel
         return $lista = json_encode($lista);              
     }
     
-    Function ListarSomaTipoDespesas(){
+    Function ListarSomaTipoDespesas() {
         $dao = new TiposDespesaDao();
         $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_STRING);
         $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_STRING);
-        if ($mes==''){
+        if ($mes=='') {
             $mes=date('m');
         }
-        if ($ano==''){
+        if ($ano=='') {
             $ano=date('Y');
         }        
         $lista = $dao->ListarSomaTipoDespesas($_SESSION['cod_cliente_final'], $mes, $ano);

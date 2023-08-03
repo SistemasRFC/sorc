@@ -13,6 +13,9 @@ class MenuModel extends BaseModel
     function AddMenu(){
         $dao = new MenuDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        if (isset($this->objRequest->codMenuPaiW)==1) {
+            unset($this->objRequest->codMenuPaiW);
+        }
         $result = $dao->AddMenu($this->objRequest);
         return json_encode($result);
     }
@@ -20,6 +23,9 @@ class MenuModel extends BaseModel
     function UpdateMenu(){
         $dao = new MenuDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        if (isset($this->objRequest->codMenuPaiW)==1) {
+            unset($this->objRequest->codMenuPaiW);
+        }
         $result = $dao->UpdateMenu($this->objRequest);
         return json_encode($result);
     }

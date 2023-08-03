@@ -18,34 +18,10 @@ class ReceitasDao extends BaseDao
     function AddReceitas(stdClass $obj){
         $obj->codReceita = $this->CatchUltimoCodigo('EN_RECEITA', 'COD_RECEITA');
         return $this->MontarInsert($obj);
-        // $vlrReceita = str_replace(',', '.', filter_input(INPUT_POST, 'vlrReceita', FILTER_SANITIZE_STRING));
-        // $sql = "INSERT INTO EN_RECEITA (
-        //         COD_RECEITA,
-        //         DSC_RECEITA,
-        //         DTA_RECEITA,
-        //         COD_CONTA,
-        //         VLR_RECEITA,
-        //         COD_CLIENTE_FINAL)
-        //         VALUES(
-        //         ".$this->CatchUltimoCodigo('EN_RECEITA', 'COD_RECEITA').",
-        //         '".filter_input(INPUT_POST, 'dscReceita', FILTER_SANITIZE_STRING)."',
-        //         '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaReceita', FILTER_SANITIZE_STRING))."',
-        //         '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_STRING)."',
-        //         '".$vlrReceita."',
-        //         '".$codClienteFinal."')";
-        // return $this->insertDB($sql);
     }
 
     function UpdateReceitas(stdClass $obj) {
         return $this->MontarUpdate($obj);
-        // $vlrReceita = str_replace(',', '.', filter_input(INPUT_POST, 'vlrReceita', FILTER_SANITIZE_STRING));
-        // $sql = " UPDATE EN_RECEITA
-        //             SET DSC_RECEITA = '".filter_input(INPUT_POST, 'dscReceita', FILTER_SANITIZE_STRING)."',
-        //                 DTA_RECEITA = '".$this->ConverteDataForm(filter_input(INPUT_POST, 'dtaReceita', FILTER_SANITIZE_STRING))."',
-        //                 COD_CONTA = '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_STRING)."',
-        //                 VLR_RECEITA = '".$vlrReceita."'
-        //           WHERE COD_RECEITA = ".filter_input(INPUT_POST, 'codReceita', FILTER_SANITIZE_NUMBER_INT);
-        // return $this->insertDB($sql);
     }
 
     Function DeletarReceita(){

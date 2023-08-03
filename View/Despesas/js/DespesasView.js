@@ -106,9 +106,9 @@ function MontaGridDespesa(listaDespesa) {
 function somarValorTotal() {
     var vlrTotal = 0;
     for(var i in arrDespesas) {
-        vlrTotal = parseFloat(vlrTotal)+ parseFloat(arrDespesas[i].VLR_DESPESA.replace('.',''));
+        vlrTotal = parseFloat(vlrTotal)+ parseFloat((arrDespesas[i].VLR_DESPESA.replace('.','')).replace(',','.'));
     }
-    vlrTotal = vlrTotal.toFixed(2).replace('.', ',');
+    vlrTotal = number_format(vlrTotal,2,',','.');
     $("#vlrTotal").html('R$ '+vlrTotal);
 }
 
@@ -161,7 +161,10 @@ function chamaCadastroDespesa(codDespesa) {
     $("#divDtaPagamento").show();
     $("#cadastroDespesaTitle").html('Editar Despesa');
     $("#cadastroDespesa").modal('show');
+}
 
+function deletarDespesa(codDespesa){   
+    ExecutaDispatch('Despesas', 'DeletarDespesa', 'codDespesa<=>'+codDespesa, CarregaGridDespesa, 'Aguarde, excluindo despesa.', 'Despesa excluida com sucesso!');
 }
 
 function montaComboAnoFiltro(arr) {

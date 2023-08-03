@@ -62,5 +62,12 @@ class MenuPrincipalModel extends BaseModel
             $_SESSION['dadosUsuario'] = NULL;
         }
     }
+
+    Public Function CarregaDespesasReceitasAnoAtual(){
+        $dao = new MenuPrincipalDao();
+        $anoAtual = Date('Y');
+        $lista = $dao->CarregaDespesasReceitasAnoAtual($_SESSION['cod_cliente_final'], $anoAtual);
+        return json_encode($lista);
+    }
 }
 ?>
