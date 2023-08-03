@@ -25,19 +25,6 @@ function montaComboStatusFiltro() {
 
 function CarregaGrafico() {
     ExecutaDispatch('RelatorioPorcentagemDespesasPorReceita', 'CarregaRegistros', undefined, MontaGrafico);
-    // $.post('../../Controller/Relatorios/RelPorcentagemGastosReceitasController.php',
-    //     {method: 'CarregaRegistros',
-    //      nroAnoReferencia: $("#comboNroAnoReferencia").val(),
-    //      nroMesReferencia: $("#comboNroMesReferencia").val(),
-    //      indStatus: $("#comboIndStatus").val()}, function(data){
-    //     data = eval('('+data+')');
-    //     if (data[0]){
-    //         MontaGrafico(data[1]);
-    //     }else{
-    //         $( "#dialogInformacao" ).html('Erro ao importar Saldo!');
-    //         $("#btnOK").show();
-    //     }
-    // });
 }
 
 function MontaGrafico(dados) {
@@ -90,73 +77,6 @@ function MontaGrafico(dados) {
     });
 };
 
-function MontaGraficoOld(Data) {
-    // prepare chart data as an array
-    for (i=0;i<Data.length;i++){
-        if (Data[i].VLR_RECEITA==null){
-            Data[i].VLR_RECEITA='0';
-        }
-        Data[i].VLR_DESPESA = (parseFloat(Data[i].VLR_DESPESA.replace(',', ''))/parseFloat(Data[i].VLR_RECEITA.replace(',', '')))*100;        
-    }
-    console.log(Data);    
-    var source =
-    {
-        localdata: Data,
-        datatype: "json",
-        datafields: [
-            { name: 'MES' },
-            { name: 'ANO' },
-            { name: 'DSC_TIPO_DESPESA' },
-            { name: 'VLR_DESPESA' },
-            { name: 'VLR_RECEITA' }
-        ]        
-    };
-    var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); } });
-    // prepare jqxChart settings
-    var settings = {
-        title: "Despesas por Tipo",
-        description: "",
-        enableAnimations: true,
-        showLegend: false,
-        legendLayout: { left: 400, top: 140, width: 300, height: 300, flow: 'vertical' },
-        padding: { left: 5, top: 5, right: 10, bottom: 5 },
-        titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
-        source: dataAdapter,
-        colorScheme: 'scheme01',
-        xAxis:
-                    {
-                        dataField: 'DSC_TIPO_DESPESA',
-                        showGridLines: true,
-                        flip: false
-                    },        
-        seriesGroups:
-            [
-                {
-                    type: 'column',
-                    valueAxis:
-                    {
-                        unitInterval: 50,
-                        minValue: 0,
-                        maxValue: 100,
-                        displayValueAxis: true,
-                    },
-                    showLabels: true,
-                    series: [
-                            { 
-                                dataField: 'VLR_DESPESA',
-                                displayText: 'Tipos ',
-                                labelRadius: 170,
-                                initialAngle: 35,
-                                radius: 155,
-                                centerOffset: 0,
-                                formatSettings: { sufix: ' %', decimalPlaces: 2 } }
-                        ]
-                }
-            ]
-    };  
-    // setup the chart
-    $('#jqxChart').jqxChart(settings);  
-};
 $(document).ready(function() {
     ExecutaDispatch('RelatorioPorcentagemDespesasPorReceita', 'ListarAnosFiltro', undefined, montaComboAnoFiltro);
     ExecutaDispatch('RelatorioPorcentagemDespesasPorReceita', 'ListarMesesFiltro', undefined, montaComboMesFiltro);

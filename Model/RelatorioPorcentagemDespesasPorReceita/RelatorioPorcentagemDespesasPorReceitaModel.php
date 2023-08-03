@@ -11,8 +11,8 @@ class RelatorioPorcentagemDespesasPorReceitaModel extends BaseModel
 
         $lista = $dao->CarregaRegistros($_SESSION['cod_cliente_final'], $mes, $ano);
         $arrTipos = [];
-        $count = count($lista[1]);
-        if($lista[0] && $count > 0) {
+        if($lista[0] && $lista[1] > 0) {
+            $count = count($lista[1]);
             for($i=0;$i<$count;$i++) {
                 array_push($arrTipos, $lista[1][$i]['DSC_TIPO_DESPESA']);
                 $lista[1][$i]['VLR_DESPESA'] = number_format($lista[1][$i]['VLR_DESPESA'], 2, '.', '');
