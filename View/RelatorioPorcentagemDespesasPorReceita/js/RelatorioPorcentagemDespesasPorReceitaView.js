@@ -36,8 +36,9 @@ function MontaGrafico(dados) {
         percent = number_format(percent, 2, '.');
         arrValores.push(percent);
     }
-
-    var campo = $("#graficoPorcentagemGastosReceita");
+    document.getElementById("grafico").innerHTML = '&nbsp;';
+    document.getElementById("grafico").innerHTML = '<canvas id="graficoPorcentagemGastosReceita" width="1170" height="450"></canvas>';
+    const campo = document.getElementById("graficoPorcentagemGastosReceita");
 
     new Chart(campo, {
         type: 'bar',
@@ -52,7 +53,7 @@ function MontaGrafico(dados) {
             }]
         },
         options: {
-            responsive: true,
+            responsive: false,
             scales: {
                 yAxes: [{
                     ticks: {

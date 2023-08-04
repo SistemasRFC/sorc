@@ -9,17 +9,6 @@ function montaComboAnoFiltro(arr) {
 
 function CarregaGrafico(){
     ExecutaDispatch('RelatorioMediaDiaria', 'BuscarMediaDiaria', 'anoFiltro<=>'+$("#anoFiltro").val(), MontaGrafico);
-    // $.post('../../Controller/Relatorios/RelMediaDiariaController.php',
-    //     {method: 'CarregaRegistros',
-    //      nroAnoReferencia: $("#comboNroAnoReferencia").val()}, function(data){
-    //     data = eval('('+data+')');
-    //     if (data[0]){
-    //         MontaGrafico(data[1]);
-    //     }else{
-    //         $( "#dialogInformacao" ).html('Erro ao importar Saldo!');
-    //         $("#btnOK").show();
-    //     }
-    // });
 }
 
 function MontaGrafico(dados) {
@@ -31,7 +20,9 @@ function MontaGrafico(dados) {
         arrValores.push(lista[i].VALOR);
     }
 
-    var campo = $("#graficoMediaDiaria");
+    document.getElementById("grafico").innerHTML = '&nbsp;';
+    document.getElementById("grafico").innerHTML = '<canvas id="graficoMediaDiaria" width="1150" height="500"></canvas>';
+    const campo = document.getElementById("graficoMediaDiaria");
 
     new Chart(campo, {
         type: 'horizontalBar',

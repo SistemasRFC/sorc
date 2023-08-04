@@ -1,5 +1,6 @@
 function carregaGrafico() {
-    $("#graficoTipoDespesa").html('');
+    document.getElementById("grafico").innerHTML = '&nbsp;';
+    document.getElementById("grafico").innerHTML = '<canvas id="graficoTipoDespesa"></canvas>';
     ExecutaDispatch('TipoDespesa', 'ListarSomaTipoDespesas', 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val(), montaGrafico);
 }
 function montaGrafico(dados) {

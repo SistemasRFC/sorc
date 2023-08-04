@@ -9,9 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">         
-                <div class="chart-area">
-                    <canvas id="graficoTipoDespesa"></canvas>
-                </div>
+                <div class="chart-area" id="grafico"></div>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@
                                         <div id="tdanoFiltro"></div>
                                     </div>
                                     <div class="card-body">
-                                        <canvas id="graficoMediaDiaria" width="1100" height="800"></canvas>
+                                        <div id="grafico"></div>
                                     </div>
                                 </div>
                             </div>
