@@ -151,6 +151,7 @@ class MenuPrincipalDao extends BaseDao
               LEFT JOIN EN_DESPESA ED 
 					 ON MESES.NRO_MES = MONTH(ED.DTA_DESPESA)
 					AND YEAR(ED.DTA_DESPESA) = $anoAtual
+                    AND DTA_PAGAMENTO IS NOT NULL
 					AND ED.COD_CLIENTE_FINAL = $codClienteFinal
               LEFT JOIN EN_RECEITA ER
 			  		 ON MESES.NRO_MES = MONTH(ER.DTA_RECEITA)

@@ -44,53 +44,6 @@ function MontaGrafico(dados) {
     });
 };
 
-function MontaGraficoOld(Data) {
-    Data = [{'DSC_VALOR':'Valor Receita', 'VLR_VALOR':Data[0].VLR_RECEITA},
-            {'DSC_VALOR':'Valor Despesa', 'VLR_VALOR':Data[0].VLR_DESPESA}]
-    var source =
-    {
-        localdata: Data,
-        datatype: "json",
-        datafields: [
-            { name: 'DSC_VALOR' },
-            { name: 'VLR_VALOR' }
-        ]        
-    };
-    var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); } });
-    // prepare jqxChart settings
-    var settings = {
-                title: "Resumo Mensal de Gastos X Receitas",
-                description: "",
-                enableAnimations: true,
-                showLegend: true,
-                padding: { left: 10, top: 5, right: 10, bottom: 5 },
-                titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
-                source: dataAdapter,
-                colorScheme: 'scheme01',
-                seriesGroups:
-                    [
-                        {
-                            type: 'pie',
-                            showLabels: true,
-                    series:
-                        [
-                            {
-                                dataField: 'VLR_VALOR',
-                                displayText: 'DSC_VALOR',
-                                labelRadius: 170,
-                                initialAngle: 35,
-                                radius: 155,
-                                centerOffset: 0,
-                                formatSettings: { prefix: 'R$ ', decimalPlaces: 2 }
-                            }
-                        ]
-                        }
-                    ]
-            };
-    // setup the chart
-    $('#jqxChart').jqxChart(settings);  
-};
-
 $(document).ready(function() {
     ExecutaDispatch('RelatorioReceitaDespesaMensal', 'ListarAnosFiltro', undefined, montaComboAnoFiltro);
     ExecutaDispatch('RelatorioReceitaDespesaMensal', 'ListarMesesFiltro', undefined, montaComboMesFiltro);
