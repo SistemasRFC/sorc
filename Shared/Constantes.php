@@ -5,8 +5,8 @@ const ALIAS = '/sorc/';
 
 // BANCO DE DADOS
 const PORT = '3306';
-const USER = 'root';
-const PASSWORD = 'Rfm1440@';
+const USER = '';
+const PASSWORD = '';
 const CONEXAO = '';
-const DB = 'sorc';
+const DB = '';
 ?>
