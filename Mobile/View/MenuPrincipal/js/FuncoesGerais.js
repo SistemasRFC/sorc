@@ -394,7 +394,6 @@ function retornaParametros() {
                 break;
         }
         retorno += name + ';' + value + '|';
-        console.log(retorno);
     });
     return retorno;
 }

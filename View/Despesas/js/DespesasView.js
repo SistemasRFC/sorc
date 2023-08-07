@@ -68,7 +68,7 @@ function MontaGridDespesa(listaDespesa) {
 
     if (objeto != null) {
         for (var i in objeto) {
-            var status = objeto[i].PAGO? 'Paga' : 'Em aberto';
+            var status = objeto[i].PAGO? 'Paga em: ' : 'Em aberto';
             var parcela = objeto[i].NRO_PARCELA_ATUAL&&objeto[i].QTD_PARCELAS? objeto[i].NRO_PARCELA_ATUAL+'/'+objeto[i].QTD_PARCELAS : 'unica';
             tabela += " <tr>";
             tabela += "     <td>";
@@ -83,7 +83,7 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "     <td>" + (objeto[i].DSC_TIPO_DESPESA != null ? objeto[i].DSC_TIPO_DESPESA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].CONTA != null ? objeto[i].CONTA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].DONO_DESPESA != null ? objeto[i].DONO_DESPESA : '') + "</td>";
-            tabela += "     <td align='center'>" + status + "</td>";
+            tabela += "     <td align='center'>" + status + objeto[i].DTA_PAGAMENTO_FORMATADO + "</td>";
             tabela += "     <td class='px-1' align='center'>";
             tabela += "         <div class='btn-group'>";
             tabela += "             <button class='btn btn-outline-primary px-2' title='Editar' onclick='javascript:chamaCadastroDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-pen'></i></button>";
@@ -144,7 +144,6 @@ function eventosCheckbox() {
             codDespesasMarcadas += $(this).attr('codDespesa')+'d';
             for(var i in arrDespesas) {
                 if (arrDespesas[i].COD_DESPESA==$(this).attr('codDespesa')) {
-                    // console.log($(this).attr('codDespesa'), arrDespesas[i].COD_DESPESA);
                     vlrSelecionado += parseFloat(arrDespesas[i].VLR_DESPESA.replace('.',''));
                 }
             }

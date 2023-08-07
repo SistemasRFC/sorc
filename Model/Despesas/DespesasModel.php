@@ -15,7 +15,7 @@ class DespesaModel extends BaseModel
         $dta = explode('-', $this->objRequest->dtaDespesa);
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
         $this->objRequest->dtaLancDespesa = date('Y-m-d');
-        if (isset($this->objRequest->dtaPagamento)==1) {
+        if ($this->objRequest->indDespesaPaga =='N') {
             unset($this->objRequest->dtaPagamento);
         }
         $this->objRequest->codDespesaImportacao = 0;
@@ -45,7 +45,7 @@ class DespesaModel extends BaseModel
     function UpdateDespesa() {
         $dao = new DespesasDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
-        if (isset($this->objRequest->dtaPagamento)==1) {
+        if ($this->objRequest->indDespesaPaga =='N') {
             unset($this->objRequest->dtaPagamento);
         }
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
