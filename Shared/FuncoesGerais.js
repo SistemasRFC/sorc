@@ -444,7 +444,7 @@ function CriarGraficoBarras(nmeCampo, dados, arrLabels) {
                 yAxes: [{
                     ticks: {
                         min: 0,
-                        max: 5000,
+                        max: 20000,
                         maxTicksLimit: 10,
                         padding: 5,
                         // Include a dollar sign in the ticks
