@@ -1,31 +1,6 @@
-$(function() {
-    // $( "#dialogDespesa" ).jqxWindow({
-    //     autoOpen: false,
-    //     isModal: true,
-    //     theme: theme,
-    //     width: $(window).width()-100,
-    //     height: $(window).height()-200,
-    //     position: 'center',
-    //     title: 'Lista'
-    // });
-    
-});
 function CarregaAtalhos(){
     $("#divAtalhos").html("<span style='align:center;'>Aguarde, Carregando!<br><img src='../../Resources/images/carregando.gif' width='200' height='30'></span>");
     ExecutaDispatch('MenuPrincipal', 'CarregaAtalhos', undefined, MontaTabelaAtalhos);
-    // $.post('../../Controller/MenuPrincipal/MenuPrincipalController.php',
-    //     {
-    //         method: 'CarregaAtalhos'
-    //     },
-    //     function(listaAtalhos){
-    //          listaAtalhos = eval ('('+listaAtalhos+')');
-    //          if (listaAtalhos[0]==true){
-    //              MontaTabelaAtalhos(listaAtalhos[1]);
-    //          }else{
-    //              $("#divAtalhos").html("<span style='align:center;'>Erro ao buscar atalhos!<br>"+listaAtalhos[1]);
-    //          }
-    //     }
-    // );
 }
 
 function MontaTabelaAtalhos(listaAtalhos){
@@ -38,12 +13,11 @@ function MontaTabelaAtalhos(listaAtalhos){
                 grid = '<div class="row">';
             }
             grid += '<div class="col-1 text-center">';
-            grid += '   <button class="btn btn-link border-white" onClick="javascript:chamaAtalho(\''+listaAtalhos[i].NME_CONTROLLER+'\', \''+listaAtalhos[i].NME_METHOD+'\')" title="'+listaAtalhos[i].DSC_MENU_W+'">';
-            grid += '       <i class="'+listaAtalhos[i].DSC_CAMINHO_IMAGEM+' fa-3x"></i> ';
+            grid += '   <button class="btn btn-link border-white" onClick="javascript:chamaAtalho(\''+listaAtalhos[i].NME_CONTROLLER+'\', \''+listaAtalhos[i].NME_METHOD+'\')" title="'+listaAtalhos[i].DSC_MENU+'">';
+            grid += '       <i class="'+listaAtalhos[i].DSC_ICONE_ATALHO+' fa-3x"></i> ';
             grid += '   </button>';
-            grid += '   <span>'+listaAtalhos[i].DSC_MENU_W+'</span>';
+            grid += '   <span>'+listaAtalhos[i].DSC_MENU+'</span>';
             grid += '</div>';
-            // grid += "<a style='padding-left:45px;' href='"+listaAtalhos[i].NME_CONTROLLER+"?method="+listaAtalhos[i].NME_METHOD+"'><img src='"+listaAtalhos[i].DSC_CAMINHO_IMAGEM+"' title='"+listaAtalhos[i].DSC_MENU_W+"' width='65' height='65'></a>";
             j++;
             if (j==12){
                 grid += "</div>";
@@ -52,6 +26,27 @@ function MontaTabelaAtalhos(listaAtalhos){
         }
     }
     $("#divAtalhos").html(grid);
+}
+
+function chamaAtalho(controller, method){    
+    window.location.href = "/sorc/Dispatch.php?controller="+controller+"&method="+method;
+}
+
+function CarregaGrafico(){
+    ExecutaDispatch('MenuPrincipal', 'CarregaDespesasReceitasAnoAtual', undefined, MontaGrafico);
+}
+
+function MontaGrafico(dados) {
+    var lista = dados[1];
+    let arrLabels = [];
+    let arrReceitas = [];
+    let arrDespesas = [];
+    for(var i in lista) {
+        arrLabels.push(lista[i].DSC_MES);
+        arrReceitas.push(lista[i].VLR_RECEITA);
+        arrDespesas.push(lista[i].VLR_DESPESA);
+    }
+    CriarGraficoBarrasNovo('graficoResumo', arrLabels, arrReceitas, arrDespesas);
 }
 
 function MontaTabelaNoticias(listaNoticias){
@@ -67,44 +62,6 @@ function MontaTabelaNoticias(listaNoticias){
         tabela = '';
     }
     $("#divNoticias").html(tabela);
-}
-
-function chamaAtalho(controller, method){    
-    window.location.href = "/sorc/Dispatch.php?controller="+controller+"&method="+method;
-}
-
-function CarregaGrafico(){
-    ExecutaDispatch('MenuPrincipal', 'CarregaDespesasReceitasAnoAtual', undefined, MontaGrafico);
-
-    // $.post('../../Controller/Despesas/DespesasController.php',
-    //     {method: 'ListarSomaTipoDespesas',
-    //      nroAnoReferencia: '',
-    //      nroMesReferencia: '',
-    //      tpoDespesa: $("#tpoDespesa").val(),
-    //      indStatus: -1,
-    //      ordenacao: 'DTA_DESPESA',
-    //      orientaOrdenacao: 'ASC'}, function(data){
-    //     data = eval('('+data+')');
-    //     if (data[0]){
-    //         MontaGrafico(data[1]);
-    //     }else{
-    //         $( "#dialogInformacao" ).html('Erro ao importar Saldo!');
-    //         $("#btnOK").show();
-    //     }
-    // });
-}
-
-function MontaGrafico(dados) {
-    var lista = dados[1];
-    let arrLabels = [];
-    let arrReceitas = [];
-    let arrDespesas = [];
-    for(var i in lista) {
-        arrLabels.push(lista[i].DSC_MES);
-        arrReceitas.push(lista[i].VLR_RECEITA);
-        arrDespesas.push(lista[i].VLR_DESPESA);
-    }
-    CriarGraficoBarrasNovo('graficoResumo', arrLabels, arrReceitas, arrDespesas);
 }
 
 function CarregaDespesas(codTipoDespesa){
@@ -246,7 +203,6 @@ function MontaTabela(listaDespesas){
     $("#dialogInformacao" ).jqxWindow("close");     
 }
 $(document).ready(function() {
-    // ExecutaDispatch('MenuPrincipal', 'CarregaDadosUsuario', undefined, undefined);
     CarregaAtalhos();   
     CarregaGrafico();
 });

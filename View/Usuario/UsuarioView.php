@@ -17,7 +17,7 @@
                     <input type="hidden" id="codPerfilSessao" value="<?php echo $_SESSION['cod_perfil'] ?>">
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between">
-                            <h3 class="my-2 text-gray-800">Restrito</h3>
+                            <h3 class="my-2 text-gray-800" id="titleMenu">Restrito</h3>
                         </div>
 
                         <div class="row">

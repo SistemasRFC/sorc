@@ -55,14 +55,14 @@ function MontaListaMenusPerfil(resultado) {
             count=0;
         }       
         if (ListaMenuPerfil[i].DSC_MENU_PAI!=null){
-            dscMenu = "<strong>"+ListaMenuPerfil[i].DSC_MENU_PAI+"</strong> >>> "+ListaMenuPerfil[i].DSC_MENU_W;
+            dscMenu = "<strong>"+ListaMenuPerfil[i].DSC_MENU_PAI+"</strong> >>> "+ListaMenuPerfil[i].DSC_MENU;
         }else{
-            dscMenu = ListaMenuPerfil[i].DSC_MENU_W;
+            dscMenu = ListaMenuPerfil[i].DSC_MENU;
         }
         tabela += "<td width='400px'>";
         tabela += " <div class='custom-control custom-checkbox mt-2'>";
-        tabela += "  <input type='checkbox' id='chk"+ListaMenuPerfil[i].COD_MENU_W+"' codMenu='"+ListaMenuPerfil[i].COD_MENU_W+"' class='custom-control-input check' />";
-        tabela += "  <label class='custom-control-label' for='chk"+ListaMenuPerfil[i].COD_MENU_W+"'>"+dscMenu+"</label>";
+        tabela += "  <input type='checkbox' id='chk"+ListaMenuPerfil[i].COD_MENU+"' codMenu='"+ListaMenuPerfil[i].COD_MENU+"' class='custom-control-input check' />";
+        tabela += "  <label class='custom-control-label' for='chk"+ListaMenuPerfil[i].COD_MENU+"'>"+dscMenu+"</label>";
         tabela += " </div>";
         tabela += "</td>";
         count++;
@@ -74,9 +74,9 @@ function MontaListaMenusPerfil(resultado) {
     $("#checkboxes").html(tabela);
     for(var i in ListaMenuPerfil){        
         if (ListaMenuPerfil[i].PERFIL == null){            
-            $("#chk"+ListaMenuPerfil[i].COD_MENU_W).prop("checked", false);
+            $("#chk"+ListaMenuPerfil[i].COD_MENU).prop("checked", false);
         }else{            
-            $("#chk"+ListaMenuPerfil[i].COD_MENU_W).prop("checked", true);
+            $("#chk"+ListaMenuPerfil[i].COD_MENU).prop("checked", true);
         }
     }
 }

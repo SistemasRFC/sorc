@@ -17,20 +17,19 @@ function MontaMenu(DadosMenu) {
         listaMenus = DadosMenu;
         var html = "";
         for (var i in DadosMenu) {
-            if (DadosMenu[i].COD_MENU_PAI_W == 0 || DadosMenu[i].COD_MENU_PAI_W == -1) {
-                html += "<li class='nav-item'>"
-                if (temFilho(DadosMenu[i].COD_MENU_W)) {
-                    html += "    <a href='' class='nav-link collapsed' id='menu'" + DadosMenu[i].COD_MENU_W + "' data-toggle='collapse' data-target='#collapse" + DadosMenu[i].COD_MENU_W + "' aria-expanded='true' aria-controls='collapse" + DadosMenu[i].COD_MENU_W + "'>";
+            if (DadosMenu[i].COD_MENU_PAI == 0 || DadosMenu[i].COD_MENU_PAI == -1) {
+                html += "<li class='nav-item' style='border-bottom: 1px solid white;'>"
+                if (temFilho(DadosMenu[i].COD_MENU)) {
+                    html += "    <a href='' class='nav-link collapsed' id='menu'" + DadosMenu[i].COD_MENU + "' data-toggle='collapse' data-target='#collapse" + DadosMenu[i].COD_MENU + "' aria-expanded='true' aria-controls='collapse" + DadosMenu[i].COD_MENU + "'>";
                     // html += "        <i class='" + DadosMenu[i].dscIcone + "' style='color: #858796 !important;'></i>";
-                    html += "        <span><b>" + DadosMenu[i].DSC_MENU_W + "</b></span>";
+                    html += "        <span><b>" + DadosMenu[i].DSC_MENU + "</b></span>";
                     html += "    </a>";
-                    html += "    <div id='collapse" + DadosMenu[i].COD_MENU_W + "' class='collapse mx-1' aria-labelledby='heading" + DadosMenu[i].COD_MENU_W + "' data-parent='#accordionSidebar'>";
-                    html += "        <div class='bg-white py-2 collapse-inner'>";
+                    html += "    <div id='collapse" + DadosMenu[i].COD_MENU + "' class='collapse mx-1' aria-labelledby='heading" + DadosMenu[i].COD_MENU + "' data-parent='#accordionSidebar'>";
+                    html += "        <div class='bg-white collapse-inner mb-1'>";
                     for (var j in DadosMenu) {
-                        if (DadosMenu[j].COD_MENU_PAI_W == DadosMenu[i].COD_MENU_W) {
-                            html += "   <a class='collapse-item' style='white-space: normal;' href='/sorc/Dispatch.php?controller=" + DadosMenu[j].NME_CONTROLLER + "&method=" + DadosMenu[j].NME_METHOD + "' style='white-space: pre-wrap;'>";
-                            // html += "       <i class='" + DadosMenu[j].dscIcone + "'></i>";
-                            html += "       <span><b>" + DadosMenu[j].DSC_MENU_W + "</b></span>";
+                        if (DadosMenu[j].COD_MENU_PAI == DadosMenu[i].COD_MENU) {
+                            html += "   <a class='collapse-item mb-1' style='white-space: normal;border-bottom: 1px solid #929292;border-radius: 0px' href='/sorc/Dispatch.php?controller=" + DadosMenu[j].NME_CONTROLLER + "&method=" + DadosMenu[j].NME_METHOD + "' style='white-space: pre-wrap;'>";
+                            html += "       <span><b>" + DadosMenu[j].DSC_MENU + "</b></span>";
                             html += "   </a>";
                         }
                     }
@@ -38,8 +37,7 @@ function MontaMenu(DadosMenu) {
                     html += "    </div>";
                 } else {
                     html += "   <a class='nav-link collapsed' href='/sorc/Dispatch.php?controller=" + DadosMenu[i].NME_CONTROLLER + "&method=" + DadosMenu[i].NME_METHOD + "'>";
-                    // html += "       <i class='" + DadosMenu[i].dscIcone + "' style='color: #858796 !important;'></i>";
-                    html += "       <span><b>" + DadosMenu[i].DSC_MENU_W + "</b></span>";
+                    html += "       <span><b>" + DadosMenu[i].DSC_MENU + "</b></span>";
                     html += "   </a>";
                 }
                 html += "</li>";
@@ -50,8 +48,8 @@ function MontaMenu(DadosMenu) {
     }
 }
 
-function temFilho(COD_MENU_PAI_W) {
-    var filhos = listaMenus.filter(elm => elm.COD_MENU_PAI_W == COD_MENU_PAI_W);
+function temFilho(COD_MENU_PAI) {
+    var filhos = listaMenus.filter(elm => elm.COD_MENU_PAI == COD_MENU_PAI);
 
     return filhos.length > 0 ? true : false;
 }

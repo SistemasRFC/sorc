@@ -26,19 +26,6 @@ class PermissaoModel extends BaseModel {
             }
         }
         return json_encode($atualizado);
-
-        // $dao = new PermissaoDao();        
-        // $dao->RemovePermissoes('0');
-        // $array = explode("|", $_POST['C']);
-        // for ($i=0;$i<count($array)-1;$i++){
-        //     $registro=explode(';',$array[$i]);            
-        //     if ($registro[1]=='S'){
-        //         $atualizado = $dao->AddPermissao($registro[0]);
-        //     }else{
-        //         $atualizado = $dao->RemovePermissoes($registro[0]);
-        //     }
-        // }
-        // return json_encode($atualizado);
     }
 }
 ?>

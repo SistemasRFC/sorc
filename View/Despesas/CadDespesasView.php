@@ -15,8 +15,8 @@
                         <input type="text" id="dscDespesa" name="dscDespesa" class='persist input form-control'>
                     </div>
                     <div class="col-4">
-                        <label class="mb-0">Tipo de Despesa</label>
-                        <div id="tdtpoDespesa"></div>
+                        <label for="dtaDespesa" class="mb-0">Data Vencimento</label>
+                        <input type="date" id="dtaDespesa" name="dtaDespesa" class='persist input form-control'>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -33,10 +33,13 @@
                         <input type="text" id="nroParcelaAtual" name="nroParcelaAtual" class='persist input form-control'>
                     </div>
                 </div>
-                <div class="row mb-2">
+                <div class="row mb-2 d-flex align-items-center">
                     <div class="col-4">
-                        <label for="dtaDespesa" class="mb-0">Data Vencimento</label>
-                        <input type="date" id="dtaDespesa" name="dtaDespesa" class='persist input form-control'>
+                        <label class="mb-0">Tipo de Despesa <small id="tetoTpoDespesa"></small></label>
+                        <div id="tdtpoDespesa"></div>
+                    </div>
+                    <div class="col-6 mt-1">
+                        <small id="infoTpoDespesa"></small>
                     </div>
                 </div>
                 <div class="row mb-2">

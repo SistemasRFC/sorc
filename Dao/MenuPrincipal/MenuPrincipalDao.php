@@ -8,22 +8,21 @@ class MenuPrincipalDao extends BaseDao
 		$path
 	) {
 		try {
-			$sql_localiza = "
-        SELECT DSC_MENU_W,
-               m.COD_MENU_W,
-               CONCAT('" . $path . "','/Controller/',NME_CONTROLLER) AS NME_CONTROLLER,
-               NME_METHOD,
-               NME_USUARIO_COMPLETO,
-               M.COD_MENU_PAI_W,
-               TXT_SENHA_W
-          FROM SE_MENU M
-         INNER JOIN SE_MENU_PERFIL MP
-            ON M.COD_MENU_W = MP.COD_MENU_W
-         INNER JOIN SE_USUARIO U
-            ON MP.COD_PERFIL_W = U.COD_PERFIL_W
-         WHERE COD_USUARIO = " . $codUsuario . " AND IND_MENU_ATIVO_W = 'S'
-           AND M.COD_MENU_PAI_W = '$codMenuPai'
-         ORDER BY DSC_MENU_W";
+			$sql_localiza = " SELECT DSC_MENU,
+        				       m.COD_MENU,
+        				       CONCAT($path, '/Controller/', NME_CONTROLLER) AS NME_CONTROLLER,
+        				       NME_METHOD,
+        				       NME_USUARIO_COMPLETO,
+        				       M.COD_MENU_PAI
+        				  FROM SE_MENU_NOVO M
+        				 INNER JOIN SE_MENU_NOVO_PERFIL MP
+        				    ON M.COD_MENU = MP.COD_MENU
+        				 INNER JOIN SE_USUARIO U
+        				    ON MP.COD_PERFIL_W = U.COD_PERFIL_W
+        				 WHERE COD_USUARIO = $codUsuario
+						   AND M.IND_ATIVO = 'S'
+        				   AND M.COD_MENU_PAI = $codMenuPai
+        				 ORDER BY DSC_MENU";
 			//echo $sql_localiza; exit;
 			$rs_localiza = $this->selectDB("$sql_localiza", false);
 		} catch (Exception $e) {
@@ -32,28 +31,25 @@ class MenuPrincipalDao extends BaseDao
 		return $rs_localiza;
 	}
 
-	public function CarregaMenuNew($codUsuario, $path)
+	public function CarregaMenuNew($codUsuario)
 	{
 		try {
-			$sql_localiza = "
-            SELECT DSC_MENU_W,
-                   m.COD_MENU_W,                   
-                   NME_CONTROLLER,
-                   CONCAT('" . $path . "','/Controller/',NME_CONTROLLER) AS NME_PATH,
-                   NME_METHOD,
-                   NME_USUARIO_COMPLETO,
-                   M.COD_MENU_PAI_W,
-                   TXT_SENHA_W,
-                   '250px' AS VLR_TAMANHO_SUBMENU
-              FROM SE_MENU M
-             INNER JOIN SE_MENU_PERFIL MP
-                ON M.COD_MENU_W = MP.COD_MENU_W
-             INNER JOIN SE_USUARIO U
-                ON MP.COD_PERFIL_W = U.COD_PERFIL_W
-             WHERE COD_USUARIO = " . $codUsuario . " AND IND_MENU_ATIVO_W = 'S'
-             ORDER BY DSC_MENU_W";
+			$sql = " SELECT DSC_MENU,
+							M.COD_MENU,
+							NME_CONTROLLER,
+							NME_METHOD,
+							NME_USUARIO_COMPLETO,
+							M.COD_MENU_PAI
+					   FROM SE_MENU_NOVO M
+				 INNER JOIN SE_MENU_NOVO_PERFIL MNP
+					     ON M.COD_MENU = MNP.COD_MENU
+				 INNER JOIN SE_USUARIO U
+					     ON MNP.COD_PERFIL_W = U.COD_PERFIL_W
+					  WHERE COD_USUARIO = $codUsuario
+					    AND M.IND_ATIVO = 'S'
+				   ORDER BY DSC_MENU";
 			//  echo $sql_localiza; exit;
-			$rs_localiza = $this->selectDB("$sql_localiza", false);
+			$rs_localiza = $this->selectDB($sql, false);
 		} catch (Exception $e) {
 			echo "erro" . $e;
 		}
@@ -63,48 +59,41 @@ class MenuPrincipalDao extends BaseDao
 	public function CarregaController($codMenu, $path)
 	{
 		try {
-			$sql_localiza = "
-            SELECT NME_CONTROLLER,
-                   NME_METHOD
-              FROM SE_MENU M
-             WHERE M.COD_MENU_W = $codMenu";
-			//echo $sql_localiza; exit;
-			$rs_localiza = $this->selectDB("$sql_localiza");
+			$sql = " SELECT NME_CONTROLLER,
+            		        NME_METHOD
+            		   FROM SE_MENU_NOVO M
+            		  WHERE M.COD_MENU = $codMenu";
+			//echo $sql; exit;
+			$rs = $this->selectDB("$sql");
 		} catch (Exception $e) {
 			echo "erro" . $e;
 		}
-		return $rs_localiza;
+		return $rs;
 	}
 
-	function CarregaAtalhos(
-		$codUsuario,
-		$path
-	) {
+	function CarregaAtalhos($codUsuario) {
 		try {
-			$sql_localiza = "
-        SELECT DSC_MENU_W,
-               m.COD_MENU_W,
-               --CONCAT('" . $path . "','/Controller/',NME_CONTROLLER) AS NME_CONTROLLER,
-               NME_CONTROLLER,
-               NME_METHOD,
-               NME_USUARIO_COMPLETO,
-               M.COD_MENU_PAI_W,
-               M.DSC_CAMINHO_IMAGEM,
-               TXT_SENHA_W
-          FROM SE_MENU M
-         INNER JOIN SE_MENU_PERFIL MP
-            ON M.COD_MENU_W = MP.COD_MENU_W
-         INNER JOIN SE_USUARIO U
-            ON MP.COD_PERFIL_W = U.COD_PERFIL_W
-         WHERE COD_USUARIO = " . $codUsuario . "
-           AND IND_MENU_ATIVO_W = 'S'
-           AND M.IND_ATALHO = 'S'
-         ORDER BY DSC_MENU_W";
-			$rs_localiza = $this->selectDB("$sql_localiza", false);
+			$sql = " SELECT DSC_MENU,
+         			        M.COD_MENU,
+         			        NME_CONTROLLER,
+         			        NME_METHOD,
+         			        NME_USUARIO_COMPLETO,
+         			        M.COD_MENU_PAI,
+         			        M.DSC_ICONE_ATALHO
+         			   FROM SE_MENU_NOVO M
+         	  	 INNER JOIN SE_MENU_NOVO_PERFIL MNP
+         			     ON M.COD_MENU = MNP.COD_MENU
+         		 INNER JOIN SE_USUARIO U
+         			     ON MNP.COD_PERFIL_W = U.COD_PERFIL_W
+         			  WHERE COD_USUARIO = $codUsuario
+         			    AND M.IND_ATIVO = 'S'
+         			    AND M.IND_ATALHO = 'S'
+         			  ORDER BY DSC_MENU";
+			$rs = $this->selectDB("$sql", false);
 		} catch (Exception $e) {
 			echo "erro" . $e;
 		}
-		return $rs_localiza;
+		return $rs;
 	}
 
 	public function CarregaDadosUsuario($codUsuario)

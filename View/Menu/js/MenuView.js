@@ -36,14 +36,14 @@ function MontaTabelaMenu(listaMenus) {
             var ativo = objeto[i].ATIVO? 'Ativo' : 'Inativo'; 
             var atalho = objeto[i].ATALHO? 'Sim' : 'Não';
             tabela += " <tr>";
-            tabela += "     <td>" + (objeto[i].COD_MENU_W != null ? objeto[i].COD_MENU_W : '') + "</td>";
-            tabela += "     <td>" + (objeto[i].DSC_MENU_W != null ? objeto[i].DSC_MENU_W : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].COD_MENU != null ? objeto[i].COD_MENU : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].DSC_MENU != null ? objeto[i].DSC_MENU : '') + "</td>";
             tabela += "     <td>" + (objeto[i].DSC_MENU_PAI != null ? objeto[i].DSC_MENU_PAI : 'Sem pai') + "</td>";
             tabela += "     <td>" + (objeto[i].NME_CONTROLLER != null ? objeto[i].NME_CONTROLLER : '') + "</td>";
             tabela += "     <td>" + (objeto[i].NME_METHOD != null ? objeto[i].NME_METHOD : '') + "</td>";
             tabela += "     <td align='center'>" + atalho + "</td>";
             tabela += "     <td align='center'>" + ativo + "</td>";
-            tabela += "     <td align='center'><button class='btn btn-primary btn-sm' title='Editar' onclick='javascript:ChamaCadastroMenu(" + objeto[i].COD_MENU_W + ");'><i class='fas fa-pen'></i></button></td>";
+            tabela += "     <td align='center'><button class='btn btn-primary btn-sm' title='Editar' onclick='javascript:ChamaCadastroMenu(" + objeto[i].COD_MENU + ");'><i class='fas fa-pen'></i></button></td>";
             tabela += " </tr>";
         }
     }
@@ -55,8 +55,8 @@ function MontaTabelaMenu(listaMenus) {
 }
 
 function ChamaCadastroMenu(codMenu) {
-    let menu = arrMenus.filter(elm => elm.COD_MENU_W == codMenu);
-    PreencheCamposForm(menu[0], 'indMenuAtivoW;B|indAtalho;B');
+    let menu = arrMenus.filter(elm => elm.COD_MENU == codMenu);
+    PreencheCamposForm(menu[0], 'indAtivo;B|indAtalho;B');
     $("#cadastroMenuTitle").html("Menu "+codMenu);
     $("#cadastroMenu").modal("show");
 }

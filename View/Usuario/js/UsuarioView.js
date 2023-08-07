@@ -68,5 +68,8 @@ function ResetarSenha(codUsuario) {
 }
 
 $(document).ready(function(){
+    if($("#codPerfilSessao").val() != 1){
+        $("#titleMenu").html("Cadastro");
+    }
     CarregaGridUsuario();
 });

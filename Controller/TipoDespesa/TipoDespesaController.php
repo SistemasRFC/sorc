@@ -32,6 +32,11 @@ class TipoDespesaController extends BaseController
         $model = new TipoDespesaModel();
         echo $model->ListarSomaTipoDespesas();
     }
+
+    function VerificarTeto() {
+        $model = new TipoDespesaModel();
+        echo $model->VerificarTeto();
+    }
 }
 $TipoDespesaController = new TipoDespesaController();
 ?>

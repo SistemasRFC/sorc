@@ -13,8 +13,8 @@ class MenuModel extends BaseModel
     function AddMenu(){
         $dao = new MenuDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
-        if (isset($this->objRequest->codMenuPaiW)==1) {
-            unset($this->objRequest->codMenuPaiW);
+        if (isset($this->objRequest->codMenuPai)==1) {
+            unset($this->objRequest->codMenuPai);
         }
         $result = $dao->AddMenu($this->objRequest);
         return json_encode($result);
@@ -23,8 +23,8 @@ class MenuModel extends BaseModel
     function UpdateMenu(){
         $dao = new MenuDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
-        if (isset($this->objRequest->codMenuPaiW)==1) {
-            unset($this->objRequest->codMenuPaiW);
+        if (isset($this->objRequest->codMenuPai)==1) {
+            unset($this->objRequest->codMenuPai);
         }
         $result = $dao->UpdateMenu($this->objRequest);
         return json_encode($result);
@@ -43,15 +43,15 @@ class MenuModel extends BaseModel
         $data = array();
         while($i<$total ) {
             $data[] = array(
-                'value' => $lista[$i]['DSC_MENU_W'],
-                'label' => $lista[$i]['DSC_MENU_W'],
-                'id' => $lista[$i]['COD_MENU_W'],
+                'value' => $lista[$i]['DSC_MENU'],
+                'label' => $lista[$i]['DSC_MENU'],
+                'id' => $lista[$i]['COD_MENU'],
                 'nmeController' => $lista[$i]['NME_CONTROLLER'],
                 'nmeMethod' => $lista[$i]['NME_METHOD'],
-                'indAtivo' => $lista[$i]['IND_MENU_ATIVO_W'],
-                'codMenuPai' => $lista[$i]['COD_MENU_PAI_W'],
+                'indAtivo' => $lista[$i]['IND_ATIVO'],
+                'codMenuPai' => $lista[$i]['COD_MENU_PAI'],
                 'indAtalho' => $lista[$i]['IND_ATALHO'],
-                'dscCaminhoImagem' => $lista[$i]['DSC_CAMINHO_IMAGEM']
+                'dscIconeAtalho' => $lista[$i]['DSC_ICONE_ATALHO']
             );
             $i++;
         }
@@ -68,7 +68,7 @@ class MenuModel extends BaseModel
     function ListarMenusGrid(){
         $dao = new MenuDao();
         $lista = $dao->ListarMenusGrid();
-        $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_MENU_ATIVO_W', 'ATIVO');
+        $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATIVO', 'ATIVO');
         $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_ATALHO', 'ATALHO');
         return json_encode($lista);
     }

@@ -77,5 +77,13 @@ class TipoDespesaModel extends BaseModel
 
         return json_encode($lista);
     }
+
+    function VerificarTeto() {
+        $dao = new TiposDespesaDao();
+        $codTipoDespesa = filter_input(INPUT_POST, 'tpoDespesa', FILTER_SANITIZE_STRING);
+        $result = $dao->VerificarTeto($_SESSION['cod_cliente_final'], $codTipoDespesa);
+
+        return json_encode($result);
+    }
 }
 ?>

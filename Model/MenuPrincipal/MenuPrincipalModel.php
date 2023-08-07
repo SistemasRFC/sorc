@@ -15,7 +15,7 @@ class MenuPrincipalModel extends BaseModel
         $menuFilho = array();
         if (!$menuPai[1]==null){
             for($i=0;$i<count($menuPai[1]);$i++){
-                $dados = $dao->CarregaMenu($_SESSION['cod_usuario'], $menuPai[1][$i]['COD_MENU_W'], $path);
+                $dados = $dao->CarregaMenu($_SESSION['cod_usuario'], $menuPai[1][$i]['COD_MENU'], $path);
                 for($j=0;$j<count($dados[1]);$j++){
                     array_push($menuFilho, $dados[1][$j]);
                 }

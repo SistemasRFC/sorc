@@ -9,13 +9,13 @@
 			</button>
 		</div>
 		<div class="modal-body">
-			<input type="hidden" id="codMenuW" name="codMenuW" value="0" class="persist">
+			<input type="hidden" id="codMenu" name="codMenu" value="0" class="persist">
 			<!-- <input type="hidden" id="dscCaminhoImagem" name="dscCaminhoImagem" class="persist"> -->
 			<div class="container">
 				<div class="row">
 					<div class="form-group col-10">
-						<label for="dscMenuW" class="mb-0">Descrição</label>
-						<input type="text" id="dscMenuW" name="dscMenuW" class='persist input form-control'>
+						<label for="dscMenu" class="mb-0">Descrição</label>
+						<input type="text" id="dscMenu" name="dscMenu" class='persist input form-control'>
 					</div>
 				</div>
 				<div class="row">
@@ -46,21 +46,12 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col-6">
-						<label for="codMenuPaiW" class="mb-0">Menu pai</label>
-						<div id="tdcodMenuPaiW"></div>
+						<label for="codMenuPai" class="mb-0">Menu pai</label>
+						<div id="tdcodMenuPai"></div>
 					</div>
 					<div class="col-6">
-						<label for="dscCaminhoImagem" class="mb-0">Icone de Atalho</label>
-						<input type="text" id="dscCaminhoImagem" name="dscCaminhoImagem" class='persist input form-control'>
-
-						<!-- <form name="menuForm" enctype="multpart/form-data" id="cadastroMenuForm" method="post" action="../../Controller/Menu/MenuController.php">
-							<label for="imagem" class="mb-0">Selecione o arquivo:</label>
-							<input type="file" name="arquivo" id="imagem" size="45" />
-							<br />
-							<progress value="0" max="100"></progress>
-							<span id="porcentagem">0%</span>
-							<br />
-						</form> -->
+						<label for="dscIconeAtalho" class="mb-0">Icone de Atalho</label>
+						<input type="text" id="dscIconeAtalho" name="dscIconeAtalho" class='persist input form-control'>
 					</div>
 				</div>
 				<div class="row">
@@ -72,8 +63,8 @@
 					</div>
 					<div class="col-4">
 						<div class="custom-control custom-checkbox">
-							<input type="checkbox" name="indMenuAtivoW" id="indMenuAtivoW" class="custom-control-input persist" />
-							<label class="custom-control-label" for="indMenuAtivoW">Ativo</label>
+							<input type="checkbox" name="indAtivo" id="indAtivo" class="custom-control-input persist" />
+							<label class="custom-control-label" for="indAtivo">Ativo</label>
 						</div>
 					</div>
 				</div>

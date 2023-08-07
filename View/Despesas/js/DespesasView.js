@@ -158,6 +158,8 @@ function eventosCheckbox() {
 function chamaCadastroDespesa(codDespesa) {
     var despesaSelecionada = arrDespesas.filter(elm => elm.COD_DESPESA == codDespesa)[0];
     PreencheCamposForm(despesaSelecionada, 'indDespesaPaga;B');
+    $("#tetoTpoDespesa").html("");
+    $("#infoTpoDespesa").html("");
     $("#divDtaPagamento").show();
     $("#cadastroDespesaTitle").html('Editar Despesa');
     $("#cadastroDespesa").modal('show');
@@ -188,6 +190,9 @@ function montaComboTpoDespesaFiltro(arr) {
     CriarSelect('tpoDespesaFiltro', arr, -1, false, '');
     $("#tpoDespesaFiltro").change(function() {
         CarregaGridDespesa();
+    });
+    $("#tpoDespesa").change(function() {
+        verificarTeto();
     });
 }
 

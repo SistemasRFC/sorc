@@ -18,7 +18,7 @@ var nomeGrid = 'ListagemForm';
 //     $("#vlrTotal").html(total);
 // }
 
-function deletarDespesa(codDespesa){   
+function deletarDespesa(codDespesa){
     ExecutaDispatch('Despesas', 'DeletarDespesa', 'codDespesa<=>'+codDespesa, CarregaGridDespesa, 'Aguarde, excluindo despesa.', 'Despesa excluida com sucesso!');
 }
 
