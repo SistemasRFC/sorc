@@ -33,7 +33,7 @@ if(!$_SESSION['cod_usuario']) {
                 <div class="topbar-divider d-none d-sm-block"></div>
     
                 <li>
-                    <a href="../../Index.php" title="Sair">
+                    <a href="../../index.php" title="Sair">
                         <i class="fas fa-person-running text-white fa-2x"></i>
                     </a>
                 </li>

@@ -26,7 +26,7 @@ function MontaComboPerfil(ListarPerfisAtivos) {
             $("#checkboxes").html("Selecione um perfil acima.");
             ListaMenuPerfil = undefined;                                 
         } else {
-            ExecutaDispatch('permissao', 'ListarMenusPerfil', undefined, MontaListaMenusPerfil);
+            ExecutaDispatch('Permissao', 'ListarMenusPerfil', undefined, MontaListaMenusPerfil);
             $("#chkTodos").prop("disabled", false);        
         }
         $("#chkTodos").prop("checked", false);
