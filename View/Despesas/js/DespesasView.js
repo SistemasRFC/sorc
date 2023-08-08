@@ -157,6 +157,7 @@ function eventosCheckbox() {
 function chamaCadastroDespesa(codDespesa) {
     var despesaSelecionada = arrDespesas.filter(elm => elm.COD_DESPESA == codDespesa)[0];
     PreencheCamposForm(despesaSelecionada, 'indDespesaPaga;B');
+    verificarTeto();
     $("#tetoTpoDespesa").html("");
     $("#infoTpoDespesa").html("");
     $("#divDtaPagamento").show();
