@@ -187,6 +187,10 @@ td{
     color: #DDD !important;
 }
 
+.sidebar-light .nav-item .nav-link[data-toggle="collapse"]::after {
+    color: #FFF !important;
+}
+
 .disabledTable {
     pointer-events: none;
     opacity: 100;

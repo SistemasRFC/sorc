@@ -17,8 +17,7 @@
 
 function redirecionaPagina(resp) {
     if (resp[0]) {
-        // window.location.href = 'Dispatch.php?controller='+resp[1]['DSC_PAGINA']+'&method='+resp[1]['NME_METHOD'];
-        $(location).attr('href','../../sorc/Dispatch.php?controller='+resp[1]['DSC_PAGINA']+'&method='+resp[1]['NME_METHOD']);
+        $(location).attr('href','../../Dispatch.php?controller='+resp[1]['DSC_PAGINA']+'&method='+resp[1]['NME_METHOD']);
     }
 }
 

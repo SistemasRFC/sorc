@@ -28,7 +28,7 @@ class LoginModel extends BaseModel
                 }
             } else {
                 $logar[0]=false;
-                $logar[1]="Usuário não encontrado. Verique Login e Senha e tente novamente.";
+                $logar[1]['mensagem'] = "Usuário não encontrado. Verique Login e Senha e tente novamente.";
             }
         }
 
@@ -39,12 +39,13 @@ class LoginModel extends BaseModel
         $dao = new LoginDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
         $this->objRequest->codUsuario = $_SESSION['cod_usuario'];
-        $this->objRequest->txtSenhaNova = base64_encode(filter_input(INPUT_POST, 'txtNova', FILTER_SANITIZE_ADD_SLASHES));
+        $this->objRequest->txtSenhaNova = base64_encode(filter_input(INPUT_POST, 'txtNova', FILTER_SANITIZE_STRING));
         $result = $this->VerificaSenhaAtual();
         if ($result[0]){
             $result = $dao->AlteraSenha($this->objRequest);
             if ($result[0]) {
-                if ($result[1]) {
+                if ($result[1] == 'sucesso') {
+                    $result[1] = [];
                     $result[1]['mensagem'] = 'Senha Alterada!';
                     $result[1]['DSC_PAGINA'] = 'MenuPrincipal';
                     $result[1]['NME_METHOD'] = 'CarregaMenu';
