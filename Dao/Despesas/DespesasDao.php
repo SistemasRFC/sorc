@@ -31,20 +31,16 @@ class DespesasDao extends BaseDao
         return $this->MontarUpdate($obj);
     }
 
-    Function DeletarDespesa($codDepesaImportada=null){
+    Function DeletarDespesa($arrDepesas){
         $sql = " DELETE FROM EN_DESPESA
-                  WHERE COD_DESPESA = ".filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
-        if ($codDepesaImportada!=null){
-            $sql .= " AND COD_DESPESA_IMPORTACAO = ".$codDepesaImportada."
-                      AND (IND_DESPESA_PAGA IS NULL OR IND_DESPESA_PAGA = 'N')";
-        }
+                  WHERE COD_DESPESA in ( $arrDepesas ) ";
         return $this->insertDB($sql);
     }
     
-    Public Function PegaDespesaPai(){
-        $sql = "SELECT CASE WHEN COD_DESPESA_IMPORTACAO IS NULL THEN COD_DESPESA ELSE COD_DESPESA_IMPORTACAO END AS COD_DESPESA_IMPORTACAO
+    Public Function PegaDespesasFilhas($codDespesa){
+        $sql = "SELECT COD_DESPESA
                   FROM EN_DESPESA
-                 WHERE COD_DESPESA = ".filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
+                 WHERE COD_DESPESA_IMPORTACAO = $codDespesa";
         return $this->selectDB($sql, false);
     }
     

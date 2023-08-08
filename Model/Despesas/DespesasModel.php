@@ -54,9 +54,17 @@ class DespesaModel extends BaseModel
 
     function DeletarDespesa() {
         $dao = new DespesasDao();
-        $result = $dao->PegaDespesaPai();
-
-        return json_encode($dao->DeletarDespesa($result[1][0]['COD_DESPESA_IMPORTACAO']));
+        $codDespesa = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_STRING); 
+        $result = $dao->PegaDespesasFilhas($codDespesa);
+        $arrCodigos = $codDespesa.',';
+        if($result[0] && $result[1] != null) {
+            $count = count($result[1]);
+            for($i=0; $i < $count; $i++) {
+                $arrCodigos .= $result[1][$i]['COD_DESPESA'].',';
+            }
+        }
+        $arrCodigos = substr($arrCodigos, 0, strlen($arrCodigos)-1);
+        return json_encode($dao->DeletarDespesa($arrCodigos));
     }
     
     Function ListarDespesas() {
