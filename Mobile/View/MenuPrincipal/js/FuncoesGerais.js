@@ -1,3 +1,5 @@
+const API = PATH_RAIZ = '/sorc/Mobile/';
+
 function CarregaMenu() {
     ExecutaDispatch('MenuPrincipal', 'CarregaMenuNew', '', MontaMenu);
 }
@@ -136,10 +138,11 @@ function CriarSelectPuro(texto, nmeCombo, arrDados, valor, disabled) {
     $("#td" + nmeCombo).html('');
     var select = '<label for="'+nmeCombo+'" class="mb-0 title">'+texto+'</label>';
     if (disabled == true) {
-        select += '<select id="' + nmeCombo + '" disabled class="persist form-control form-control-user">';
+        select += '<select id="' + nmeCombo + '" disabled class="persist form-control">';
     } else {
-        select += '<select id="' + nmeCombo + '" class="input persist form-control form-control-user">';
+        select += '<select id="' + nmeCombo + '" class="input persist form-control">';
     }
+    select += '<option value="-1">Selecione...</option>';
     for (i = 0; i < arrDados[1].length; i++) {
         if (arrDados[1][i]['ID'] == valor) {
             select += '<option value="' + arrDados[1][i]['ID'] + '" selected>' + arrDados[1][i]['DSC'] + '</option>';
@@ -188,7 +191,7 @@ function ExecutaDispatch(Controller, Method, Parametros, Callback, MensagemAguar
     if (MensagemAguarde != undefined) {
         swal({
             title: MensagemAguarde,
-            imageUrl: PATH_RESOURCES + "Resources/images/preload.gif",
+            imageUrl: PATH_RAIZ + "Resources/images/preload.gif",
             showConfirmButton: false
         });
     }
@@ -381,14 +384,6 @@ function retornaParametros() {
                     var value = 'N';
                 }
                 break;
-            case 'date':
-                if ($(this).val()!=''){
-                    var data = new Date($(this).val());
-                    value = String(data.getDate()+1).padStart(2, '0')+'/'+String(data.getMonth()+1).padStart(2, '0')+'/'+data.getFullYear();
-                }else{
-                    value= '';
-                }
-                break;
             default:
                 value = $(this).val();
                 break;
@@ -449,7 +444,7 @@ function preencheCamposForm(arrCampos, valorPadrao) {
 
 function LimparCampos() {
     $(".persist").each(function (index) {
-        switch ($(this).attr('type')) {
+        switch ($(this).prop('type')) {
             case 'radio':
             case 'checkbox':
                 $(this).prop("checked", false);
@@ -460,6 +455,9 @@ function LimparCampos() {
             case 'text':
             case 'hidden':
                 $(this).val('');
+                break;
+            case 'select-one':
+                $(this).val('-1');
                 break;
             default:
                 $(this).val('0');

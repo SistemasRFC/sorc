@@ -7,5 +7,10 @@ class TipoDespesaController extends BaseController
         $model = new TipoDespesaModel();
         echo $model->ListarTiposDespesasAtivos();
     }
+
+    function VerificarTeto() {
+        $model = new TipoDespesaModel();
+        echo $model->VerificarTeto();
+    }
 }
 ?>

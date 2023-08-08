@@ -87,7 +87,6 @@ class TiposDespesaDao extends BaseDao
                 WHERE TP.COD_TIPO_DESPESA = $codTipoDespesa
                 GROUP BY TP.COD_TIPO_DESPESA";
       return $this->selectDB($sql, false);
-
     }
 }
 ?>

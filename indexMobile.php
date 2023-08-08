@@ -11,7 +11,6 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=IBM850; ISO-8859-1">
         <!-- jquery -->
-        <script src="../..<?=ALIAS;?>Resources/constantes.js?random=<?php echo time(); ?>"></script>
         <script src="Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
         <script src="Resources/bootstrap-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- JS -->
@@ -28,11 +27,11 @@
         <link href="Resources/bootstrap-admin/css/style.css" rel="stylesheet" type="text/css">
 
         <!-- Antiga Index -->
-        <script src="Mobile/View/MenuPrincipal/js/FuncoesGerais.js?random=<?php echo time(); ?>"></script>
+        <script src="Shared/FuncoesGerais.js?random=<?php echo time(); ?>"></script>
         <script src="Resources/swal/dist/sweetalert.min.js"></script>
         <link rel="stylesheet" type="text/css" href="Resources/swal/dist/sweetalert.css"> 
 
-        <script src="indexMobile.js"></script>
+        <script src="indexMobile.js?random=<?php echo time(); ?>"></script>
     </head>
     <body>
         <input type="hidden" id="verificaPermissao" name="verificaPermissao" value="N" class="persist">
@@ -57,15 +56,15 @@
                                     <input type="text" id="nmeUsuario" name="nmeUsuario" autocomplete="off" class='login input persist form-control form-control-user' placeholder="Login">
                                 </div>
                                 <div class="form-group">
-                                    <label for="txtSenha" class="mb-0">Senha</label>
-                                    <input type="password" id="txtSenha" name="txtSenha" class='login persist input form-control form-control-user' placeholder="Senha">
+                                    <label for="txtSenhaW" class="mb-0">Senha</label>
+                                    <input type="password" id="txtSenhaW" name="txtSenhaW" class='login persist input form-control form-control-user' placeholder="Senha">
                                 </div>
                                 <input type="button" id="btnLogin" value="Entrar" class="btn btn-primary btn-user btn-block">
                             </form>
-                            <hr>
+                            <!-- <hr>
                             <div class="text-center">
                                 <a class="small" href="RecuperarSenha.php">Esqueci a senha</a>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-lg-1"></div>
                     </div>

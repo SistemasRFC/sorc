@@ -19,8 +19,8 @@ function montaListaDespesas(resp) {
     html += "<table class='table table-striped'>";
     html += "   <thead>";
     html += "       <tr>";
-    html += "           <th>Pago em</th>";
-    html += "           <th>Descrição</th>";
+    html += "           <th>Data</th>";
+    html += "           <th>Desc.</th>";
     html += "           <th>Valor</th>";
     html += "       </tr>";
     html += "   </thead>";
@@ -28,12 +28,19 @@ function montaListaDespesas(resp) {
     if(listaDespesas!=null) {
         for(i in listaDespesas){
             let item = listaDespesas[i];
+            let arrdata = item.DTA_DESPESA.split('-');
+            const date = new Date(arrdata[0], arrdata[1]-1, arrdata[2]);
             if(item.IND_PAGO == "N") {
-                html += "       <tr style='background-color: #F6CECE'>";
-                html += "           <td>"+item.DTA_DESPESA.substring(0,5)+"</td>";
+                if(date < new Date()) {
+                    html += "       <tr>";
+                    html += "           <td style='color: red'>"+item.DTA_DESPESA_FORMATADO.substring(0,5)+"</td>";
+                } else {
+                    html += "       <tr>";
+                    html += "           <td>"+item.DTA_DESPESA_FORMATADO.substring(0,5)+"</td>";
+                }
             } else {
                 html += "       <tr>";
-                html += "           <td style='color: green'>"+item.DTA_PAGAMENTO.substring(0,5)+"</td>";
+                html += "           <td style='color: green'>"+item.DTA_PAGAMENTO_FORMATADO.substring(0,5)+"</td>";
             }
             html += "           <td>"+item.DSC_DESPESA+"</td>";
             html += "           <td>R$ "+item.VLR_DESPESA+"</td>";

@@ -6,15 +6,20 @@ $(function() {
     }); 
     $("#btnLogin").click(function(){     
         var parametros = retornaParametros();
-        ExecutaDispatch('Login','Logar', parametros, posLogin, "Aguarde, efetuando login!");
+        ExecutaDispatch('Login', 'Logar', parametros, posLogin, "Aguarde, efetuando login!");
     });
 
 });
 
-function posLogin(logar){
-    $(location).attr('href', 'Mobile/Dispatch.php?controller=' + logar[1][0]['DSC_PAGINA'] + '&method=' + logar[1][0]['NME_METHOD']+'&verificaPermissao=N');
+function posLogin(dados) {
+    if (dados[2]['redirecionaInicio']) {
+        window.location.href = 'Mobile/Dispatch.php?controller=MenuPrincipal&method=ChamaView&verificaPermissao=N';
+    } else {
+        window.location.href = 'Mobile/Dispatch.php?controller=Login&method=ChamaAlterarSenhaView';
+    }
+    // $(location).attr('href', 'Mobile/Dispatch.php?controller=' + logar[1][0]['DSC_PAGINA'] + '&method=' + logar[1][0]['NME_METHOD']+'&verificaPermissao=N');
 }
 
 $(document).ready(function(){
-    $("#nmeLogin").focus();
+    $("#nmeUsuario").focus();
 });

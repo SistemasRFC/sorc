@@ -1,7 +1,9 @@
 <?php
-ob_start();
-ini_set('display_errors', true);
-error_reporting(E_ALL & ~E_WARNING & ~ E_DEPRECATED);
+// ob_start();
+// ini_set('display_errors', true);
+// error_reporting(E_ALL & ~E_WARNING & ~ E_DEPRECATED);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include_once 'constantes.php';
 
 class Dispatch{
@@ -21,7 +23,7 @@ class Dispatch{
         include_once $this->getPathController($controller);
         if (method_exists($controller.'Controller',$method)){
             if (static::VerificaPermissao()){
-                if (BaseModel::PermissaoMetodoUsuario($controller,$method)){
+                if (BaseModel::PermissaoMetodoUsuario($controller, $method)){
                     $controller = $controller.'Controller';
                     $controllerInstance = new $controller();
                     $controllerInstance->$method();

@@ -64,56 +64,11 @@ class UsuarioDao extends BaseDao
     }
     
     function AddUsuario(stdClass $obj) {
-        return $this->MontarInsert($obj);       
-        // $codUsuario = $this->CatchUltimoCodigo('SE_USUARIO', 'COD_USUARIO');
-        // $nroCpf = str_replace('-','',str_replace('.', '', filter_input(INPUT_POST, 'nroCpf', FILTER_SANITIZE_STRING)));
-        // $senha = base64_encode("123459");
-        // $codPerfil = $codPerfil==3?1:filter_input(INPUT_POST, 'codPerfil', FILTER_SANITIZE_NUMBER_INT);
-        // $sql_lista = "INSERT INTO SE_USUARIO (
-        //                      COD_USUARIO,
-        //                      NME_USUARIO,
-        //                      NME_USUARIO_COMPLETO,
-        //                      TXT_SENHA_W,
-        //                      TXT_EMAIL,
-        //                      COD_PERFIL_W,
-        //                      IND_ATIVO,
-        //                      NRO_CPF,
-        //                      COD_USUARIO_PAI,
-        //                      COD_CLIENTE_FINAL)
-        //              VALUES(".$codUsuario.",
-        //                     '".filter_input(INPUT_POST, 'nmeLogin', FILTER_SANITIZE_ADD_SLASHES)."',
-        //                     '".filter_input(INPUT_POST, 'nmeUsuario', FILTER_SANITIZE_ADD_SLASHES)."',
-        //                     '".$senha."',
-        //                     '".filter_input(INPUT_POST, 'txtEmail', FILTER_SANITIZE_ADD_SLASHES)."',
-        //                     '".$codPerfil."',
-        //                     '".filter_input(INPUT_POST, 'indAtivo', FILTER_SANITIZE_STRING)."',
-        //                     '".$nroCpf."', ".
-        //                     $codUsuarioPai.",
-        //                     ".filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT).")";
-        // $result = $this->insertDB("$sql_lista");
-        // if ($result[0]){
-        //     $result[1]= $codUsuario;
-        // }
-        // return $result;
+        return $this->MontarInsert($obj);
     }
     
     function UpdateUsuario(stdClass $obj) {
-        return $this->MontarUpdate($obj);    
-        // $nroCpf = str_replace('-','',str_replace('.', '', filter_input(INPUT_POST, 'nroCpf', FILTER_SANITIZE_NUMBER_INT)));
-        // $codPerfil = $codPerfil==3?1:filter_input(INPUT_POST, 'codPerfil', FILTER_SANITIZE_NUMBER_INT);
-        // $sql_lista =  "UPDATE SE_USUARIO
-        //                   SET NME_USUARIO          = '".filter_input(INPUT_POST, 'nmeLogin', FILTER_SANITIZE_ADD_SLASHES)."',
-        //                       NME_USUARIO_COMPLETO = '".filter_input(INPUT_POST, 'nmeUsuario', FILTER_SANITIZE_ADD_SLASHES)."',
-        //                       TXT_EMAIL            = '".filter_input(INPUT_POST, 'txtEmail', FILTER_SANITIZE_ADD_SLASHES)."',
-        //                       COD_PERFIL_W         = '".$codPerfil."',
-        //                       IND_ATIVO            = '".filter_input(INPUT_POST, 'indAtivo', FILTER_SANITIZE_STRING)."',
-        //                       COD_CLIENTE_FINAL    = '".filter_input(INPUT_POST, 'codCliente', FILTER_SANITIZE_NUMBER_INT)."'
-        //    WHERE COD_USUARIO = ".filter_input(INPUT_POST, 'codUsuario', FILTER_SANITIZE_NUMBER_INT);        
-        // $result = $this->insertDB("$sql_lista");        
-        // if ($result[0]){
-        //     $result[1]=  filter_input(INPUT_POST, 'codUsuario', FILTER_SANITIZE_NUMBER_INT);
-        // }
-        // return $result;
+        return $this->MontarUpdate($obj);
     }
 
     function DeleteUsuario(){        

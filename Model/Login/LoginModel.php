@@ -11,14 +11,6 @@ class LoginModel extends BaseModel
     function Logar(){
         $dao = new LoginDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
-        // $nmeLogin = filter_input(INPUT_POST, 'nmeUsuario', FILTER_SANITIZE_ADD_SLASHES);
-        // $txtSenha = filter_input(INPUT_POST, 'txtSenha', FILTER_SANITIZE_ADD_SLASHES);
-        // if (($this->objRequest->nmeUsuario=="adm")&&($this->objRequest->txtSenha=="adm")){
-        //     $senha = $txtSenha;
-        // }else{
-        //     $this->objRequest->txtSenha = base64_encode($this->objRequest->txtSenha)
-        //     $senha = base64_encode($txtSenha);
-        // }
         $logar = $dao->Logar($this->objRequest);
         if ($logar[0]) {
             if ($logar[1] != NULL) {

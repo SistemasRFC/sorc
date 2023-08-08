@@ -9,7 +9,6 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=IBM850; ISO-8859-1">
         <!-- jquery -->
-        <script src="<?=ALIAS;?>Resources/constantes.js?random=<?php echo time(); ?>"></script>
         <script src="<?=ALIAS;?>Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
         <script src="<?=ALIAS;?>Resources/bootstrap-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- JS -->
@@ -35,103 +34,101 @@
     
     <body>
         <input type="hidden" id="verificaPermissao" name="verificaPermissao" value="N" class="persist">
-        <div class="container">
 
-            <div class="card o-hidden border-0 shadow-lg my-4">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-12 pt-2 pb-2" style="background-color: #ddd;">
-                            <button id="btnVoltar" class="btn btn-link btn-user text-left col-5" style="color: black">
-                                <i class="fa fa-arrow-alt-circle-left title"> Voltar</i>
-                            </button>
-                            <button id="btnListarDespesas" class="btn btn-link btn-user text-right col-6" style="color: black">
-                                <i class="fa fa-list-alt title "> Despesas</i>
+            <div class="card o-hidden border-0 shadow-lg mx-2 my-3">
+                <div class="card-header px-1 py-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-6 p-0">
+                            <button id="btnVoltar" class="btn btn-outline-secondary text-white border-white">
+                                <i class="far fa-arrow-alt-circle-left text-white"></i>
+                                <b>Voltar</b>
                             </button>
                         </div>
-                        <div class="col-12 text-center pt-1">
-                            <label class="h4 text-gray-800 ml-1 text-persian-light">
-                                Cadastro de Despesa
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row p-1">
-                        <div class="col-12">
-                            <form class="user">
-                                <div class="form-group">
-                                    <label for="dscDespesa" class="mb-0 title">Descrição da Despesa</label>
-                                    <input type="text" id="dscDespesa" name="dscDespesa" autocomplete="off" class='login input persist form-control form-control-user'>
-
-                                    <label for="dtaLancDespesa" class="mb-0 title">Data lançamento</label>
-                                    <input type="date" 
-                                           id="dtaLancDespesa" 
-                                           autocomplete="off" 
-                                           name="dtaLancDespesa" 
-                                           class='login persist input form-control form-control-user'>
-
-                                    <label for="dtaDespesa" class="mb-0 title">Data Vencimento</label>
-                                    <input type="date" id="dtaDespesa" autocomplete="off" name="dtaDespesa" class='login persist input form-control form-control-user'>
-
-                                    <label for="vlrDespesa" class="mb-0 title">Valor</label>
-                                    <input  autocomplete="off" 
-                                            type="number" 
-                                            min="0.00" 
-                                            max="10000.00" 
-                                            step="0.01" 
-                                            data-number-stepfactor="100"
-                                            data-number-to-fixed="2" 
-                                            id="vlrDespesa" name="vlrDespesa" 
-                                            pattern="^\d*(\.\d{0,2})?$"
-                                            class="persist form-control currency form-control-user">
-
-                                    <label for="qtdParcelas" class="mb-0 title">Qtd Parcelas</label>
-                                    <input  autocomplete="off" 
-                                            type="number" 
-                                            min="1" 
-                                            max="10000" 
-                                            step="1" 
-                                            pattern="^\d*(\.\d{0,0})?$"
-                                            id="qtdParcelas" 
-                                            name="qtdParcelas" 
-                                            value="1"
-                                            class='login persist input form-control form-control-user'>
-
-                                    <label for="nroParcelaAtual" class="mb-0 title">Parcela Atual</label>
-                                    <input  autocomplete="off" 
-                                            type="number" 
-                                            min="1" 
-                                            max="10000" 
-                                            step="1" 
-                                            pattern="^\d*(\.\d{0,0})?$"
-                                            id="nroParcelaAtual" 
-                                            name="nroParcelaAtual" 
-                                            value="1"
-                                            class='login persist input form-control form-control-user'>
-                                    <div id="tdcodTipoDespesa"></div>
-                                    <div id="tdcodConta"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="checkbox" 
-                                        id="indDespesaPaga" 
-                                        name="indDespesaPaga" 
-                                        checked
-                                        style="transform: scale(1.5); padding: 15px;"
-                                        class="persist ml-1"><span class="title ml-1"> Despesa Paga?</span>
-                                </div>
-                                <div id="divdtaPagamento">
-                                    <label for="dtaPagamento" class="mb-0 title">Data Pagamento</label>
-                                    <input type="date" id="dtaPagamento" autocomplete="off" name="dtaPagamento" class='login persist input form-control form-control-user'>
-                                </div> 
-                                <hr>
-                                <input type="button" id="btnSalvar" value="Salvar" class="btn btn-success btn-user btn-block">
-                            </form>
+                        <div class="col-6 p-0">
+                            <button id="btnListarDespesas" class="btn btn-outline-secondary text-white border-white">
+                                <i class="far fa-list-alt text-white"></i>
+                                <b>Despesas</b>
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="card-body">
+                    <div class="row mb-1">
+                        <div class="col-12 text-center">
+                            <h4 class="text-dark">
+                                Cadastro de Despesa
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="dscDespesa" class="mb-0 title">Descrição da Despesa</label>
+                            <input type="text" id="dscDespesa" name="dscDespesa" autocomplete="off" class='persist form-control'>
 
-        </div>
+                            <label for="dtaDespesa" class="mb-0 title">Data Vencimento</label>
+                            <input type="date" id="dtaDespesa" autocomplete="off" name="dtaDespesa" class='persist form-control'>
+
+                            <label for="vlrDespesa" class="mb-0 title">Valor</label>
+                            <input  autocomplete="off" 
+                                    type="number" 
+                                    min="0.00" 
+                                    max="10000.00" 
+                                    step="0.01" 
+                                    data-number-stepfactor="100"
+                                    data-number-to-fixed="2" 
+                                    id="vlrDespesa" name="vlrDespesa" 
+                                    pattern="^\d*(\.\d{0,2})?$"
+                                    class="persist form-control currency">
+
+                            <label for="qtdParcelas" class="mb-0 title">Qtd Parcelas</label>
+                            <input  autocomplete="off" 
+                                    type="number" 
+                                    min="1" 
+                                    max="10000" 
+                                    step="1" 
+                                    pattern="^\d*(\.\d{0,0})?$"
+                                    id="qtdParcelas" 
+                                    name="qtdParcelas" 
+                                    value="1"
+                                    class='persist form-control'>
+
+                            <label for="nroParcelaAtual" class="mb-0 title">Parcela Atual</label>
+                            <input  autocomplete="off" 
+                                    type="number" 
+                                    min="1" 
+                                    max="10000" 
+                                    step="1" 
+                                    pattern="^\d*(\.\d{0,0})?$"
+                                    id="nroParcelaAtual" 
+                                    name="nroParcelaAtual" 
+                                    value="1"
+                                    class='persist form-control'>
+
+                            <label class="mb-0 title">Tipo de Despesa <small id="tetoTpoDespesa"></small></label>
+                            <div id="tdtpoDespesa"></div>
+                            <small id="infoTpoDespesa"></small>
+
+                            <div id="tdcodConta"></div>
+                            <div id="tdcodUsuarioDespesa"></div>
+
+                            <div class="custom-control custom-checkbox mt-3 mb-1">
+                                <input type="checkbox" name="indDespesaPaga" id="indDespesaPaga" class="custom-control-input persist" />
+                                <label class="custom-control-label title" for="indDespesaPaga">Despesa Paga?</label>
+                            </div>
+
+                            <div id="divdtaPagamento">
+                                <label for="dtaPagamento" class="mb-0 title">Data Pagamento</label>
+                                <input type="date" id="dtaPagamento" autocomplete="off" name="dtaPagamento" class='persist form-control'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-block">
+                        <input type="button" id="btnSalvar" value="Salvar" class="btn btn-success btn-user btn-block">
+                    </div>
+                </div>
+            </div>
     </body>
 </html>
 <style>

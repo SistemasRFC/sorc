@@ -9,7 +9,6 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=IBM850; ISO-8859-1">
         <!-- jquery -->
-        <script src="<?=ALIAS;?>Resources/constantes.js?random=<?php echo time(); ?>"></script>
         <script src="<?=ALIAS;?>Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
         <script src="<?=ALIAS;?>Resources/bootstrap-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- JS -->
@@ -35,47 +34,59 @@
     
     <body>
         <input type="hidden" id="verificaPermissao" name="verificaPermissao" value="N" class="persist">
-        <div class="container">
 
-            <div class="card o-hidden border-0 shadow-lg my-4">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-12 pt-2 pb-2" style="background-color: #ddd;">
-                            <button id="btnVoltar" class="btn btn-link btn-user text-left col-5" style="color: black">
-                                <i class="fa fa-arrow-alt-circle-left title"> Voltar</i>
-                            </button>
-                            <button id="btnNovaDespesa" class="btn btn-link btn-user text-right col-6" style="color: black">
-                                <i class="fa fa-plus-circle title"> Nova</i>
-                            </button>
-                        </div>
-                        <div class="col-12 text-center pt-1">
-                            <label class="h4 text-gray-800 ml-1 text-persian-light">
-                                Despesas
-                            </label>
-                        </div>
+        <div class="card o-hidden border-0 shadow-lg mx-2 my-3">
+            <div class="card-header px-1 py-2">
+                <div class="row d-flex align-items-center">
+                    <div class="col-6 p-0">
+                        <button id="btnVoltar" class="btn btn-outline-secondary text-white border-white">
+                            <i class="far fa-arrow-alt-circle-left text-white"></i>
+                            <b>Voltar</b>
+                        </button>
                     </div>
-                    <div class="row p-1">
-                        <div class="col-12">
-                            <form class="filtroPesquisa">
-                                <div class="form-group">
-                                    <div id="tdnroMesReferencia"></div>
-                                    <div id="tdnroAnoReferencia"></div>
-                                </div>
-                                <hr>
-                                <input type="button" id="btnPesquisar" value="Pesquisar" class="btn btn-primary btn-user btn-block">
-                                <hr>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-9 col-md-9 col-lg-9 p-4">
-                            <div id="listaDespesas"></div>
-                        </div>
+                    <div class="col-6 p-0">
+                        <button id="btnNovaDespesa" class="btn btn-outline-secondary text-white border-white">
+                            <i class="far fa-list-alt text-white"></i>
+                            <b>Nova Despesa</b>
+                        </button>
                     </div>
                 </div>
             </div>
-
+            <div class="card-body">
+                <div class="row mb-1">
+                    <div class="col-12 text-center">
+                        <h4 class="text-dark">
+                            Despesas
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div id="tdnroMesReferencia"></div>
+                            <div id="tdnroAnoReferencia"></div>
+                        </div>
+                        <hr>
+                        <input type="button" id="btnPesquisar" value="Pesquisar" class="btn btn-primary btn-block">
+                    </div>
+                </div>
+                <div class="row pt-4 text-center">
+                    <div class="col-4">
+                        <small class="mr-auto" style="color: red;">atrasada</small>
+                    </div>
+                    <div class="col-4">
+                        <small class="mr-auto">no prazo</small>
+                    </div>
+                    <div class="col-4">
+                        <small class="ml-auto" style="color: green;">paga</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p-0 text-center">
+                        <div id="listaDespesas"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

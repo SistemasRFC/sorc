@@ -1,47 +1,71 @@
 <?php
-include_once("Dao/BaseDao.php");
+include_once("../Dao/BaseDao.php");
 class DespesasDao extends BaseDao
 {
+	protected $tableName = "EN_DESPESA";
 
-    Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $dtaLancamento, $nroParcelaAtual, $codDespesaImportada=0){
-        $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
-        $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
-        $sql = "INSERT INTO EN_DESPESA (
-                COD_DESPESA,
-                DSC_DESPESA,
-                DTA_DESPESA,
-                DTA_LANC_DESPESA,
-                COD_CONTA,
-                TPO_DESPESA,
-                VLR_DESPESA,
-                COD_CLIENTE_FINAL,
-                IND_DESPESA_PAGA,
-                DTA_PAGAMENTO,
-                QTD_PARCELAS,
-                NRO_PARCELA_ATUAL,
-                COD_DESPESA_IMPORTACAO)
-                VALUES(
-                ".$codDespesa.",
-                '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
-                '".$this->ConverteDataForm($dtaDespesa)."',
-                '".$this->ConverteDataForm($dtaLancamento)."',
-                '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT)."',
-                '".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT)."',
-                '".$vlrDespesa."',
-                '".$codClienteFinal."',
-                '".$indDespesaPaga."',";
-                if ($dtaPagamento==''){
-                    $sql .= "NULL, ";
-                }else{
-                    $sql .= "'".$this->ConverteDataForm($dtaPagamento)."', ";
-                }
-                $sql .= filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT). ",
-                ".$nroParcelaAtual.",
-                ".$codDespesaImportada.")";
-        $result = $this->insertDB($sql);
-        $result[2] = $codDespesa;
-        return $result;
+	protected $columns = array(
+		"dscDespesa"            => array("column" => "DSC_DESPESA",             "typeColumn" => "S"),
+		"dtaDespesa"            => array("column" => "DTA_DESPESA",             "typeColumn" => "D"),
+		"codConta"              => array("column" => "COD_CONTA",               "typeColumn" => "I"),
+		"tpoDespesa"            => array("column" => "TPO_DESPESA",             "typeColumn" => "I"),
+		"vlrDespesa"            => array("column" => "VLR_DESPESA",             "typeColumn" => "F"),
+		"codClienteFinal"       => array("column" => "COD_CLIENTE_FINAL",       "typeColumn" => "I"),
+		"indDespesaPaga"        => array("column" => "IND_DESPESA_PAGA",        "typeColumn" => "S"),
+		"dtaPagamento"          => array("column" => "DTA_PAGAMENTO",           "typeColumn" => "D"),
+		"codDespesaImportacao"  => array("column" => "COD_DESPESA_IMPORTACAO",  "typeColumn" => "I"),
+		"qtdParcelas"           => array("column" => "QTD_PARCELAS",            "typeColumn" => "I"),
+		"nroParcelaAtual"       => array("column" => "NRO_PARCELA_ATUAL",       "typeColumn" => "I"),
+		"dtaLancDespesa"        => array("column" => "DTA_LANC_DESPESA",        "typeColumn" => "D"),
+		"codUsuarioDespesa"     => array("column" => "COD_USUARIO_DESPESA",     "typeColumn" => "I")
+	);
+
+  	protected $columnKey = array("codDespesa" => array("column" => "COD_DESPESA", "typeColumn" => "I"));
+
+    function AddDespesa(stdClass $obj) {
+        $obj->codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
+        return $this->MontarInsert($obj);
     }
+
+    // Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $dtaLancamento, $nroParcelaAtual, $codDespesaImportada=0){
+    //     $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
+    //     $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
+    //     $sql = "INSERT INTO EN_DESPESA (
+    //             COD_DESPESA,
+    //             DSC_DESPESA,
+    //             DTA_DESPESA,
+    //             DTA_LANC_DESPESA,
+    //             COD_CONTA,
+    //             TPO_DESPESA,
+    //             VLR_DESPESA,
+    //             COD_CLIENTE_FINAL,
+    //             IND_DESPESA_PAGA,
+    //             DTA_PAGAMENTO,
+    //             QTD_PARCELAS,
+    //             NRO_PARCELA_ATUAL,
+    //             COD_DESPESA_IMPORTACAO)
+    //             VALUES(
+    //             ".$codDespesa.",
+    //             '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
+    //             '".$this->ConverteDataForm($dtaDespesa)."',
+    //             '".$this->ConverteDataForm($dtaLancamento)."',
+    //             '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT)."',
+    //             '".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT)."',
+    //             '".$vlrDespesa."',
+    //             '".$codClienteFinal."',
+    //             '".$indDespesaPaga."',";
+    //             if ($dtaPagamento==''){
+    //                 $sql .= "NULL, ";
+    //             }else{
+    //                 $sql .= "'".$this->ConverteDataForm($dtaPagamento)."', ";
+    //             }
+    //             $sql .= filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT). ",
+    //             ".$nroParcelaAtual.",
+    //             ".$codDespesaImportada.")";
+    //     $result = $this->insertDB($sql);
+    //     $result[2] = $codDespesa;
+    //     return $result;
+    // }
 
     Function ListarDespesas($codClienteFinal){
         $mes = filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_NUMBER_INT);
