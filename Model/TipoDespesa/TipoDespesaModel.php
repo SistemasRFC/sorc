@@ -9,6 +9,12 @@ class TipoDespesaModel extends BaseModel
         $dao = new TiposDespesaDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
+        if(isset($this->objRequest->vlrTeto)) {
+            $this->objRequest->vlrTeto = 0;
+        }
+        if(isset($this->objRequest->vlrPiso)) {
+            $this->objRequest->vlrPiso = 0;
+        }
         $lista = $dao->AddTipoDespesa($this->objRequest);
         if ($Json){
             $lista = json_encode($lista);

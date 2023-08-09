@@ -11,7 +11,7 @@ class DespesaModel extends BaseModel
         $dao = new DespesasDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
         $qtdParcelas = $this->objRequest->qtdParcelas;
-        $nroParcelaAtual = $this->objRequest->nroParcelaAtual;        
+        $nroParcelaAtual = $this->objRequest->nroParcelaAtual;
         $dta = explode('-', $this->objRequest->dtaDespesa);
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
         $this->objRequest->dtaLancDespesa = date('Y-m-d');
@@ -34,7 +34,17 @@ class DespesaModel extends BaseModel
             }
             $this->objRequest->indDespesaPaga = 'N';
             unset($this->objRequest->dtaPagamento);
-            $this->objRequest->nroParcelaAtual = $this->objRequest->nroParcelaAtual++;
+            $this->objRequest->nroParcelaAtual = $this->objRequest->nroParcelaAtual+1;
+            $dtaLanc = explode('-', $this->objRequest->dtaLancDespesa);
+            $dtaLanc[1]++;
+            if ($dtaLanc[1]==13){
+                $dtaLanc[1]=1;
+                $dtaLanc[0]++;
+            }
+            if (strlen($dtaLanc[1])==1){
+                $dtaLanc[1] = '0'.$dtaLanc[1];
+            }
+            $this->objRequest->dtaLancDespesa = $dtaLanc[0].'-'.$dtaLanc[1].'-'.$dtaLanc[2];
 
             $dta[1]++;
             $nroParcelaAtual = $nroParcelaAtual++;
