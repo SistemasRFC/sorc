@@ -12,8 +12,17 @@ $(document).on('keydown', 'input[pattern]', function(e){
 });
 $(function() {
     $("#btnSalvar").click(function(){
-        var parametros = retornaParametros();
-        ExecutaDispatch('Despesas','AddDespesa', parametros, limparCamposTela, 'Aguarde, salvando despesa.', 'Despesa salva com sucesso!');        
+        var method = 'AddDespesa';
+        if($("#codDespesa").val() > 0) {
+            method = 'UpdateDespesa';
+        }
+        var validacao = validarCampos();
+        if(validacao[0]) {
+            var parametros = retornaParametros();
+            ExecutaDispatch('Despesas','AddDespesa', parametros, limparCamposTela, 'Aguarde, salvando despesa.', 'Despesa salva com sucesso!');        
+        } else {
+            swal('Atenção!', ''+validacao[1], 'warning');
+        }
     });
     $("#btnVoltar").click(function(){
         $(location).attr('href', '../../Dispatch.php?controller=MenuPrincipal&method=ChamaView&verificaPermissao=N');
@@ -23,6 +32,51 @@ $(function() {
     });
     
 });
+
+function validarCampos() {
+    var retorno = [true, ''];
+    retorno[1] = 'Os campos abaixo devem ser preenchidos: \n';
+    if ($("#dscDespesa").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Descrição \n';
+    }
+    if ($("#dtaDespesa").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Data de Vencimento \n';
+    }
+    if ($("#vlrDespesa").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Valor \n';
+    }
+    if ($("#qtdParcelas").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Qtd. Parcelas \n';
+    }
+    if ($("#nroParcelaAtual").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Nro. Parcela Atual \n';
+    }
+    if ($("#tpoDespesa").val()=='-1') {
+        retorno[0] = false;
+        retorno[1] += '- Tipo de despesa \n';
+    }
+    if ($("#codConta").val()=='-1') {
+        retorno[0] = false;
+        retorno[1] += '- Conta \n';
+    }
+    if ($("#codUsuarioDespesa").val()=='-1') {
+        retorno[0] = false;
+        retorno[1] += '- Responsável \n';
+    }
+    if ($("#indDespesaPaga").is(":checked")) {
+        if ($("#dtaPagamento").val()=='') {
+            retorno[0] = false;
+            retorno[1] += '- Data de pagamento \n';
+        }
+    }
+
+    return retorno;
+}
 
 function limparCamposTela(){
     LimparCampos();

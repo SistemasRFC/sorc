@@ -19,8 +19,8 @@ class TiposDespesaDao extends BaseDao
            LEFT JOIN EN_DESPESA D
                    ON TP.COD_TIPO_DESPESA = D.TPO_DESPESA
                   AND D.COD_CLIENTE_FINAL = $codClienteFinal
-                  AND MONTH(D.DTA_DESPESA)= MONTH(now())
-                  AND YEAR(D.DTA_DESPESA)= YEAR(now())
+                  AND MONTH(D.DTA_LANC_DESPESA)= MONTH(now())
+                  AND YEAR(D.DTA_LANC_DESPESA)= YEAR(now())
                 WHERE TP.COD_TIPO_DESPESA = $codTipoDespesa
                 GROUP BY TP.COD_TIPO_DESPESA";
       return $this->selectDB($sql, false);

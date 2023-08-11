@@ -17,10 +17,6 @@
                     <input type="hidden" id="codDespesa" name="codDespesa" value="0" class="persist">
                     <input type="hidden" id="codDespesasImportacao" />
                     <div class="container-fluid">
-                        <!-- <div class="d-sm-flex align-items-center justify-content-between">
-                            <h3 class="my-2 text-gray-800">Movimentações</h3>
-                        </div> -->
-
                         <div class="row">
                             <div class="col-xl-12 col-md-12 mx-0 px-0">
                                 <div class="card mt-2">
@@ -49,7 +45,7 @@
                                                         <div id="tdcontaFiltro"></div>
                                                     </div>
                                                     <div class="col-2 pr-0">
-                                                        <label class="mb-0">Dono: </label>
+                                                        <label class="mb-0">Responsável: </label>
                                                         <div id="tdresponsavelFiltro"></div>
                                                     </div>
                                                 </div>

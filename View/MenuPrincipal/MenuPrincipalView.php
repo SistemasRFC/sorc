@@ -1,11 +1,3 @@
-<?php //include_once "Cabecalho.php";?>
-<style>
-    /* a:link{border: #000000; text-decoration:none; background-color:#FFFFFF; color:#FF0000;}
-    a:visited{border: #000000; text-decoration:none; background-color:#FFFFFF; color:#FF0000;}
-    a:hover{border: #000000; text-decoration:none; background-color:#a4bed4; color:#FF0000;}
-    a:active{border: #000000; text-decoration:none; background-color:#FFFFFF; color:#FF0000;} */
-    img{border:#000000;}
-</style>
 <html>
 
 <head>
@@ -34,9 +26,6 @@
                                             <div class=" font-weight-bold text-secondary mb-1">ATALHOS</div>
                                             <div id="divAtalhos"></div>
                                         </div>
-                                        <!-- <div class="col-auto">
-                                            <i class="fas fa-project-diagram fa-3x text-gray-400"></i>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -50,9 +39,7 @@
                                     <h6 class="m-0 font-weight-bold text-white">RECEITA x DESPESA</h6>
                                 </div>
                                 <div class="card-body">
-                                    <!-- <div> -->
-                                        <canvas id="graficoResumo" width="1100" height="350"></canvas>
-                                    <!-- </div> -->
+                                    <canvas id="graficoResumo" width="1100" height="350"></canvas>
                                 </div>
                             </div>
                         </div>

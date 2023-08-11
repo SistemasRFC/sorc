@@ -59,7 +59,7 @@ function MontaGridDespesa(listaDespesa) {
     tabela += "         <th>Parcela</th>";
     tabela += "         <th>Tipo</th>";
     tabela += "         <th>Conta</th>";
-    tabela += "         <th>Dono</th>";
+    tabela += "         <th>Resp.</th>";
     tabela += "         <th>Status</th>";
     tabela += "         <th>Ações</th>";
     tabela += "     </tr>";

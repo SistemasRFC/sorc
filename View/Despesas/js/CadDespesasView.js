@@ -7,21 +7,13 @@ $(function() {
         if($("#codDespesa").val() > 0) {
             method = 'UpdateDespesa';
         }
-        if ($("#indDespesaPaga").is(":checked")) {
-            if ($("#dtaPagamento").val()=='') {
-                swal('Atenção!', 'Selecione uma data de pagamento!', 'warning');
-                return;
-            }
-        }
-        if ($("#codConta").val()=='-1') {
-            $("#codConta").val('0');
-        }
-        if ($("#tpoDespesa").val()=='-1') {
-            swal('Atenção!', 'Selecione um tipo de despesa!', 'warning');
-            return;
+        var validacao = validarCampos();
+        if(validacao[0]) {
+            ExecutaDispatch('Despesas', method, undefined, CarregaGridDespesa, 'Aguarde! Salvando despesa.', 'Despesa salva com sucesso!');
+        } else {
+            swal('Atenção!', ''+validacao[1], 'warning');
         }
 
-        ExecutaDispatch('Despesas', method, undefined, CarregaGridDespesa, 'Aguarde! Salvando despesa.', 'Despesa salva com sucesso!');
     });
     
     $("#indDespesaPaga").change(function(){
@@ -32,6 +24,51 @@ $(function() {
        }
     });
 });
+
+function validarCampos() {
+    var retorno = [true, ''];
+    retorno[1] = 'Os campos abaixo devem ser preenchidos: \n';
+    if ($("#dscDespesa").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Descrição \n';
+    }
+    if ($("#dtaDespesa").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Data de Vencimento \n';
+    }
+    if ($("#vlrDespesa").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Valor \n';
+    }
+    if ($("#qtdParcelas").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Qtd. Parcelas \n';
+    }
+    if ($("#nroParcelaAtual").val()=='') {
+        retorno[0] = false;
+        retorno[1] += '- Nro. Parcela Atual \n';
+    }
+    if ($("#tpoDespesa").val()=='-1') {
+        retorno[0] = false;
+        retorno[1] += '- Tipo de despesa \n';
+    }
+    if ($("#codConta").val()=='-1') {
+        retorno[0] = false;
+        retorno[1] += '- Conta \n';
+    }
+    if ($("#codUsuarioDespesa").val()=='-1') {
+        retorno[0] = false;
+        retorno[1] += '- Responsável \n';
+    }
+    if ($("#indDespesaPaga").is(":checked")) {
+        if ($("#dtaPagamento").val()=='') {
+            retorno[0] = false;
+            retorno[1] += '- Data de pagamento \n';
+        }
+    }
+
+    return retorno;
+}
 
 function verificarTeto() {
     if($("#tpoDespesa").val() > 0){
