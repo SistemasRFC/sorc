@@ -71,14 +71,8 @@
                             <label for="vlrDespesa" class="mb-0 title">Valor</label>
                             <input  autocomplete="off" 
                                     type="text" 
-                                    min="0.00" 
-                                    max="10000.00" 
-                                    step="0.01" 
-                                    data-number-stepfactor="100"
-                                    data-number-to-fixed="2" 
                                     id="vlrDespesa" name="vlrDespesa" 
-                                    pattern="^\d*(\.\d{0,2})?$"
-                                    class="persist form-control currency">
+                                    class="persist form-control">
 
                             <label for="qtdParcelas" class="mb-0 title">Qtd Parcelas</label>
                             <input  autocomplete="off" 
