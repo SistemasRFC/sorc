@@ -70,7 +70,7 @@
 
                             <label for="vlrDespesa" class="mb-0 title">Valor</label>
                             <input  autocomplete="off" 
-                                    type="number" 
+                                    type="text" 
                                     min="0.00" 
                                     max="10000.00" 
                                     step="0.01" 
