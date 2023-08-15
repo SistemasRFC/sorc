@@ -97,7 +97,8 @@ class TiposDespesaDao extends BaseDao
                             sum(d.vlr_despesa) as vlr_despesa,
                         coalesce(tp.vlr_teto,0) as vlr_teto
                    from en_despesa d
-                  inner join en_tipo_despesa tp on d.tpo_despesa = tp.cod_tipo_despesa
+                  inner join en_tipo_despesa tp on d.tpo_despesa = tp.cod_tipo_despesa 
+                    and coalesce(tp.vlr_teto,0)>0
                   where (year(dta_lanc_despesa)=year(now()) and month(DTA_LANC_DESPESA)=month(now())
                     and d.cod_cliente_final = $codClienteFinal)
                   group by tp.dsc_tipo_despesa) as x";
