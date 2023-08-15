@@ -123,7 +123,7 @@ function somarValorCartao() {
     var vlrCartao = 0;
     var despesasEmCartao = arrDespesas.filter(elm => elm.IND_IS_CARTAO == 'S');
     for(var i in despesasEmCartao) {
-        vlrCartao = parseFloat(vlrCartao)+ parseFloat((arrDespesas[i].VLR_DESPESA.replace('.','')).replace(',','.'));
+        vlrCartao = parseFloat(vlrCartao)+ parseFloat((despesasEmCartao[i].VLR_DESPESA.replace('.','')).replace(',','.'));
     }
     vlrCartao = number_format(vlrCartao,2,',','.');
     $("#vlrCartao").html('R$ '+vlrCartao);

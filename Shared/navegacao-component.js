@@ -63,13 +63,13 @@ function montaSumarioTipoDespesa(dadosSumario){
     var col=0;
     for (i in dadosSumario[1]){
         if (col==0){
-            div+='<div class="row text-white pl-1">';
+            div+='<div class="row text-white">';
         }
-        div+='   <div class="col-md-4">';
-        div+=       dadosSumario[1][i].dsc_tipo_despesa+': R$ '+number_format(dadosSumario[1][i].vlr_total,2,',','.');
+        div+='  <div class="col-md-3 px-1 py-0">';
+        div+='      <small><b>'+dadosSumario[1][i].dsc_tipo_despesa+':</b> R$ '+number_format(dadosSumario[1][i].vlr_total,2,',','.')+'</small>';
         div+='  </div>';
         col++;
-        if (col==3){
+        if (col==4){
             div+='</div>'
             col=0;
         }

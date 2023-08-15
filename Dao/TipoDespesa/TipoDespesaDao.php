@@ -102,7 +102,6 @@ class TiposDespesaDao extends BaseDao
                     and d.cod_cliente_final = $codClienteFinal)
                   group by tp.dsc_tipo_despesa) as x";
         return $this->selectDB($sql, false);
-        
     }
 }
 ?>
