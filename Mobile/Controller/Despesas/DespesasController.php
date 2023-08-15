@@ -10,6 +10,11 @@ class DespesasController extends BaseController
         echo $model->AddDespesa();
     }
 
+    Function UpdateDespesa(){
+        $model = new DespesaModel();
+        echo $model->UpdateDespesa();
+    }
+
     Public Function ListarDespesas() {
         $model = new DespesaModel();
         echo $model->ListarDespesasMob();
@@ -23,6 +28,11 @@ class DespesasController extends BaseController
     Public Function ListarAnos() {
         $model = new DespesaModel();
         echo $model->ListarAnosFiltro();
+    }
+
+    Public Function RetornaDespesaPorCodigo() {
+        $model = new DespesaModel();
+        echo $model->RetornaDespesaPorCodigo();
     }
 }
 ?>

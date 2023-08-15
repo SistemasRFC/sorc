@@ -15,12 +15,16 @@
                         <input type="text" id="dscDespesa" name="dscDespesa" class='persist input form-control'>
                     </div>
                     <div class="col-4">
-                        <label for="dtaDespesa" class="mb-0">Data de Vencimento *</label>
-                        <input type="date" id="dtaDespesa" name="dtaDespesa" class='persist input form-control'>
+                        <label for="dtaLancDespesa" class="mb-0">Data de Lançamento *</label>
+                        <input type="date" id="dtaLancDespesa" name="dtaLancDespesa" class='persist input form-control'>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4">
+                    <div class="col-3">
+                        <label for="dtaDespesa" class="mb-0">Data de Vencimento *</label>
+                        <input type="date" id="dtaDespesa" name="dtaDespesa" class='persist input form-control'>
+                    </div>
+                    <div class="col-3">
                         <label for="vlrDespesa" class="mb-0">Valor *</label>
                         <input type="text" id="vlrDespesa" name="vlrDespesa" class='persist input form-control'>
                     </div>

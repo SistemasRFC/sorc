@@ -9,7 +9,7 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=IBM850; ISO-8859-1">
         <!-- jquery -->
-        <script src="<?=ALIAS;?>Resources/constantes.js?random=<?php echo time(); ?>"></script>
+        <!-- <script src="<?=ALIAS;?>Resources/constantes.js?random=<?php echo time(); ?>"></script> -->
         <script src="<?=ALIAS;?>Resources/bootstrap-admin/vendor/jquery/jquery.min.js"></script>
         <script src="<?=ALIAS;?>Resources/bootstrap-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- JS -->
@@ -36,25 +36,33 @@
         <div class="container">
 
             <div class="card o-hidden border-0 shadow-lg my-4">
-                <div class="card-body p-0 mb-3">
-                    <!-- Nested Row within Card Body -->
-                    <h3 class="text-center text-persian-dark mt-3">SORC</h3>
-                    <hr>
-                    <div class="col-12">
+                <div class="card-header bg-white p-0">
+                    <h3 class="text-center mt-3">SORC</h3>
+                </div>
+                <div class="card-body">
+                    <div class="col-12 my-2">
                         <input type="button" 
-                               id="btnListarDespesas" 
-                               value="Consulta Despesas" 
-                               class="btn btn-primary btn-user btn-block"
-                               onClick="javascript:window.location.href='../Despesa/DespesaView.php'">
+                                id="btnListarDespesas" 
+                                value="Consulta Despesas" 
+                                class="btn btn-primary btn-user btn-block"
+                                onClick="javascript:window.location.href='../Despesa/DespesaView.php'">
                     </div>
-                    <br />
-                    <div class="col-12">
+                    <div class="col-12 my-2">
                         <input type="button" 
-                               id="btnCadastroDespesa" 
-                               value="Cadastro Despesa" 
-                               class="btn btn-success btn-user btn-block"
-                               onClick="javascript:window.location.href='../Despesa/CadastraDespesaView.php'">
+                                id="btnCadastroDespesa" 
+                                value="Cadastro Despesa" 
+                                class="btn btn-success btn-user btn-block"
+                                onClick="javascript:window.location.href='../Despesa/CadastraDespesaView.php'">
                     </div>
+                </div>
+            </div>
+
+            <div class="card o-hidden border-0 shadow-lg my-4">
+                <div class="card-header bg-white p-0">
+                    <h4 class="text-center my-1">Gastos</h4>
+                </div>
+                <div class="card-body">
+                    <div id="listaGastos" class="p-1" style="border: 1px solid white;"></div>
                 </div>
             </div>
 

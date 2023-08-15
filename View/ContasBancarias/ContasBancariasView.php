@@ -22,9 +22,13 @@
                         <div class="row">
                             <div class="col-xl-12 col-md-12 mx-0 px-0">
                                 <div class="card mt-2">
-                                    <div class="card-header d-flex flex-row align-items-center justify-content-between">
+                                    <div class="card-header d-flex flex-row align-items-center">
                                         <h5 class="m-0 text-white">Contas Bancárias</h5> 
-                                        <div class="btn-border">
+                                        <div class="custom-control custom-checkbox ml-4">
+                                            <input type="checkbox" name="soAtivas" id="soAtivas" class="custom-control-input persist" />
+                                            <label class="custom-control-label text-white" for="soAtivas">Mostrar somente ativas</label>
+                                        </div>
+                                        <div class="btn-border ml-auto">
                                             <button id="btnNovo" class="btn btn-link d-lg-inline text-white border-white" data-toggle="modal" data-target="#cadastroContaBancaria">
                                                 <i class="fas fa-plus text-white"></i>
                                                 Nova Conta

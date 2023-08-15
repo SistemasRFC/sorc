@@ -32,14 +32,14 @@ function montaListaDespesas(resp) {
             const date = new Date(arrdata[0], arrdata[1]-1, arrdata[2]);
             if(item.IND_PAGO == "N") {
                 if(date < new Date()) {
-                    html += "       <tr>";
+                    html += "       <tr onclick='javascript:chamaCadastraDespesa(" + item.COD_DESPESA + ");'>";
                     html += "           <td style='color: red'>"+item.DTA_DESPESA_FORMATADO.substring(0,5)+"</td>";
                 } else {
-                    html += "       <tr>";
+                    html += "       <tr onclick='javascript:chamaCadastraDespesa(" + item.COD_DESPESA + ");'>";
                     html += "           <td>"+item.DTA_DESPESA_FORMATADO.substring(0,5)+"</td>";
                 }
             } else {
-                html += "       <tr>";
+                html += "       <tr onclick='javascript:chamaCadastraDespesa(" + item.COD_DESPESA + ");'>";
                 html += "           <td style='color: green'>"+item.DTA_PAGAMENTO_FORMATADO.substring(0,5)+"</td>";
             }
             html += "           <td>"+item.DSC_DESPESA+"</td>";
@@ -60,6 +60,12 @@ function montaListaDespesas(resp) {
 
 
     $("#listaDespesas").html(html);
+}
+
+function chamaCadastraDespesa(codDespesa) {
+    window.location.href = 'CadastraDespesaView.php?codDespesa=' + codDespesa;
+    // var despesaSelecionada = arrDespesas.filter(elm => elm.COD_DESPESA == codDespesa)[0];
+    // PreencheCamposForm(despesaSelecionada, 'indDespesaPaga;B');
 }
 
 function CarregaComboMeses(meses) {

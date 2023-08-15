@@ -1,9 +1,17 @@
+var bkpContaBancaria;
 var arrContaBancaria;
 $(function(){
     $("#btnNovo").click(function(){
         LimparCampos();
         $("#cadastroContaBancariaTitle").html("Nova Conta");
         $("#cadastroContaBancaria").modal("open");
+    });
+    $("#soAtivas").change(function() {
+        if($(this).prop('checked') == true) {
+            ExecutaDispatch('ContasBancarias', 'ListarContasBancariasAtivas', undefined, MontaTabelaContaBancaria);
+        } else {
+            ExecutaDispatch('ContasBancarias', 'ListarContasBancarias', undefined, MontaTabelaContaBancaria);
+        }
     });
 });
 
@@ -12,8 +20,9 @@ function CarregaGridContaBancaria() {
     ExecutaDispatch('ContasBancarias', 'ListarContasBancarias', undefined, MontaTabelaContaBancaria);
 }
 
-function MontaTabelaContaBancaria(listaContaBancaria) {
+function MontaTabelaContaBancaria(listaContaBancaria, bkpContaBancaria) {
     var objeto = listaContaBancaria[1];
+    bkpContaBancaria = bkpContaBancaria;
     arrContaBancaria = listaContaBancaria[1];
     var tabela = "";
     tabela += "<table class='table table-striped table-hover table-bordered' id='tableListaContasBancarias' width='100%' >";
@@ -23,6 +32,7 @@ function MontaTabelaContaBancaria(listaContaBancaria) {
     tabela += "         <th>Banco</th>";
     tabela += "         <th>Agência</th>";
     tabela += "         <th>Conta</th>";
+    tabela += "         <th>Cartão</th>";
     tabela += "         <th>Status</th>";
     tabela += "         <th>Ações</th>";
     tabela += "     </tr>";
@@ -32,11 +42,13 @@ function MontaTabelaContaBancaria(listaContaBancaria) {
     if (objeto != null) {
         for (var i in objeto) {
             var ativo = objeto[i].ATIVO? 'Ativo' : 'Inativo';
+            var isCartao = objeto[i].IS_CARTAO? 'Sim' : 'Não';
             tabela += " <tr>";
             tabela += "     <td>" + (objeto[i].COD_CONTA != null ? objeto[i].COD_CONTA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].NME_BANCO != null ? objeto[i].NME_BANCO : '') + "</td>";
             tabela += "     <td>" + (objeto[i].NRO_AGENCIA != null ? objeto[i].NRO_AGENCIA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].NRO_CONTA != null ? objeto[i].NRO_CONTA : '') + "</td>";
+            tabela += "     <td align='center'>" + isCartao + "</td>";
             tabela += "     <td align='center'>" + ativo + "</td>";
             tabela += "     <td align='center'><button class='btn btn-primary btn-sm' title='Editar' onclick='javascript:ChamaCadastroContaBancaria(" + objeto[i].COD_CONTA + ");'><i class='fas fa-pen'></i></button></td>";
             tabela += " </tr>";
@@ -51,7 +63,7 @@ function MontaTabelaContaBancaria(listaContaBancaria) {
 
 function ChamaCadastroContaBancaria(codContaBancaria) {
     let ContaBancaria = arrContaBancaria.filter(elm => elm.COD_CONTA == codContaBancaria);
-    PreencheCamposForm(ContaBancaria[0], 'indAtivo;B');
+    PreencheCamposForm(ContaBancaria[0], 'indAtivo;B|indIsCartao;B');
     $("#cadastroContaBancariaTitle").html("Conta Bancária "+codContaBancaria);
     $("#cadastroContaBancaria").modal("show");
 

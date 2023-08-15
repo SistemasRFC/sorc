@@ -27,45 +27,9 @@ class DespesasDao extends BaseDao
         return $this->MontarInsert($obj);
     }
 
-    // Function AddDespesa($codClienteFinal, $dtaDespesa, $indDespesaPaga, $dtaPagamento, $dtaLancamento, $nroParcelaAtual, $codDespesaImportada=0){
-    //     $vlrDespesa = str_replace(',', '.', filter_input(INPUT_POST, 'vlrDespesa', FILTER_SANITIZE_STRING));
-    //     $codDespesa = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
-    //     $sql = "INSERT INTO EN_DESPESA (
-    //             COD_DESPESA,
-    //             DSC_DESPESA,
-    //             DTA_DESPESA,
-    //             DTA_LANC_DESPESA,
-    //             COD_CONTA,
-    //             TPO_DESPESA,
-    //             VLR_DESPESA,
-    //             COD_CLIENTE_FINAL,
-    //             IND_DESPESA_PAGA,
-    //             DTA_PAGAMENTO,
-    //             QTD_PARCELAS,
-    //             NRO_PARCELA_ATUAL,
-    //             COD_DESPESA_IMPORTACAO)
-    //             VALUES(
-    //             ".$codDespesa.",
-    //             '".filter_input(INPUT_POST, 'dscDespesa', FILTER_SANITIZE_STRING)."',
-    //             '".$this->ConverteDataForm($dtaDespesa)."',
-    //             '".$this->ConverteDataForm($dtaLancamento)."',
-    //             '".filter_input(INPUT_POST, 'codConta', FILTER_SANITIZE_NUMBER_INT)."',
-    //             '".filter_input(INPUT_POST, 'codTipoDespesa', FILTER_SANITIZE_NUMBER_INT)."',
-    //             '".$vlrDespesa."',
-    //             '".$codClienteFinal."',
-    //             '".$indDespesaPaga."',";
-    //             if ($dtaPagamento==''){
-    //                 $sql .= "NULL, ";
-    //             }else{
-    //                 $sql .= "'".$this->ConverteDataForm($dtaPagamento)."', ";
-    //             }
-    //             $sql .= filter_input(INPUT_POST, 'qtdParcelas', FILTER_SANITIZE_NUMBER_INT). ",
-    //             ".$nroParcelaAtual.",
-    //             ".$codDespesaImportada.")";
-    //     $result = $this->insertDB($sql);
-    //     $result[2] = $codDespesa;
-    //     return $result;
-    // }
+    function UpdateDespesa(stdClass $obj) {
+        return $this->MontarUpdate($obj);
+    }
 
     Function ListarDespesas($codClienteFinal){
         $mes = filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_NUMBER_INT);
@@ -92,17 +56,26 @@ class DespesasDao extends BaseDao
                         COALESCE(QTD_PARCELAS,1) AS QTD_PARCELAS,
                         COALESCE(NRO_PARCELA_ATUAL,1) AS NRO_PARCELA_ATUAL,
                         COALESCE(QTD_PARCELAS,1)-COALESCE(NRO_PARCELA_ATUAL,1) AS NRO_PARCELA_RESTANTES,
-                        CASE WHEN COD_DESPESA_IMPORTACAO>0 THEN 'Despesa Importada' ELSE 'Mês atual' END AS IND_ORIGEM_DESPESA
+                        CASE WHEN COD_DESPESA_IMPORTACAO>0 THEN 'Despesa Importada' ELSE 'Mês atual' END AS IND_ORIGEM_DESPESA,
+                        R.COD_USUARIO_DESPESA,
+                        U.NME_USUARIO_COMPLETO AS DONO_DESPESA,
+                        C.IND_IS_CARTAO
                    FROM EN_DESPESA R
                   LEFT JOIN EN_CONTA C
                      ON R.COD_CONTA = C.COD_CONTA
                   INNER JOIN EN_TIPO_DESPESA TP
                      ON R.TPO_DESPESA = TP.COD_TIPO_DESPESA
+                   LEFT JOIN SE_USUARIO U
+                     ON R.COD_USUARIO_DESPESA = U.COD_USUARIO
                   WHERE r.COD_CLIENTE_FINAL = $codClienteFinal
                     AND MONTH(DTA_DESPESA)= ".$mes."
                     AND YEAR(DTA_DESPESA)=".$ano."
                   ORDER BY DTA_DESPESA";
         return $this->selectDB($sql, false);
+    }
+
+    function RetornaDespesaPorCodigo(stdClass $obj) {
+        return $this->MontarSelect('WHERE COD_DESPESA = '.$obj->codDespesa);
     }
 }
 ?>

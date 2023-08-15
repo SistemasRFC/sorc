@@ -4,11 +4,17 @@ var arrDespesas;
 $(function() {
     $("#btnNovo").click(() => {
         LimparCampos();
+        $("#tetoTpoDespesa").html("");
+        $("#infoTpoDespesa").html("");
+        let date = formataDataAmericano(new Date().toLocaleDateString());
+        $("#dtaLancDespesa").val(date);
+        $("#qtdParcelas").val('1');
+        $("#nroParcelaAtual").val('1');
         $("#divDtaPagamento").hide();
         $("#cadastroDespesaTitle").html('Nova Despesa');
         $("#cadastroDespesa").modal('show');
     });
-    
+
     var checkBoxes = '';
     $(".ckbDespesa").each(() => {
         if ($(this).prop('checked')) {
@@ -17,7 +23,7 @@ $(function() {
             checkBoxes += $(this).attr('codDespesa') + '=>NP';
         }
     });
-    
+
     $( "#btnGrafico" ).click(() => {
         carregaGrafico();
     });
@@ -44,6 +50,7 @@ function MontaGridDespesa(listaDespesa) {
     var objeto = listaDespesa[1];
     arrDespesas = listaDespesa[1];
     somarValorTotal();
+    somarValorCartao();
     var tabela = "";
     tabela += "<table class='table table-striped table-hover table-bordered mb-0' id='tableDespesas' width='100%' >";
     tabela += " <thead>";
@@ -77,7 +84,7 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "         </div>";
             tabela += "     </td>";
             tabela += "     <td>" + (objeto[i].DSC_DESPESA != null ? objeto[i].DSC_DESPESA : '') + "</td>";
-            tabela += "     <td>" + (objeto[i].DTA_DESPESA != null ? objeto[i].DTA_DESPESA_FORMATADO : '') + "</td>";
+            tabela += "     <td title='Lançada em: \n"+objeto[i].DTA_LANC_DESPESA_FORMATADO+"'>" + (objeto[i].DTA_DESPESA != null ? objeto[i].DTA_DESPESA_FORMATADO : '') + "</td>";
             tabela += "     <td align='end'>" + (objeto[i].VLR_DESPESA != null ? objeto[i].VLR_DESPESA : '') + "</td>";
             tabela += "     <td align='center'>" + parcela + "</td>";
             tabela += "     <td>" + (objeto[i].DSC_TIPO_DESPESA != null ? objeto[i].DSC_TIPO_DESPESA : '') + "</td>";
@@ -112,6 +119,16 @@ function somarValorTotal() {
     $("#vlrTotal").html('R$ '+vlrTotal);
 }
 
+function somarValorCartao() {
+    var vlrCartao = 0;
+    var despesasEmCartao = arrDespesas.filter(elm => elm.IND_IS_CARTAO == 'S');
+    for(var i in despesasEmCartao) {
+        vlrCartao = parseFloat(vlrCartao)+ parseFloat((arrDespesas[i].VLR_DESPESA.replace('.','')).replace(',','.'));
+    }
+    vlrCartao = number_format(vlrCartao,2,',','.');
+    $("#vlrCartao").html('R$ '+vlrCartao);
+}
+
 function marcarTodas() {
     var codDespesasMarcadas = '';
     if($("#allDespesas").is(":checked")) {
@@ -121,6 +138,7 @@ function marcarTodas() {
         });
         $("#btnImportar").attr('disabled', false);
         $("#btnImportar").attr('title', 'Importar despesa(s).');
+        $("#vlrSelecionado").html($("#vlrTotal").html());
     } else {
         codDespesasMarcadas = '';
         $(".ckbDespesa").each(function () {
@@ -128,6 +146,7 @@ function marcarTodas() {
         });
         $("#btnImportar").attr('disabled', true);
         $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
+        $("#vlrSelecionado").html('R$ 0,00');
     }
     $("#codDespesasImportacao").val(codDespesasMarcadas.substring(0, codDespesasMarcadas.length-1));
 }
@@ -144,22 +163,24 @@ function eventosCheckbox() {
             codDespesasMarcadas += $(this).attr('codDespesa')+'d';
             for(var i in arrDespesas) {
                 if (arrDespesas[i].COD_DESPESA==$(this).attr('codDespesa')) {
-                    vlrSelecionado += parseFloat(arrDespesas[i].VLR_DESPESA.replace('.',''));
+                    // vlrSelecionado += parseFloat(arrDespesas[i].VLR_DESPESA.replace('.',''));
+                    vlrSelecionado = parseFloat(vlrSelecionado)+ parseFloat((arrDespesas[i].VLR_DESPESA.replace('.','')).replace(',','.'));
                 }
             }
         }
     });
     $("#codDespesasImportacao").val(codDespesasMarcadas.substring(0, codDespesasMarcadas.length-1));
-    vlrSelecionado = vlrSelecionado.toFixed(2).replace('.', ',');
+    // vlrSelecionado = vlrSelecionado.toFixed(2).replace(',', '.');
+    vlrSelecionado = number_format(vlrSelecionado,2,',','.');
     $("#vlrSelecionado").html('R$ '+vlrSelecionado);
 }
 
 function chamaCadastroDespesa(codDespesa) {
     var despesaSelecionada = arrDespesas.filter(elm => elm.COD_DESPESA == codDespesa)[0];
     PreencheCamposForm(despesaSelecionada, 'indDespesaPaga;B');
-    verificarTeto();
     $("#tetoTpoDespesa").html("");
     $("#infoTpoDespesa").html("");
+    verificarTeto();
     $("#divDtaPagamento").show();
     $("#cadastroDespesaTitle").html('Editar Despesa');
     $("#cadastroDespesa").modal('show');

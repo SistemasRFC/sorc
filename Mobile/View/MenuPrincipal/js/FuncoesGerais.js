@@ -746,3 +746,21 @@ function CriarGraficoArea(nmeCampo, dados) {
         }
       });      
 }
+
+function montaSumarioTipoDespesa(dadosSumario){
+    var div = '<div class="row pl-1">';
+    for (i in dadosSumario[1]){
+        div+='   <div class="col-6">';
+        div+='       <b>'+dadosSumario[1][i].DSC_TIPO_DESPESA+':</b>';
+        div+='  </div>';
+        div+='   <div class="col-6 text-right">';
+        div+='       R$ '+number_format(dadosSumario[1][i].VLR_TOTAL,2,',','.');
+        div+='  </div>';
+    }
+    div += '</div>'
+    $("#listaGastos").html(div);
+}
+
+$(document).ready(function () {
+    ExecutaDispatch('TipoDespesa', 'SumarizaPorTipoDespesa', 'verificaPermissao;N', montaSumarioTipoDespesa);
+});

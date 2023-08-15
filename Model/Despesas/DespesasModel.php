@@ -14,7 +14,7 @@ class DespesaModel extends BaseModel
         $nroParcelaAtual = $this->objRequest->nroParcelaAtual;
         $dta = explode('-', $this->objRequest->dtaDespesa);
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
-        $this->objRequest->dtaLancDespesa = date('Y-m-d');
+        // $this->objRequest->dtaLancDespesa = date('Y-m-d');
         if ($this->objRequest->indDespesaPaga =='N') {
             unset($this->objRequest->dtaPagamento);
         }

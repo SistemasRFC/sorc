@@ -25,5 +25,20 @@ class TiposDespesaDao extends BaseDao
                 GROUP BY TP.COD_TIPO_DESPESA";
       return $this->selectDB($sql, false);
     }
+
+    function SumarizaPorTipoDespesa($codClienteFinal){
+        $sql = " SELECT DSC_TIPO_DESPESA,
+                        VLR_TETO-VLR_DESPESA AS VLR_TOTAL
+                   FROM (
+                 SELECT TP.DSC_TIPO_DESPESA,
+                            SUM(D.VLR_DESPESA) AS VLR_DESPESA,
+                        COALESCE(TP.VLR_TETO,0) AS VLR_TETO
+                   FROM EN_DESPESA D
+                  INNER JOIN EN_TIPO_DESPESA TP ON D.TPO_DESPESA = TP.COD_TIPO_DESPESA
+                  WHERE (YEAR(DTA_LANC_DESPESA)=YEAR(NOW()) AND MONTH(DTA_LANC_DESPESA)=MONTH(NOW())
+                    AND D.COD_CLIENTE_FINAL = $codClienteFinal)
+                  GROUP BY TP.DSC_TIPO_DESPESA) AS X";
+        return $this->selectDB($sql, false);
+    }
 }
 ?>

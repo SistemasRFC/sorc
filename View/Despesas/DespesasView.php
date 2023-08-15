@@ -68,6 +68,9 @@
                                             <div class="text-white"><b>Valor Selecionado: </b><br><span id='vlrSelecionado'>R$ 0,00</span></div>
                                         </div> 
                                         <div>
+                                            <div class="text-white"><b>Valor em Cartão: </b><br><span id='vlrCartao'>R$ 0,00</span></div>
+                                        </div> 
+                                        <div>
                                             <button id="btnImportar" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#importarDespesa">
                                                 <i class="fas fa-file-export text-white"></i>
                                                 Importar 

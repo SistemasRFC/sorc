@@ -72,7 +72,8 @@ class DespesasDao extends BaseDao
                         COALESCE(QTD_PARCELAS,1)-COALESCE(NRO_PARCELA_ATUAL,1) AS NRO_PARCELA_RESTANTES,
                         CASE WHEN COD_DESPESA_IMPORTACAO>0 THEN 'Despesa Importada' ELSE 'Mês atual' END AS IND_ORIGEM_DESPESA,
                         R.COD_USUARIO_DESPESA,
-                        U.NME_USUARIO_COMPLETO AS DONO_DESPESA
+                        U.NME_USUARIO_COMPLETO AS DONO_DESPESA,
+                        C.IND_IS_CARTAO
                    FROM EN_DESPESA R
                   LEFT JOIN EN_CONTA C
                      ON R.COD_CONTA = C.COD_CONTA
@@ -106,23 +107,23 @@ class DespesasDao extends BaseDao
         return $this->selectDB($sql, false);
     }
 
-    Function PegaLimiteTipoDespesa($codClienteFinal){
-        $sql = " SELECT TP.VLR_PISO,
-                        TP.VLR_TETO,
-                        SUM(COALESCE(R.VLR_DESPESA,0)) AS VLR_LIMITE
-                   FROM EN_TIPO_DESPESA TP
-                   LEFT JOIN EN_DESPESA R
-                     ON TP.COD_TIPO_DESPESA = R.TPO_DESPESA
-                    AND r.COD_CLIENTE_FINAL = $codClienteFinal
-                    AND MONTH(DTA_DESPESA)= ".$form->getNroMesReferencia()."
-                    AND YEAR(DTA_DESPESA)=".$form->getNroAnoReferencia()."
-                   LEFT JOIN EN_CONTA C
-                     ON R.COD_CONTA = C.COD_CONTA
-                  WHERE TP.COD_TIPO_DESPESA = ".$form->getCodTipoDespesa()."
-                  GROUP BY TP.VLR_PISO,
-                        TP.VLR_TETO";
-        return $this->selectDB($sql, false);
-    }
+    // Function PegaLimiteTipoDespesa($codClienteFinal){
+    //     $sql = " SELECT TP.VLR_PISO,
+    //                     TP.VLR_TETO,
+    //                     SUM(COALESCE(R.VLR_DESPESA,0)) AS VLR_LIMITE
+    //                FROM EN_TIPO_DESPESA TP
+    //                LEFT JOIN EN_DESPESA R
+    //                  ON TP.COD_TIPO_DESPESA = R.TPO_DESPESA
+    //                 AND r.COD_CLIENTE_FINAL = $codClienteFinal
+    //                 AND MONTH(DTA_DESPESA)= ".$form->getNroMesReferencia()."
+    //                 AND YEAR(DTA_DESPESA)=".$form->getNroAnoReferencia()."
+    //                LEFT JOIN EN_CONTA C
+    //                  ON R.COD_CONTA = C.COD_CONTA
+    //               WHERE TP.COD_TIPO_DESPESA = ".$form->getCodTipoDespesa()."
+    //               GROUP BY TP.VLR_PISO,
+    //                     TP.VLR_TETO";
+    //     return $this->selectDB($sql, false);
+    // }
     
     Public Function ImportarDespesas($codDespesaRef, $dtaDespesa, $codClienteFinal){
         $codigo = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');

@@ -28,9 +28,9 @@ if(!$_SESSION['cod_usuario']) {
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <h5 class="text-white pt-2">SISTEMA DE FINANÇAS</h5>
-            <div id="listaSumario" style="width: 760px; border: 1px solid white; margin-left: 20px;">
 
-            </div>
+            <div id="listaSumario" class="ml-3 p-1" style="width: 760px; border: 1px solid white;"></div>
+
             <ul class="navbar-nav ml-auto">
                 <label class="pt-2 text-white"><?php echo $_SESSION['dadosUsuario']['NME_USUARIO_COMPLETO'] ?></label>
                 <div class="topbar-divider d-none d-sm-block"></div>

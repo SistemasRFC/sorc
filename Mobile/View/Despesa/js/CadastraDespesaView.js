@@ -11,6 +11,11 @@ $(document).on('keydown', 'input[pattern]', function(e){
     }, 1);
 });
 $(function() {
+    var parametros = retornaParametros();
+    ExecutaDispatch('TipoDespesa','ListarTiposDespesasAtivos', parametros, montaComboTipoDespesa);
+    ExecutaDispatch('ContasBancarias','ListarContasBancariasAtivas', parametros, montaComboContas);
+    ExecutaDispatch('Usuario','ListarResponsavelFiltro', parametros, montaComboResponsavel);
+
     $("#btnSalvar").click(function(){
         var method = 'AddDespesa';
         if($("#codDespesa").val() > 0) {
@@ -19,7 +24,7 @@ $(function() {
         var validacao = validarCampos();
         if(validacao[0]) {
             var parametros = retornaParametros();
-            ExecutaDispatch('Despesas','AddDespesa', parametros, limparCamposTela, 'Aguarde, salvando despesa.', 'Despesa salva com sucesso!');        
+            ExecutaDispatch('Despesas', method, parametros, limparCamposTela, 'Aguarde, salvando despesa.', 'Despesa salva com sucesso!');        
         } else {
             swal('Atenção!', ''+validacao[1], 'warning');
         }
@@ -82,7 +87,14 @@ function limparCamposTela(){
     LimparCampos();
 }
 
+function PreencherDados(dados) {
+    preencheCamposForm(dados[1][0], 'indDespesaPaga;B');
+}
+
 $(document).ready(function() {
+    if ($("#codDespesa").val() > 0) {
+        ExecutaDispatch('Despesas', 'RetornaDespesaPorCodigo', 'codDespesa;' + $("#codDespesa").val()+'|verificaPermissao;N', PreencherDados);
+    }
     $("#divdtaPagamento").hide("fade");
     $("#indDespesaPaga").change(function(){
        if ($(this).is(":checked")){
@@ -91,10 +103,6 @@ $(document).ready(function() {
            $("#divdtaPagamento").hide("fade");
        }
     });
-    var parametros = retornaParametros();
-    ExecutaDispatch('TipoDespesa','ListarTiposDespesasAtivos', parametros, montaComboTipoDespesa);
-    ExecutaDispatch('ContasBancarias','ListarContasBancariasAtivas', parametros, montaComboContas);
-    ExecutaDispatch('Usuario','ListarResponsavelFiltro', parametros, montaComboResponsavel);
 });
 
 function montaComboTipoDespesa(dados){
@@ -105,11 +113,11 @@ function montaComboTipoDespesa(dados){
 }
 
 function montaComboContas(dados){
-    CriarSelectPuro('Conta','codConta', dados, '-1', false);    
+    CriarSelectPuro('Conta *','codConta', dados, '-1', false);    
 }
 
 function montaComboResponsavel(dados){
-    CriarSelectPuro('Responsável','codUsuarioDespesa', dados, '-1', false);
+    CriarSelectPuro('Responsável *','codUsuarioDespesa', dados, '-1', false);
 }
 
 function verificarTeto() {

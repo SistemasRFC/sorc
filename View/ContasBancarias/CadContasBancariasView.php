@@ -26,6 +26,12 @@
 							<label for="nroConta" class="mb-0">Conta</label>
 							<input type="text" id="nroConta" name="nroConta" class='persist input form-control'>
 						</div>
+						<div class="col-3">
+							<div class="custom-control custom-checkbox mt-4">
+								<input type="checkbox" name="indIsCartao" id="indIsCartao" class="custom-control-input persist" />
+								<label class="custom-control-label" for="indIsCartao">Cartão</label>
+							</div>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-3">
