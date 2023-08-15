@@ -91,5 +91,13 @@ class TipoDespesaModel extends BaseModel
 
         return json_encode($result);
     }
+
+    function SumarizaPorTipoDespesa() {
+        $dao = new TiposDespesaDao();
+        $codTipoDespesa = filter_input(INPUT_POST, 'tpoDespesa', FILTER_SANITIZE_STRING);
+        $result = $dao->SumarizaPorTipoDespesa($_SESSION['cod_cliente_final']);
+
+        return json_encode($result);
+    }
 }
 ?>

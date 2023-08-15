@@ -58,6 +58,26 @@ function ListarMenusAtivos(DadosMenu) {
     MontaMenu(DadosMenu[1]);
 }
 
+function montaSumarioTipoDespesa(dadosSumario){
+    var div="";
+    var col=0;
+    for (i in dadosSumario[1]){
+        if (col==0){
+            div+='<div class="row text-white" style="padding-left:10px;">';
+        }
+        div+='   <div class="col-md-4">';
+        div+=       dadosSumario[1][i].dsc_tipo_despesa+': R$ '+number_format(dadosSumario[1][i].vlr_total,2,',','.');
+        div+='  </div>';
+        col++;
+        if (col==3){
+            div+='</div>'
+            col=0;
+        }
+    }
+    $("#listaSumario").html(div);
+}
+
 $(document).ready(function () {
     ExecutaDispatch('MenuPrincipal', 'CarregaMenuNew', undefined, ListarMenusAtivos);
+    ExecutaDispatch('TipoDespesa', 'SumarizaPorTipoDespesa', undefined, montaSumarioTipoDespesa);
 });

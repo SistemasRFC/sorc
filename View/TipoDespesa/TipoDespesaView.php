@@ -23,7 +23,9 @@
                             <div class="col-xl-12 col-md-12 mx-0 px-0">
                                 <div class="card mt-2">
                                     <div class="card-header d-flex flex-row align-items-center justify-content-between">
-                                        <h5 class="m-0 text-white">Tipo de Despesa</h5> 
+                                        <h5 class="m-0 text-white">
+                                            Tipo de Despesa 
+                                        </h5>
                                         <div class="btn-border">
                                             <button id="btnNovo" class="btn btn-link d-lg-inline text-white border-white" data-toggle="modal" data-target="#cadastroTipoDespesa">
                                                 <i class="fas fa-plus text-white"></i>
@@ -32,6 +34,10 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
+                                        <div class="" style="padding-left: 20px;">
+                                            <input type="checkbox" name="indMostrarAtivo" id="indMostrarAtivo" class="persist" />
+                                            <label class="" for="indMostrarAtivo">Mostrar somente ativos</label>
+                                        </div>
                                         <div id="listaTipoDespesa"></div>
                                     </div>
                                 </div>

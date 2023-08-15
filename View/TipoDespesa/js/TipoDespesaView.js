@@ -3,8 +3,15 @@ $(function(){
     $("#btnNovo").click(function(){
         LimparCampos();
         $("#cadastroTipoDespesaTitle").html("Novo Tipo de Despesa");
-        $("#cadastroTipoDespesa").modal("open");
+//        $("#cadastroTipoDespesa").modal("open");
     });
+    $("#indMostrarAtivo").click(function(){       
+        if ($(this).is(":checked")){
+            ExecutaDispatch('TipoDespesa', 'ListarTiposDespesasAtivos', undefined, MontaTabelaTipoDespesa);
+        }else{
+            ExecutaDispatch('TipoDespesa', 'ListarTiposDespesas', undefined, MontaTabelaTipoDespesa);
+        }
+    })
 });
 
 function CarregaGridTipoDespesa() {

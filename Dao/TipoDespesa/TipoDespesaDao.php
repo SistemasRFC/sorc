@@ -86,7 +86,23 @@ class TiposDespesaDao extends BaseDao
                   AND YEAR(D.DTA_LANC_DESPESA)= YEAR(now())
                 WHERE TP.COD_TIPO_DESPESA = $codTipoDespesa
                 GROUP BY TP.COD_TIPO_DESPESA";
-      return $this->selectDB($sql, false);
+        return $this->selectDB($sql, false);
+    }
+    
+    function SumarizaPorTipoDespesa($codClienteFinal){
+        $sql = " select dsc_tipo_despesa,
+                        vlr_teto-vlr_despesa as vlr_total
+                   from (
+                 select tp.dsc_tipo_despesa,
+                            sum(d.vlr_despesa) as vlr_despesa,
+                        coalesce(tp.vlr_teto,0) as vlr_teto
+                   from en_despesa d
+                  inner join en_tipo_despesa tp on d.tpo_despesa = tp.cod_tipo_despesa
+                  where (year(dta_lanc_despesa)=year(now()) and month(DTA_LANC_DESPESA)=month(now())
+                    and d.cod_cliente_final = $codClienteFinal)
+                  group by tp.dsc_tipo_despesa) as x";
+        return $this->selectDB($sql, false);
+        
     }
 }
 ?>
