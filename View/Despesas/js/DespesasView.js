@@ -121,7 +121,9 @@ function somarValorTotal() {
 
 function somarValorCartao() {
     var vlrCartao = 0;
-    var despesasEmCartao = arrDespesas.filter(elm => elm.IND_IS_CARTAO == 'S');
+    if (arrDespesas!=null){
+        var despesasEmCartao = arrDespesas.filter(elm => elm.IND_IS_CARTAO == 'S');
+    }
     for(var i in despesasEmCartao) {
         vlrCartao = parseFloat(vlrCartao)+ parseFloat((despesasEmCartao[i].VLR_DESPESA.replace('.','')).replace(',','.'));
     }
