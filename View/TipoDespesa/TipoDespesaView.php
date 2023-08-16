@@ -26,7 +26,11 @@
                                         <h5 class="m-0 text-white">
                                             Tipo de Despesa 
                                         </h5>
-                                        <div class="btn-border">
+                                        <div class="custom-control custom-checkbox ml-4">
+                                            <input type="checkbox" name="indMostrarAtivo" id="indMostrarAtivo" class="custom-control-input persist" />
+                                            <label class="custom-control-label text-white" for="indMostrarAtivo">Mostrar somente ativos</label>
+                                        </div>
+                                        <div class="btn-border ml-auto">
                                             <button id="btnNovo" class="btn btn-link d-lg-inline text-white border-white" data-toggle="modal" data-target="#cadastroTipoDespesa">
                                                 <i class="fas fa-plus text-white"></i>
                                                 Novo Tipo de Despesa
@@ -34,10 +38,6 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="" style="padding-left: 20px;">
-                                            <input type="checkbox" name="indMostrarAtivo" id="indMostrarAtivo" class="persist" />
-                                            <label class="" for="indMostrarAtivo">Mostrar somente ativos</label>
-                                        </div>
                                         <div id="listaTipoDespesa"></div>
                                     </div>
                                 </div>

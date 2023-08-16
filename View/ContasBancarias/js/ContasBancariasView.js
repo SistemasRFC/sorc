@@ -63,7 +63,7 @@ function MontaTabelaContaBancaria(listaContaBancaria, bkpContaBancaria) {
 
 function ChamaCadastroContaBancaria(codContaBancaria) {
     let ContaBancaria = arrContaBancaria.filter(elm => elm.COD_CONTA == codContaBancaria);
-    PreencheCamposForm(ContaBancaria[0], 'indAtivo;B|indIsCartao;B');
+    PreencheCamposForm(ContaBancaria[0], 'indAtiva;B|indIsCartao;B');
     $("#cadastroContaBancariaTitle").html("Conta Bancária "+codContaBancaria);
     $("#cadastroContaBancaria").modal("show");
 
