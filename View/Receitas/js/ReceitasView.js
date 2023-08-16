@@ -78,9 +78,9 @@ function MontaGridReceita(listaReceita) {
 function somarValorTotal() {
     var vlrTotal = 0;
     for(var i in arrReceitas) {
-        vlrTotal = parseFloat(vlrTotal)+ parseFloat(arrReceitas[i].VLR_RECEITA.replace('.',''));
+        vlrTotal = parseFloat(vlrTotal)+ parseFloat((arrReceitas[i].VLR_RECEITA.replace('.','')).replace(',','.'));
     }
-    vlrTotal = vlrTotal.toFixed(2).replace('.', ',');
+    vlrTotal = number_format(vlrTotal,2,',','.');
     $("#vlrTotal").html('R$ '+vlrTotal);
 }
 

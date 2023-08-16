@@ -112,10 +112,17 @@ class MenuPrincipalDao extends BaseDao
 	public function CarregaDespesasReceitasAnoAtual($codClienteFinal, $anoAtual)
 	{
 		$sql = " SELECT MESES.DSC_MES,
-                 		COALESCE(SUM(VLR_RECEITA), 0) AS VLR_RECEITA,
-                    	COALESCE(SUM(VLR_DESPESA), 0) AS VLR_DESPESA
-                   FROM (SELECT 1 NRO_MES, 'JANEIRO' DSC_MES
-                    	  UNION 
+						(SELECT COALESCE(SUM(VLR_RECEITA),0) AS VLR_RECEITA FROM EN_RECEITA ER
+						  WHERE ER.COD_CLIENTE_FINAL = $codClienteFinal
+							AND MONTH(DTA_RECEITA) = MESES.NRO_MES
+							AND YEAR(DTA_RECEITA)=$anoAtual) AS VLR_RECEITA,
+						(SELECT COALESCE(SUM(VLR_DESPESA),0) AS VLR_DESPESA FROM EN_DESPESA ED 
+						  WHERE DTA_PAGAMENTO IS NOT NULL
+							AND ED.COD_CLIENTE_FINAL = $codClienteFinal
+							AND MONTH(DTA_DESPESA) = MESES.NRO_MES
+							AND YEAR(DTA_DESPESA)=$anoAtual) AS VLR_DESPESA
+				   FROM (SELECT 1 NRO_MES, 'JANEIRO' DSC_MES
+						  UNION 
 						 SELECT 2 NRO_MES, 'FEVEREIRO' DSC_MES
 						  UNION 
 						 SELECT 3 NRO_MES, 'MARÇO' DSC_MES
@@ -136,17 +143,8 @@ class MenuPrincipalDao extends BaseDao
 						  UNION 
 						 SELECT 11 NRO_MES, 'NOVEMBRO' DSC_MES
 						  UNION 
-						 SELECT 12 NRO_MES, 'DEZEMBRO' DSC_MES) MESES
-              LEFT JOIN EN_DESPESA ED 
-					 ON MESES.NRO_MES = MONTH(ED.DTA_DESPESA)
-					AND YEAR(ED.DTA_DESPESA) = $anoAtual
-                    AND DTA_PAGAMENTO IS NOT NULL
-					AND ED.COD_CLIENTE_FINAL = $codClienteFinal
-              LEFT JOIN EN_RECEITA ER
-			  		 ON MESES.NRO_MES = MONTH(ER.DTA_RECEITA)
-					AND YEAR(ER.DTA_RECEITA) = $anoAtual
-					AND ER.COD_CLIENTE_FINAL = $codClienteFinal
-               GROUP BY MESES.NRO_MES, MESES.DSC_MES";
+						 SELECT 12 NRO_MES, 'DEZEMBRO' DSC_MES) AS MESES
+				ORDER BY MESES.NRO_MES";
 		return $this->selectDB($sql, false);
 	}
 }
