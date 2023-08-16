@@ -63,7 +63,8 @@ class ContasBancariasDao extends BaseDao
         $sql = " SELECT COD_CONTA as ID,
                         CONCAT(NME_BANCO,' (Ag: ',NRO_AGENCIA,' Conta: ',NRO_CONTA,')') AS DSC
                    FROM EN_CONTA
-                  WHERE COD_CLIENTE_FINAL = $codClienteFinal AND IND_ATIVA='S'";
+                  WHERE COD_CLIENTE_FINAL = $codClienteFinal AND IND_ATIVA='S'
+                  ORDER BY DSC";
         return $this->selectDB($sql, false);
     }
 
