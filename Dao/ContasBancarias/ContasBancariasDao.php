@@ -53,7 +53,8 @@ class ContasBancariasDao extends BaseDao
                         COALESCE(IND_IS_CARTAO, 'N') AS IND_IS_CARTAO
                    FROM EN_CONTA
                   WHERE COD_CLIENTE_FINAL = $codClienteFinal
-                    AND IND_ATIVA='S'";
+                    AND IND_ATIVA='S'
+                  ORDER BY NME_CONTA";
         //echo $sql; exit;
         return $this->selectDB($sql, false);
     }
