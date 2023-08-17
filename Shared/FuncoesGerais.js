@@ -487,11 +487,20 @@ function CriarGraficoBarras(nmeCampo, dados, arrLabels) {
     });
 }
 
-function CriarGraficoBarrasNovo(nmeCampo, arrLabels, arrColunaUm, arrColunaDois) {
+function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas) {
     var campo = document.getElementById("" + nmeCampo + "");
     var arrDiff = [];
-    for(var i in arrColunaUm) {
-        arrDiff.push(arrColunaUm[i]-arrColunaDois[i]);
+    var arrAnterior = [];
+    for(var i in receitas) {
+        console.log('i', i);
+        if(i==0){
+            arrAnterior.push(0);
+        }else {
+            arrAnterior.push(arrDiff[i-1]);
+        }
+        var saldo = parseFloat(receitas[i])+parseFloat(arrAnterior[i]);
+        arrDiff.push(saldo-despesas[i]);
+        console.log('arrAnterior', arrAnterior);
     }
 
     new Chart(campo, {
@@ -500,15 +509,22 @@ function CriarGraficoBarrasNovo(nmeCampo, arrLabels, arrColunaUm, arrColunaDois)
             labels: arrLabels,
             datasets: [
                 {
+                    label: 'Saldo anterior',
+                    data: arrAnterior,
+                    backgroundColor: 'rgb(60,120,100)',
+                    stack: 'Stack 0',
+                    barPercentage: .6,
+                },
+                {
                     label: 'Receita',
-                    data: arrColunaUm,
+                    data: receitas,
                     backgroundColor: 'rgb(60,179,113)',
                     stack: 'Stack 0',
                     barPercentage: .6,
                 },
                 {
                     label: 'Despesa',
-                    data: arrColunaDois,
+                    data: despesas,
                     backgroundColor: 'rgb(250,128,114)',
                     stack: 'Stack 1',
                     barPercentage: .6,
