@@ -491,8 +491,8 @@ function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas, despesa
     var campo = document.getElementById("" + nmeCampo + "");
     var arrDiff = [];
     var arrAnterior = [];
+    var totalDespesas = [];
     for(var i in receitas) {
-        console.log('i', i);
         if(i==0){
             arrAnterior.push(0);
         }else {
@@ -500,7 +500,9 @@ function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas, despesa
         }
         var saldo = parseFloat(receitas[i])+parseFloat(arrAnterior[i]);
         arrDiff.push(saldo-despesas[i]);
-        console.log('arrAnterior', arrAnterior);
+    }
+    for(var i in despesas) {
+        totalDespesas.push(parseFloat(despesas[i])+parseFloat(despesasAbertas[i]));
     }
 
     new Chart(campo, {
@@ -513,35 +515,42 @@ function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas, despesa
                     data: arrAnterior,
                     backgroundColor: 'rgb(60,120,100)',
                     stack: 'Stack 0',
-                    barPercentage: .6,
+                    barPercentage: .7,
                 },
                 {
                     label: 'Receita',
                     data: receitas,
                     backgroundColor: 'rgb(60,179,113)',
                     stack: 'Stack 0',
-                    barPercentage: .6,
+                    barPercentage: .7,
                 },
                 {
-                    label: 'Despesa',
+                    label: 'Despesa Em Aberto',
                     data: despesasAbertas,
-                    backgroundColor: 'rgb(165,42,42)',
+                    backgroundColor: 'rgb(178,34,34)',
                     stack: 'Stack 1',
-                    barPercentage: .6,
+                    barPercentage: .7,
                 },
                 {
                     label: 'Despesa Paga',
                     data: despesas,
                     backgroundColor: 'rgb(255,50,50)',
                     stack: 'Stack 1',
-                    barPercentage: .6,
+                    barPercentage: .7,
+                },
+                {
+                    label: 'Total Despesa',
+                    data: totalDespesas,
+                    backgroundColor: 'rgb(139,0,139)',
+                    stack: 'Stack 2',
+                    barPercentage: .4,
                 },
                 {
                     label: 'Saldo Final',
                     data: arrDiff,
                     backgroundColor: 'rgb(30,144,255)',
                     stack: 'Stack 3',
-                    barPercentage: .6,
+                    barPercentage: .7,
                 },
             ]
         },
