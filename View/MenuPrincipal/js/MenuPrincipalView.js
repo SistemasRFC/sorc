@@ -40,13 +40,15 @@ function MontaGrafico(dados) {
     var lista = dados[1];
     let arrLabels = [];
     let arrReceitas = [];
+    let arrDespesasAbertas = [];
     let arrDespesas = [];
     for(var i in lista) {
         arrLabels.push(lista[i].DSC_MES);
         arrReceitas.push(lista[i].VLR_RECEITA);
+        arrDespesasAbertas.push(lista[i].VLR_DESPESA_ABERTA);
         arrDespesas.push(lista[i].VLR_DESPESA);
     }
-    CriarGraficoBarrasNovo('graficoResumo', arrLabels, arrReceitas, arrDespesas);
+    CriarGraficoBarrasNovo('graficoResumo', arrLabels, arrReceitas, arrDespesas, arrDespesasAbertas);
 }
 
 function MontaTabelaNoticias(listaNoticias){

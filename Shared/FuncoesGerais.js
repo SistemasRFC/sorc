@@ -487,7 +487,7 @@ function CriarGraficoBarras(nmeCampo, dados, arrLabels) {
     });
 }
 
-function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas) {
+function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas, despesasAbertas) {
     var campo = document.getElementById("" + nmeCampo + "");
     var arrDiff = [];
     var arrAnterior = [];
@@ -524,8 +524,15 @@ function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas) {
                 },
                 {
                     label: 'Despesa',
+                    data: despesasAbertas,
+                    backgroundColor: 'rgb(165,42,42)',
+                    stack: 'Stack 1',
+                    barPercentage: .6,
+                },
+                {
+                    label: 'Despesa Paga',
                     data: despesas,
-                    backgroundColor: 'rgb(250,128,114)',
+                    backgroundColor: 'rgb(255,50,50)',
                     stack: 'Stack 1',
                     barPercentage: .6,
                 },
