@@ -499,7 +499,8 @@ function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas, despesa
             arrAnterior.push(arrDiff[i-1]);
         }
         var saldo = parseFloat(receitas[i])+parseFloat(arrAnterior[i]);
-        arrDiff.push(saldo-despesas[i]);
+        var diff = parseFloat(saldo)-parseFloat(despesas[i]);
+        arrDiff.push(diff);
     }
     for(var i in despesas) {
         totalDespesas.push(parseFloat(despesas[i])+parseFloat(despesasAbertas[i]));
