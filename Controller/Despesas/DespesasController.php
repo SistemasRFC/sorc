@@ -67,6 +67,12 @@ class DespesasController extends BaseController {
         $model = new DespesaModel();
         echo $model->PagarPorConta();
     }
+    
+    Public Function BaixarDespesas(){
+        $model = new DespesaModel();
+        echo $model->BaixarDespesas();
+    }
+    
 }
 $DespesasController = new DespesasController();
 ?>

@@ -15,6 +15,26 @@ $(function() {
         $("#cadastroDespesa").modal('show');
     });
 
+    $("#btnBaixar").click(function(){
+        swal({
+            title: "Excluir",
+            text: "Esta ação irá atualizar todas as despesas que estão listadas na tabela abaixo como pagas no dia de hoje. Deseja realmente fazer isso?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+        },
+        function(isConfirm) {
+          if (isConfirm) {
+                var params = 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val();
+                params += '|tpoDespesaFiltro<=>'+$("#tpoDespesaFiltro").val()+'|statusFiltro<=>'+$("#statusFiltro").val();
+                params += '|contaFiltro<=>'+$("#contaFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val();
+                ExecutaDispatch('Despesas', 'BaixarDespesas', params, CarregaGridDespesa);
+          } else {
+            swal("Cancelado", "Nada aconteceu :)");
+          }
+        });
+    })
     var checkBoxes = '';
     $(".ckbDespesa").each(() => {
         if ($(this).prop('checked')) {

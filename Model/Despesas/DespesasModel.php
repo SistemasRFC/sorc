@@ -139,4 +139,12 @@ class DespesaModel extends BaseModel
         }
         return json_encode($result);
     }
+    
+    Public Function BaixarDespesas(){
+        $dao = new DespesasDao();
+        $codCliente = $_SESSION['cod_cliente_final'];
+        $result = $dao->BaixarDespesas($codCliente);
+        
+        return json_encode($result);
+    }
 }

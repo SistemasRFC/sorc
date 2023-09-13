@@ -71,6 +71,10 @@
                                             <div class="text-white"><b>Valor em Cartão: </b><br><span id='vlrCartao'>R$ 0,00</span></div>
                                         </div> 
                                         <div>
+                                            <button id="btnBaixar" class="btn btn-outline-secondary text-white border-white">
+                                                <i class="fas fa-file-export text-white" title="Esta ação irá baixar todas as despesas que estão na tabela abaixo."></i>
+                                                Baixar 
+                                            </button>                                            
                                             <button id="btnImportar" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#importarDespesa">
                                                 <i class="fas fa-file-export text-white"></i>
                                                 Importar 
