@@ -500,7 +500,7 @@ function CriarGraficoBarrasNovo(nmeCampo, arrLabels, receitas, despesas, despesa
         }
         var saldo = parseFloat(receitas[i])+parseFloat(arrAnterior[i]);
         var diff = parseFloat(saldo)-parseFloat(despesas[i]);
-        arrDiff.push(diff);
+        arrDiff.push(number_format(diff,2,',','.'));
     }
     for(var i in despesas) {
         totalDespesas.push(parseFloat(despesas[i])+parseFloat(despesasAbertas[i]));
