@@ -54,6 +54,9 @@ $(function() {
     $("#btnExcel").click(() => {
         $("#dtBtnExcel").click();
     });
+    $("#tituloDespesa").click(() => {
+        CarregaGridDespesa();
+    })
 });
 
 function CarregaGridDespesa() {
@@ -148,7 +151,12 @@ function somarValorCartao() {
         vlrCartao = parseFloat(vlrCartao)+ parseFloat((despesasEmCartao[i].VLR_DESPESA.replace('.','')).replace(',','.'));
     }
     vlrCartao = number_format(vlrCartao,2,',','.');
-    $("#vlrCartao").html('R$ '+vlrCartao);
+    $("#vlrCartao").html('<a href="javascript:listarDadosCartao();">R$ '+vlrCartao+'</a>');
+}
+
+function listarDadosCartao(){
+    var params = 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val();
+    ExecutaDispatch('Despesas', 'ListarDespesasCartao', params, MontaGridDespesa);
 }
 
 function marcarTodas() {

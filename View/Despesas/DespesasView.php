@@ -60,7 +60,7 @@
                             <div class="col-xl-12 col-md-12 mx-0 px-0">
                                 <div class="card mt-2">
                                     <div class="card-header d-flex flex-row align-items-center justify-content-between">
-                                        <h5 class="m-0 text-white">DESPESAS</h5>
+                                        <h5 class="m-0 text-white" id="tituloDespesa" style="cursor: pointer;">DESPESAS</h5>
                                         <div>
                                             <div class="text-white"><b>Valor Total: </b><br><span id='vlrTotal'>R$ 0,00</span></div>
                                         </div> 

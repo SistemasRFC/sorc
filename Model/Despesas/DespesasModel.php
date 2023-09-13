@@ -147,4 +147,16 @@ class DespesaModel extends BaseModel
         
         return json_encode($result);
     }
+    
+    Function ListarDespesasCartao() {
+        $dao = new DespesasDao();
+        $codCliente = $_SESSION['cod_cliente_final'];
+        $lista = $dao->ListarDespesasCartao($codCliente);
+        if($lista[0] && $lista[1] != null) {
+            $lista = FuncoesData::AtualizaDataInArrayCamposNovos($lista, 'DTA_DESPESA|DTA_LANC_DESPESA|DTA_PAGAMENTO', 'DTA_DESPESA_FORMATADO|DTA_LANC_DESPESA_FORMATADO|DTA_PAGAMENTO_FORMATADO');
+            $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
+            $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_DESPESA_PAGA', 'PAGO');
+        }
+        return json_encode($lista);
+    }
 }
