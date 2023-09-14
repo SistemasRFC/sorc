@@ -72,8 +72,8 @@
                                         </div> 
                                         <div>
                                             <button id="btnBaixar" class="btn btn-outline-secondary text-white border-white">
-                                                <i class="fas fa-file-export text-white" title="Esta ação irá baixar todas as despesas que estão na tabela abaixo."></i>
-                                                Baixar 
+                                                <i class="fas fa-circle-dollar-to-slot text-white" title="Esta ação irá baixar todas as despesas que estão na tabela abaixo."></i>
+                                                Dar Baixa 
                                             </button>                                            
                                             <button id="btnImportar" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#importarDespesa">
                                                 <i class="fas fa-file-export text-white"></i>
@@ -81,7 +81,7 @@
                                             </button>
                                             <button id="btnExcel" class="btn btn-outline-secondary text-white border-white">
                                                 <i class="fas fa-file-excel text-white"></i>
-                                                Gerar Excel
+                                                Excel
                                             </button>
                                             <button id="btnGrafico" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#viewGrafico">
                                                 <i class="fas fa-chart-column text-white"></i>

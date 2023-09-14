@@ -14,7 +14,6 @@ class DespesaModel extends BaseModel
         $nroParcelaAtual = $this->objRequest->nroParcelaAtual;
         $dta = explode('-', $this->objRequest->dtaDespesa);
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
-        // $this->objRequest->dtaLancDespesa = date('Y-m-d');
         if ($this->objRequest->indDespesaPaga =='N') {
             unset($this->objRequest->dtaPagamento);
         }
@@ -55,8 +54,8 @@ class DespesaModel extends BaseModel
     function UpdateDespesa() {
         $dao = new DespesasDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
-        if ($this->objRequest->indDespesaPaga =='N') {
-            unset($this->objRequest->dtaPagamento);
+        if ($this->objRequest->indDespesaPaga == 'N') {
+            $this->objRequest->dtaPagamento = null;
         }
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
         return json_encode($dao->UpdateDespesa($this->objRequest));
@@ -123,9 +122,10 @@ class DespesaModel extends BaseModel
         $dao = new DespesasDao();
         $codDespesa = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
         $result = $dao->PegaDespesaFilha($codDespesa);
-        while ($result[1]!=NULL){
-            $dao->DeletarDespesaFilha($result[1][0]['COD_DESPESA']);
-            $result = $dao->PegaDespesaFilha($result[1][0]['COD_DESPESA']);
+        if ($result[1]!=NULL) {
+            foreach($result[1] as $filha) {
+                $dao->DeletarDespesaFilha($filha['COD_DESPESA']);
+            }
         }
         return json_encode($result);
     }

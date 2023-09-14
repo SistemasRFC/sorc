@@ -157,7 +157,8 @@ class DespesasDao extends BaseDao
     Public Function PegaDespesaFilha($codDespesaImportacao){
         $sql = "SELECT COD_DESPESA
                   FROM EN_DESPESA
-                 WHERE COD_DESPESA_IMPORTACAO = ".$codDespesaImportacao;
+                 WHERE COD_DESPESA_IMPORTACAO = $codDespesaImportacao
+                   AND DTA_PAGAMENTO IS NULL";
         return $this->selectDB($sql, false);
     }
     

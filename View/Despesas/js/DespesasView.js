@@ -17,7 +17,7 @@ $(function() {
 
     $("#btnBaixar").click(function(){
         swal({
-            title: "Excluir",
+            title: "Atenção",
             text: "Esta ação irá atualizar todas as despesas que estão listadas na tabela abaixo como pagas no dia de hoje. Deseja realmente fazer isso?",
             type: "warning",
             showCancelButton: true,
@@ -100,6 +100,7 @@ function MontaGridDespesa(listaDespesa) {
         for (var i in objeto) {
             var status = objeto[i].PAGO? 'Paga em: ' : 'Em aberto';
             var parcela = objeto[i].NRO_PARCELA_ATUAL&&objeto[i].QTD_PARCELAS? objeto[i].NRO_PARCELA_ATUAL+'/'+objeto[i].QTD_PARCELAS : 'unica';
+            var isUnico = objeto[i].QTD_PARCELAS==1 ? 'disabled' : '';
             tabela += " <tr>";
             tabela += "     <td>";
             tabela += "         <div class='form-check'>";
@@ -117,7 +118,7 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "     <td class='px-1' align='center'>";
             tabela += "         <div class='btn-group'>";
             tabela += "             <button class='btn btn-outline-primary px-2' title='Editar' onclick='javascript:chamaCadastroDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-pen'></i></button>";
-            tabela += "             <button class='btn btn-outline-secondary px-2' title='Quitar parcelas' onclick='javascript:quitarParcelas(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-circle-dollar-to-slot'></i></button>";
+            tabela += "             <button class='btn btn-outline-secondary px-2' "+isUnico+" title='Quitar parcelas' onclick='javascript:quitarParcelas(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-circle-dollar-to-slot'></i></button>";
             // tabela += "             <button class='btn btn-outline-success px-2' title='Pagar por conta' onclick='javascript:pagarPorConta(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-dollar-sign'></i></button>";
             tabela += "             <button class='btn btn-outline-danger px-2' title='Excluir' onclick='javascript:deletarDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-trash'></i></button>";
             tabela += "         </div>";
@@ -131,6 +132,10 @@ function MontaGridDespesa(listaDespesa) {
 
     MontaDataTable('tableDespesas', false, 1, true, 44);
 
+}
+
+function quitarParcelas(codDespesa) {
+    ExecutaDispatch('Despesas', 'QuitarParcelas', 'codDespesa<=>'+codDespesa, CarregaGridDespesa, 'Aguarde, quitando parcelas.', 'Parcelas quitadas com sucesso!');    
 }
 
 function somarValorTotal() {
@@ -151,7 +156,7 @@ function somarValorCartao() {
         vlrCartao = parseFloat(vlrCartao)+ parseFloat((despesasEmCartao[i].VLR_DESPESA.replace('.','')).replace(',','.'));
     }
     vlrCartao = number_format(vlrCartao,2,',','.');
-    $("#vlrCartao").html('<a href="javascript:listarDadosCartao();">R$ '+vlrCartao+'</a>');
+    $("#vlrCartao").html('<a class="text-white" href="javascript:listarDadosCartao();"><u>R$ '+vlrCartao+'</u></a>');
 }
 
 function listarDadosCartao(){
