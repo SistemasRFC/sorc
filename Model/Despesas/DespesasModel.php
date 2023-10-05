@@ -55,7 +55,7 @@ class DespesaModel extends BaseModel
         $dao = new DespesasDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
         if ($this->objRequest->indDespesaPaga == 'N') {
-            $this->objRequest->dtaPagamento = null;
+            unset($this->objRequest->dtaPagamento);
         }
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
         return json_encode($dao->UpdateDespesa($this->objRequest));
