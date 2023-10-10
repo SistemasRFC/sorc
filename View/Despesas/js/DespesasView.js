@@ -1,6 +1,7 @@
 var anoAtual = new Date().getFullYear();
 var mesAtual = new Date().getMonth()+1;
 var arrDespesas;
+let codDespesasMarcadas = '';
 $(function() {
     $("#btnNovo").click(() => {
         LimparCampos();
@@ -16,9 +17,10 @@ $(function() {
     });
 
     $("#btnBaixar").click(function(){
+        var condicaoBaixa = codDespesasMarcadas != '' ? 'selecionadas' : 'listadas na tabela'
         swal({
             title: "Atenção",
-            text: "Esta ação irá atualizar todas as despesas que estão listadas na tabela abaixo como pagas no dia de hoje. Deseja realmente fazer isso?",
+            text: "Esta ação irá atualizar todas as despesas que estão "+condicaoBaixa+" abaixo como pagas no dia de hoje. Deseja realmente fazer isso?",
             type: "warning",
             showCancelButton: true,
             confirmButtonText: "Sim",
@@ -26,22 +28,21 @@ $(function() {
         },
         function(isConfirm) {
           if (isConfirm) {
-                var params = 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val();
-                params += '|tpoDespesaFiltro<=>'+$("#tpoDespesaFiltro").val()+'|statusFiltro<=>'+$("#statusFiltro").val();
-                params += '|contaFiltro<=>'+$("#contaFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val();
-                ExecutaDispatch('Despesas', 'BaixarDespesas', params, CarregaGridDespesa);
+              var params = '';
+            if(codDespesasMarcadas != ''){
+                params = 'listaDespesas<=>'+codDespesasMarcadas;
+            } else {
+                let listaDespesas = '';
+                $(".ckbDespesa").each(function () {
+                    listaDespesas += $(this).attr('codDespesa')+'d';
+                });
+                params = 'listaDespesas<=>'+listaDespesas;
+            }
+            ExecutaDispatch('Despesas', 'BaixarDespesas', params, CarregaGridDespesa);
           } else {
             swal("Cancelado", "Nada aconteceu :)");
           }
         });
-    })
-    var checkBoxes = '';
-    $(".ckbDespesa").each(() => {
-        if ($(this).prop('checked')) {
-            checkBoxes += $(this).attr('codDespesa') + '=>SP';
-        } else {
-            checkBoxes += $(this).attr('codDespesa') + '=>NP';
-        }
     });
 
     $( "#btnGrafico" ).click(() => {
@@ -165,7 +166,7 @@ function listarDadosCartao(){
 }
 
 function marcarTodas() {
-    var codDespesasMarcadas = '';
+    codDespesasMarcadas = '';
     if($("#allDespesas").is(":checked")) {
         $(".ckbDespesa").each(function () {
             $(this).prop('checked', true);
@@ -189,7 +190,7 @@ function marcarTodas() {
 function eventosCheckbox() {
     $("#btnImportar").attr('disabled', true);
     $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
-    var codDespesasMarcadas = '';
+    codDespesasMarcadas = '';
     var vlrSelecionado = 0;
     $(".ckbDespesa").each(function() {
         if ($(this).is(":checked")) {

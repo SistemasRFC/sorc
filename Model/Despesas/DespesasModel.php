@@ -55,7 +55,7 @@ class DespesaModel extends BaseModel
         $dao = new DespesasDao();
         BaseModel::PopulaObjetoComRequest($dao->getColumns());
         if ($this->objRequest->indDespesaPaga == 'N') {
-            unset($this->objRequest->dtaPagamento);
+            $this->objRequest->dtaPagamento = null;
         }
         $this->objRequest->codClienteFinal = $_SESSION['cod_cliente_final'];
         return json_encode($dao->UpdateDespesa($this->objRequest));
@@ -142,9 +142,17 @@ class DespesaModel extends BaseModel
     
     Public Function BaixarDespesas(){
         $dao = new DespesasDao();
-        $codCliente = $_SESSION['cod_cliente_final'];
-        $result = $dao->BaixarDespesas($codCliente);
-        
+        // $codCliente = $_SESSION['cod_cliente_final'];
+        $listaDespesas = filter_input(INPUT_POST, 'listaDespesas', FILTER_SANITIZE_STRING);
+        if ($listaDespesas != '') {
+            $arrCodigos = str_replace("d", ",", $listaDespesas);
+            $arrCodigos = substr($arrCodigos, 0, strlen($arrCodigos)-1);
+            $result = $dao->BaixarDespesaEmLote($arrCodigos);
+        } else {
+            // $result = $dao->BaixarDespesas($codCliente);
+            $result = [false, "Nenhuma Despesa para dar baixa."];
+        }
+
         return json_encode($result);
     }
     

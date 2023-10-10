@@ -180,43 +180,52 @@ class DespesasDao extends BaseDao
                 $sql .= " WHERE COD_CONTA = ".$codConta. " AND DTA_DESPESA = '".$dtaDespesa."'";
         return $this->insertDB($sql);        
     }
-    
-    Public Function BaixarDespesas($codClienteFinal){
-                $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT);
-        $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
-        if ($mes==""){
-            $mes = date("m");
-        }
-        if ($ano==''){
-            $ano = date("Y");
-        }
+
+    public function BaixarDespesaEmLote($arrCodigos) {
         $sql = "UPDATE EN_DESPESA SET
-                IND_DESPESA_PAGA = 'S',
-                DTA_PAGAMENTO =NOW() ";
-                $sql .= " WHERE COD_CLIENTE_FINAL = $codClienteFinal
-                    AND MONTH(DTA_DESPESA)= ".$mes."
-                    AND YEAR(DTA_DESPESA)=".$ano;
-        $tpoDespesa = filter_input(INPUT_POST, 'tpoDespesaFiltro', FILTER_SANITIZE_STRING);
-        if ($tpoDespesa!="-1" && $tpoDespesa!=""){
-            $sql .= "   AND TPO_DESPESA = ".$tpoDespesa;
-        }
-        $indStatus = filter_input(INPUT_POST, 'statusFiltro', FILTER_SANITIZE_STRING);
-        if ($indStatus!="-1" && $indStatus!=""){
-            $sql .= "   AND IND_DESPESA_PAGA = '".$indStatus."'";
-        } 
-        $codConta = filter_input(INPUT_POST, 'contaFiltro', FILTER_SANITIZE_STRING);
-        if ($codConta!="-1" && $codConta!=""){
-            $sql .= "   AND COD_CONTA = ".$codConta;
-        }         
-        $codUsuario = filter_input(INPUT_POST, 'responsavelFiltro', FILTER_SANITIZE_STRING);
-        if ($codUsuario!="-1" && $codUsuario!=""){
-            $sql .= "   AND COD_USUARIO_DESPESA = ".$codUsuario;
-        } 
-        return $this->insertDB($sql); 
+                        IND_DESPESA_PAGA = 'S',
+                        DTA_PAGAMENTO = NOW()
+                  WHERE COD_DESPESA in ($arrCodigos) AND IND_DESPESA_PAGA = 'N'";
+
+        return $this->insertDB($sql);
     }
     
-    Function ListarDespesasCartao($codClienteFinal,
-                            $param = null){
+    // Public Function BaixarDespesas($codClienteFinal){
+    //     $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT);
+    //     $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
+    //     if ($mes==""){
+    //         $mes = date("m");
+    //     }
+    //     if ($ano==''){
+    //         $ano = date("Y");
+    //     }
+    //     $tpoDespesa = filter_input(INPUT_POST, 'tpoDespesaFiltro', FILTER_SANITIZE_STRING);
+    //     $indStatus = filter_input(INPUT_POST, 'statusFiltro', FILTER_SANITIZE_STRING);
+    //     $codConta = filter_input(INPUT_POST, 'contaFiltro', FILTER_SANITIZE_STRING);
+    //     $codUsuario = filter_input(INPUT_POST, 'responsavelFiltro', FILTER_SANITIZE_STRING);
+
+    //     $sql = " UPDATE EN_DESPESA SET
+    //                     IND_DESPESA_PAGA = 'S',
+    //                     DTA_PAGAMENTO = NOW()
+    //               WHERE COD_CLIENTE_FINAL = $codClienteFinal
+    //                 AND MONTH(DTA_DESPESA)= ".$mes."
+    //                 AND YEAR(DTA_DESPESA) = ".$ano;
+    //     if ($tpoDespesa!="-1" && $tpoDespesa!=""){
+    //         $sql .= "   AND TPO_DESPESA = ".$tpoDespesa;
+    //     }
+    //     if ($indStatus!="-1" && $indStatus!=""){
+    //         $sql .= "   AND IND_DESPESA_PAGA = '".$indStatus."'";
+    //     } 
+    //     if ($codConta!="-1" && $codConta!=""){
+    //         $sql .= "   AND COD_CONTA = ".$codConta;
+    //     }         
+    //     if ($codUsuario!="-1" && $codUsuario!=""){
+    //         $sql .= "   AND COD_USUARIO_DESPESA = ".$codUsuario;
+    //     } 
+    //     return $this->insertDB($sql); 
+    // }
+    
+    Function ListarDespesasCartao($codClienteFinal){
         $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT);
         $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
         if ($mes==""){
