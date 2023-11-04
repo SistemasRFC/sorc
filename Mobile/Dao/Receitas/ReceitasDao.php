@@ -41,8 +41,8 @@ class ReceitasDao extends BaseDao
              INNER JOIN EN_CONTA C
                      ON R.COD_CONTA = C.COD_CONTA
                   WHERE R.COD_CLIENTE_FINAL = $codClienteFinal
-                    AND MONTH(DTA_RECEITA)= ".filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT)."
-                    AND YEAR(DTA_RECEITA)=".filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
+                    AND MONTH(DTA_RECEITA)= ".filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_NUMBER_INT)."
+                    AND YEAR(DTA_RECEITA)=".filter_input(INPUT_POST, 'nroAnoReferencia', FILTER_SANITIZE_NUMBER_INT);
         return $this->selectDB($sql, false);
     }
 
