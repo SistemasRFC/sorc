@@ -66,7 +66,7 @@ function montaSumarioTipoDespesa(dadosSumario){
             div+='<div class="row text-white">';
         }
         div+='  <div class="col-md-3 px-1 py-0">';
-        div+='      <small><b>'+dadosSumario[1][i].dsc_tipo_despesa+':</b> R$ '+number_format(dadosSumario[1][i].vlr_total,2,',','.')+'</small>';
+        div+='      <small><b>'+dadosSumario[1][i].DSC_TIPO_DESPESA+':</b> R$ '+number_format(dadosSumario[1][i].VLR_TOTAL,2,',','.')+'</small>';
         div+='  </div>';
         col++;
         if (col==4){
