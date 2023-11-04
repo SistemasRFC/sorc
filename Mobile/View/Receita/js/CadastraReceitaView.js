@@ -69,7 +69,7 @@ function montaComboContas(dados){
 }
 
 $(document).ready(function() {
-    ExecutaDispatch('ContasBancarias','ListarContasBancariasAtivas', undefined, montaComboContas);
+    ExecutaDispatch('ContasBancarias','ListarContasBancariasAtivas', 'verificaPermissao;N', montaComboContas);
     if ($("#codReceita").val() > 0) {
         ExecutaDispatch('Receitas', 'RetornaReceitaPorCodigo', 'codReceita;' + $("#codReceita").val()+'|verificaPermissao;N', PreencherDados);
     }
