@@ -1,5 +1,5 @@
 <?php
-include_once("Dao/BaseDao.php");
+include_once("../Dao/BaseDao.php");
 class ReceitasDao extends BaseDao
 {
     protected $tableName = "EN_RECEITA";
