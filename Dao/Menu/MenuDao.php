@@ -25,7 +25,7 @@ class MenuDao extends BaseDao
                               DSC_MENU AS DSC
                          FROM SE_MENU_NOVO
                         WHERE IND_ATIVO = 'S'
-                        ORDER BY DSC_MENU";
+                     ORDER BY DSC_MENU";
         return $this->selectDB("$sql_lista", false);
     }
 

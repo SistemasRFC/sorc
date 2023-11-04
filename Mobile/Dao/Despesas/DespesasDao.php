@@ -61,16 +61,16 @@ class DespesasDao extends BaseDao
                         U.NME_USUARIO_COMPLETO AS DONO_DESPESA,
                         C.IND_IS_CARTAO
                    FROM EN_DESPESA R
-                  LEFT JOIN EN_CONTA C
+              LEFT JOIN EN_CONTA C
                      ON R.COD_CONTA = C.COD_CONTA
-                  INNER JOIN EN_TIPO_DESPESA TP
+             INNER JOIN EN_TIPO_DESPESA TP
                      ON R.TPO_DESPESA = TP.COD_TIPO_DESPESA
-                   LEFT JOIN SE_USUARIO U
+              LEFT JOIN SE_USUARIO U
                      ON R.COD_USUARIO_DESPESA = U.COD_USUARIO
                   WHERE r.COD_CLIENTE_FINAL = $codClienteFinal
                     AND MONTH(DTA_DESPESA)= ".$mes."
                     AND YEAR(DTA_DESPESA)=".$ano."
-                  ORDER BY DTA_DESPESA";
+               ORDER BY DTA_DESPESA";
         return $this->selectDB($sql, false);
     }
 

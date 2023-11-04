@@ -75,11 +75,11 @@ class DespesasDao extends BaseDao
                         U.NME_USUARIO_COMPLETO AS DONO_DESPESA,
                         C.IND_IS_CARTAO
                    FROM EN_DESPESA R
-                  LEFT JOIN EN_CONTA C
+              LEFT JOIN EN_CONTA C
                      ON R.COD_CONTA = C.COD_CONTA
-                  INNER JOIN EN_TIPO_DESPESA TP
+             INNER JOIN EN_TIPO_DESPESA TP
                      ON R.TPO_DESPESA = TP.COD_TIPO_DESPESA
-                   LEFT JOIN SE_USUARIO U
+              LEFT JOIN SE_USUARIO U
                      ON R.COD_USUARIO_DESPESA = U.COD_USUARIO
                   WHERE r.COD_CLIENTE_FINAL = $codClienteFinal
                     AND MONTH(DTA_DESPESA)= ".$mes."
@@ -106,24 +106,6 @@ class DespesasDao extends BaseDao
         $sql .= " ORDER BY DTA_DESPESA";
         return $this->selectDB($sql, false);
     }
-
-    // Function PegaLimiteTipoDespesa($codClienteFinal){
-    //     $sql = " SELECT TP.VLR_PISO,
-    //                     TP.VLR_TETO,
-    //                     SUM(COALESCE(R.VLR_DESPESA,0)) AS VLR_LIMITE
-    //                FROM EN_TIPO_DESPESA TP
-    //                LEFT JOIN EN_DESPESA R
-    //                  ON TP.COD_TIPO_DESPESA = R.TPO_DESPESA
-    //                 AND r.COD_CLIENTE_FINAL = $codClienteFinal
-    //                 AND MONTH(DTA_DESPESA)= ".$form->getNroMesReferencia()."
-    //                 AND YEAR(DTA_DESPESA)=".$form->getNroAnoReferencia()."
-    //                LEFT JOIN EN_CONTA C
-    //                  ON R.COD_CONTA = C.COD_CONTA
-    //               WHERE TP.COD_TIPO_DESPESA = ".$form->getCodTipoDespesa()."
-    //               GROUP BY TP.VLR_PISO,
-    //                     TP.VLR_TETO";
-    //     return $this->selectDB($sql, false);
-    // }
     
     Public Function ImportarDespesas($codDespesaRef, $dtaDespesa, $codClienteFinal){
         $codigo = $this->CatchUltimoCodigo('EN_DESPESA', 'COD_DESPESA');
@@ -189,41 +171,6 @@ class DespesasDao extends BaseDao
 
         return $this->insertDB($sql);
     }
-    
-    // Public Function BaixarDespesas($codClienteFinal){
-    //     $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT);
-    //     $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
-    //     if ($mes==""){
-    //         $mes = date("m");
-    //     }
-    //     if ($ano==''){
-    //         $ano = date("Y");
-    //     }
-    //     $tpoDespesa = filter_input(INPUT_POST, 'tpoDespesaFiltro', FILTER_SANITIZE_STRING);
-    //     $indStatus = filter_input(INPUT_POST, 'statusFiltro', FILTER_SANITIZE_STRING);
-    //     $codConta = filter_input(INPUT_POST, 'contaFiltro', FILTER_SANITIZE_STRING);
-    //     $codUsuario = filter_input(INPUT_POST, 'responsavelFiltro', FILTER_SANITIZE_STRING);
-
-    //     $sql = " UPDATE EN_DESPESA SET
-    //                     IND_DESPESA_PAGA = 'S',
-    //                     DTA_PAGAMENTO = NOW()
-    //               WHERE COD_CLIENTE_FINAL = $codClienteFinal
-    //                 AND MONTH(DTA_DESPESA)= ".$mes."
-    //                 AND YEAR(DTA_DESPESA) = ".$ano;
-    //     if ($tpoDespesa!="-1" && $tpoDespesa!=""){
-    //         $sql .= "   AND TPO_DESPESA = ".$tpoDespesa;
-    //     }
-    //     if ($indStatus!="-1" && $indStatus!=""){
-    //         $sql .= "   AND IND_DESPESA_PAGA = '".$indStatus."'";
-    //     } 
-    //     if ($codConta!="-1" && $codConta!=""){
-    //         $sql .= "   AND COD_CONTA = ".$codConta;
-    //     }         
-    //     if ($codUsuario!="-1" && $codUsuario!=""){
-    //         $sql .= "   AND COD_USUARIO_DESPESA = ".$codUsuario;
-    //     } 
-    //     return $this->insertDB($sql); 
-    // }
     
     Function ListarDespesasCartao($codClienteFinal){
         $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT);

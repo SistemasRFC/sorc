@@ -1,17 +1,11 @@
-<?php
-    session_start();
-    include_once '../../constantes.php';
-?>
 <html>
-    <head>
-        <title>SORC</title>
-        
-        <?php include_once('../../imports.php'); ?>
-        <script src="<?=ALIAS;?>Mobile/View/Despesa/js/DespesaView.js?random=<?php echo time(); ?>"></script>
-    </head>
-    
-    
-    <body>
+<head>
+    <title>SORC - Receitas</title>
+    <?php include_once('../../imports.php'); ?>
+    <script src="<?=ALIAS;?>Mobile/View/Receita/js/ReceitaView.js?random=<?php echo time(); ?>"></script>
+</head>
+
+<body>
         <input type="hidden" id="verificaPermissao" name="verificaPermissao" value="N" class="persist">
 
         <div class="card o-hidden border-0 shadow-lg mx-2 my-3">
@@ -24,9 +18,9 @@
                         </button>
                     </div>
                     <div class="col-6 p-0">
-                        <button id="btnNovaDespesa" class="btn btn-outline-secondary text-white border-white">
+                        <button id="btnNovaReceita" class="btn btn-outline-secondary text-white border-white">
                             <i class="far fa-list-alt text-white"></i>
-                            <b>Nova Despesa</b>
+                            <b>Nova Receita</b>
                         </button>
                     </div>
                 </div>
@@ -35,7 +29,7 @@
                 <div class="row mb-1">
                     <div class="col-12 text-center">
                         <h4 class="text-dark">
-                            Despesas
+                            Receitas
                         </h4>
                     </div>
                 </div>
@@ -49,20 +43,9 @@
                         <input type="button" id="btnPesquisar" value="Pesquisar" class="btn btn-primary btn-block">
                     </div>
                 </div>
-                <div class="row pt-4 text-center">
-                    <div class="col-4">
-                        <small class="mr-auto" style="color: red;">atrasada</small>
-                    </div>
-                    <div class="col-4">
-                        <small class="mr-auto">no prazo</small>
-                    </div>
-                    <div class="col-4">
-                        <small class="ml-auto" style="color: green;">paga</small>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-12 p-0 text-center">
-                        <div id="listaDespesas"></div>
+                        <div id="listaReceitas"></div>
                     </div>
                 </div>
             </div>

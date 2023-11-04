@@ -49,9 +49,16 @@
                     </div>
                     <div class="col-12 my-2">
                         <input type="button" 
+                                id="btnCadastroReceita" 
+                                value="Cadastro Receita" 
+                                class="btn btn-success btn-user btn-block"
+                                onClick="javascript:window.location.href='../Receita/CadastraReceitaView.php'">
+                    </div>
+                    <div class="col-12 my-2">
+                        <input type="button" 
                                 id="btnCadastroDespesa" 
                                 value="Cadastro Despesa" 
-                                class="btn btn-success btn-user btn-block"
+                                class="btn btn-danger btn-user btn-block"
                                 onClick="javascript:window.location.href='../Despesa/CadastraDespesaView.php'">
                     </div>
                 </div>

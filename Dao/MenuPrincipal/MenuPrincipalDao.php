@@ -9,7 +9,7 @@ class MenuPrincipalDao extends BaseDao
 	) {
 		try {
 			$sql_localiza = " SELECT DSC_MENU,
-        				       m.COD_MENU,
+        				       M.COD_MENU,
         				       CONCAT($path, '/Controller/', NME_CONTROLLER) AS NME_CONTROLLER,
         				       NME_METHOD,
         				       NME_USUARIO_COMPLETO,
