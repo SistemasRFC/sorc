@@ -85,6 +85,9 @@ function validarCampos() {
 
 function limparCamposTela(){
     LimparCampos();
+    $("#qtdParcelas").val('1');
+    $("#nroParcelaAtual").val('1');
+    $("#verificaPermissao").val('N');
 }
 
 function PreencherDados(dados) {

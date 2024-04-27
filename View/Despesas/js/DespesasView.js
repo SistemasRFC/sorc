@@ -85,9 +85,9 @@ function MontaGridDespesa(listaDespesa) {
     tabela += "             </div>";
     tabela += "         </th>";
     tabela += "         <th>Descrição</th>";
-    tabela += "         <th>Vencimento</th>";
+    tabela += "         <th>Lanç.</th>";
+    tabela += "         <th>Venc.</th>";
     tabela += "         <th>Valor</th>";
-    tabela += "         <th>Parcela</th>";
     tabela += "         <th>Tipo</th>";
     tabela += "         <th>Conta</th>";
     tabela += "         <th>Resp.</th>";
@@ -109,9 +109,9 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "         </div>";
             tabela += "     </td>";
             tabela += "     <td>" + (objeto[i].DSC_DESPESA != null ? objeto[i].DSC_DESPESA : '') + "</td>";
-            tabela += "     <td title='Lançada em: \n"+objeto[i].DTA_LANC_DESPESA_FORMATADO+"'>" + (objeto[i].DTA_DESPESA != null ? objeto[i].DTA_DESPESA_FORMATADO : '') + "</td>";
-            tabela += "     <td align='end'>" + (objeto[i].VLR_DESPESA != null ? objeto[i].VLR_DESPESA : '') + "</td>";
-            tabela += "     <td align='center'>" + parcela + "</td>";
+            tabela += "     <td>" + (objeto[i].DTA_LANC_DESPESA != null ? objeto[i].DTA_LANC_DESPESA_FORMATADO : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].DTA_DESPESA != null ? objeto[i].DTA_DESPESA_FORMATADO : '') + "</td>";
+            tabela += "     <td align='end'>" + (objeto[i].VLR_DESPESA != null ? objeto[i].VLR_DESPESA : '') + " <b>(" + parcela + ")</b></td>";
             tabela += "     <td>" + (objeto[i].DSC_TIPO_DESPESA != null ? objeto[i].DSC_TIPO_DESPESA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].CONTA != null ? objeto[i].CONTA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].DONO_DESPESA != null ? objeto[i].DONO_DESPESA : '') + "</td>";

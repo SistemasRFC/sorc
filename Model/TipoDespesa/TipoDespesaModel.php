@@ -72,11 +72,13 @@ class TipoDespesaModel extends BaseModel
         }        
         $lista = $dao->ListarSomaTipoDespesas($_SESSION['cod_cliente_final'], $mes, $ano);
         $arrTipos = [];
-        $count = count($lista[1]);
-        if($lista[0] && $count > 0) {
-            for($i=0;$i<$count;$i++) {
-                array_push($arrTipos, $lista[1][$i]['DSC_TIPO_DESPESA']);
-                $lista[1][$i]['VALOR'] = number_format($lista[1][$i]['VALOR'],2,'.','');
+        if($lista[0] && $lista[1] != null){
+            $count = count($lista[1]);
+            if($count > 0) {
+                for($i=0;$i<$count;$i++) {
+                    array_push($arrTipos, $lista[1][$i]['DSC_TIPO_DESPESA']);
+                    $lista[1][$i]['VALOR'] = number_format($lista[1][$i]['VALOR'],2,'.','');
+                }
             }
         }
         $lista[2] = $arrTipos;
