@@ -1,3 +1,5 @@
+var anoAtual = new Date().getFullYear();
+var mesAtual = new Date().getMonth()+1;
 var listaMenus;
 class NavBar extends HTMLElement {
     connectedCallback() {
@@ -5,6 +7,7 @@ class NavBar extends HTMLElement {
             <ul class="navbar-nav bg-primary sidebar sidebar-light accordion" id="accordionSidebar">
         
                 <div id="menuNavegacao"></div>
+                <div id="progressoGastos"></div>
         
             </ul>`;
     }
@@ -48,6 +51,23 @@ function MontaMenu(DadosMenu) {
     }
 }
 
+function MontaProgressoGastos(arrSomaGastos) {
+    if (arrSomaGastos[1] !=null && arrSomaGastos[1].length > 0) {
+        listaGastos = arrSomaGastos[1];
+        var html = "";
+        for (var i in listaGastos) {
+                html += "<li class='nav-item'>"
+                html += "   <label>" + listaGastos[i].DSC_TIPO_DESPESA + "</label>";
+                html += "   <div class='progress'>";
+                html += "       <div class='progress-bar' role='progressbar' style='width: " + listaGastos[i].VALOR + "%' aria-valuenow='" + listaGastos[i].VALOR + "' aria-valuemin='" + listaGastos[i].VLR_PISO + "' aria-valuemax='" + listaGastos[i].VLR_TETO + "'></div>";
+                html += "   </div>";
+                html += "</li>";
+        }
+
+        $('#progressoGastos').html(html);
+    }
+}
+
 function temFilho(COD_MENU_PAI) {
     var filhos = listaMenus.filter(elm => elm.COD_MENU_PAI == COD_MENU_PAI);
 
@@ -80,4 +100,5 @@ function montaSumarioTipoDespesa(dadosSumario){
 $(document).ready(function () {
     ExecutaDispatch('MenuPrincipal', 'CarregaMenuNew', undefined, ListarMenusAtivos);
     ExecutaDispatch('TipoDespesa', 'SumarizaPorTipoDespesa', undefined, montaSumarioTipoDespesa);
+    ExecutaDispatch('TipoDespesa', 'ListarSomaTipoDespesas', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, MontaProgressoGastos);
 });

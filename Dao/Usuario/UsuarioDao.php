@@ -42,7 +42,7 @@ class UsuarioDao extends BaseDao
                            U.TXT_EMAIL,
                            U.COD_PERFIL_W,
                            P.DSC_PERFIL_W,
-                           u.IND_ATIVO,
+                           U.IND_ATIVO,
                            U.COD_CLIENTE_FINAL
                       FROM SE_USUARIO U 
                 INNER JOIN SE_PERFIL P 

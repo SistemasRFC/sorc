@@ -14,6 +14,7 @@ class BaseDao
     }
     private static $dbtype   = "mysql";
     private static $host     = "192.168.0.74";
+    // private static $host     = HOST;
     private static $port     = PORT;
     private static $user     = USER;
     private static $password = PASSWORD;
@@ -275,7 +276,11 @@ class BaseDao
                             //                            $values .= $valuec['column']." = '".str_replace(",", ".", str_replace(".", "", $value))."', ";
                             //                            break;
                         case 'D':
-                            $values .= $valuec['column'] . " = '" . $value . "', ";
+                            if($value == null) {
+                                $values .= $valuec['column']." = NULL, ";
+                            } else {
+                                $values .= $valuec['column'] . " = '" . $value . "', ";
+                            }
                             break;
                         case 'DT':
                             $values .= $valuec['column'] . " = '" . $this->ConverteDataForm($value, true) . "', ";

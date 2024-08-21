@@ -101,5 +101,15 @@ class TipoDespesaModel extends BaseModel
 
         return json_encode($result);
     }
+
+    function ListarSomaTipoDespesasPorPeriodo() {
+        $dao = new TiposDespesaDao();
+        $dtaInicio = filter_input(INPUT_POST, 'dtaInicio', FILTER_SANITIZE_STRING);
+        $dtaFim = filter_input(INPUT_POST, 'dtaFim', FILTER_SANITIZE_STRING);
+        $result = $dao->ListarSomaTipoDespesasPorPeriodo($_SESSION['cod_cliente_final'], $dtaInicio, $dtaFim);
+
+        return json_encode($result);
+
+    }
 }
 ?>

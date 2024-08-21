@@ -28,9 +28,9 @@ class DespesaModel extends BaseModel
             }
             $this->objRequest->dtaDespesa = $dta[0].'-'.$dta[1].'-'.$dta[2]; 
             $result = $dao->AddDespesa($this->objRequest);
-            if ($i==$nroParcelaAtual){
+            // if ($i==$nroParcelaAtual){
                 $this->objRequest->codDespesaImportacao = $result[2];
-            }
+            // }
             $this->objRequest->indDespesaPaga = 'N';
             unset($this->objRequest->dtaPagamento);
             $this->objRequest->nroParcelaAtual = $this->objRequest->nroParcelaAtual+1;
@@ -65,6 +65,7 @@ class DespesaModel extends BaseModel
         $dao = new DespesasDao();
         $codDespesa = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_STRING); 
         $result = $dao->PegaDespesasFilhas($codDespesa);
+        // PRECISO PEGAR AS FILHAS DAS FILHAS!!!!
         $arrCodigos = $codDespesa.',';
         if($result[0] && $result[1] != null) {
             $count = count($result[1]);

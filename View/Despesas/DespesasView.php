@@ -62,7 +62,10 @@
                                     <div class="card-header d-flex flex-row align-items-center justify-content-between">
                                         <h5 class="m-0 text-white" id="tituloDespesa" style="cursor: pointer;">DESPESAS</h5>
                                         <div>
-                                            <div class="text-white"><b>Valor Total: </b><br><span id='vlrTotal'>R$ 0,00</span></div>
+                                            <div class="text-white"><b>Saldo: </b><br><span id='vlrSaldo'>R$ 0,00</span></div>
+                                        </div> 
+                                        <div>
+                                            <div class="text-white"><b>Total Despesas: </b><br><span id='vlrTotal'>R$ 0,00</span></div>
                                         </div> 
                                         <div>
                                             <div class="text-white"><b>Valor Selecionado: </b><br><span id='vlrSelecionado'>R$ 0,00</span></div>
@@ -79,12 +82,12 @@
                                                 <i class="fas fa-file-export text-white"></i>
                                                 Importar 
                                             </button>
-                                            <button id="btnExcel" class="btn btn-outline-secondary text-white border-white" title="Excel">
+                                            <!-- <button id="btnExcel" class="btn btn-outline-secondary text-white border-white" title="Excel">
                                                 <i class="fas fa-file-excel text-white"></i>
-                                            </button>
-                                            <button id="btnGrafico" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#viewGrafico" title="Gráfico">
+                                            </button> -->
+                                            <!-- <button id="btnGrafico" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#viewGrafico" title="Gráfico">
                                                 <i class="fas fa-chart-column text-white"></i>
-                                            </button>
+                                            </button> -->
                                             <button id="btnNovo" class="btn btn-outline-secondary text-white border-white" data-toggle="modal" data-target="#cadastroDespesa">
                                                 <i class="fas fa-plus text-white"></i>
                                                 Nova Despesa

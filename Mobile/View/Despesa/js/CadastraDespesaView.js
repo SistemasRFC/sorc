@@ -97,6 +97,9 @@ function PreencherDados(dados) {
 $(document).ready(function() {
     if ($("#codDespesa").val() > 0) {
         ExecutaDispatch('Despesas', 'RetornaDespesaPorCodigo', 'codDespesa;' + $("#codDespesa").val()+'|verificaPermissao;N', PreencherDados);
+    } else {
+        let date = formataDataAmericano(new Date().toLocaleDateString());
+        $("#dtaLancDespesa").val(date);
     }
     $("#divdtaPagamento").hide("fade");
     $("#indDespesaPaga").change(function(){

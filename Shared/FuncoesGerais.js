@@ -340,7 +340,7 @@ function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura=
             scrollCollapse: true,
             scrollY: altura+'vh',
             language: {
-                "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+                "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
                 "decimal": ',',
                 "thousands": '.'
             },

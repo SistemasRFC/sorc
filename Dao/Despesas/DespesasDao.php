@@ -100,7 +100,7 @@ class DespesasDao extends BaseDao
             $sql .= "   AND R.COD_CONTA = ".$codConta;
         }         
         $codUsuario = filter_input(INPUT_POST, 'responsavelFiltro', FILTER_SANITIZE_STRING);
-        if ($codUsuario!="-1" && $codUsuario!=""){
+        if ($codUsuario!="-1" && $codUsuario!="" && $codUsuario!='undefined'){
             $sql .= "   AND R.COD_USUARIO_DESPESA = ".$codUsuario;
         }         
         $sql .= " ORDER BY DTA_DESPESA";
