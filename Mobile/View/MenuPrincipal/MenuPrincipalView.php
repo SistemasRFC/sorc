@@ -27,6 +27,7 @@
 
         <!-- Antiga Index -->
         <script src="<?=ALIAS;?>Mobile/View/MenuPrincipal/js/FuncoesGerais.js?random=<?php echo time(); ?>"></script>
+        <script src="<?=ALIAS;?>Mobile/View/MenuPrincipal/js/MenuPrincipalView.js?random=<?php echo time(); ?>"></script>
         <script src="<?=ALIAS;?>Resources/swal/dist/sweetalert.min.js"></script>
         <link rel="stylesheet" type="text/css" href="<?=ALIAS;?>Resources/swal/dist/sweetalert.css"> 
 
@@ -69,7 +70,7 @@
                     <h4 class="text-center my-1">Gastos</h4>
                 </div>
                 <div class="card-body">
-                    <div id="listaGastos" class="p-1" style="border: 1px solid white;"></div>
+                    <div id="listaGastos"></div>
                 </div>
             </div>
 

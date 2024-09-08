@@ -215,5 +215,38 @@ class DespesasDao extends BaseDao
         $sql .= " ORDER BY DTA_DESPESA";
         return $this->selectDB($sql, false);
     }
+
+    Function BuscarSaldoFiltro($codClienteFinal) {
+        $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT);
+        $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
+        $sql = " SELECT R.SOMA_RECEITAS, D.SOMA_DESPESAS, (R.SOMA_RECEITAS - D.SOMA_DESPESAS) AS VLR_SALDO
+                   FROM (SELECT COALESCE(SUM(VLR_RECEITA), 0) AS SOMA_RECEITAS
+                           FROM EN_RECEITA 
+                          WHERE COD_CLIENTE_FINAL = $codClienteFinal
+                            AND MONTH(DTA_RECEITA) = $mes
+                            AND YEAR(DTA_RECEITA) = $ano) AS R,
+                        (SELECT COALESCE(SUM(VLR_DESPESA), 0) AS SOMA_DESPESAS
+                           FROM EN_DESPESA 
+                          WHERE COD_CLIENTE_FINAL = $codClienteFinal
+                            AND MONTH(DTA_DESPESA) = $mes
+                            AND YEAR(DTA_DESPESA) = $ano
+                            AND IND_DESPESA_PAGA = 'S') AS D";
+        return $this->selectDB($sql, false);
+    }
+
+    Function BuscarDespesaPorCodigo($codDespesa) {
+        return $this->MontarSelect("WHERE COD_DESPESA = $codDespesa");        
+    }
+
+    Function AtualizarDespesaQuitada($codDespesa, $valorParaQuitacao){
+        $sql = " UPDATE EN_DESPESA
+                    SET DSC_DESPESA = concat('QUITAÇÃO - ', DSC_DESPESA),
+                        VLR_DESPESA = $valorParaQuitacao,
+                        IND_DESPESA_PAGA = 'S',
+                        DTA_PAGAMENTO = NOW()
+                  WHERE COD_DESPESA = $codDespesa";
+
+        return $this->updateDB($sql, $codDespesa);
+    }
 }
 ?>

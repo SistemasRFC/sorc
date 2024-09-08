@@ -339,8 +339,9 @@ function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura=
             lengthChange: false,
             scrollCollapse: true,
             scrollY: altura+'vh',
+            fixedHeader: true,
             language: {
-                "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+                "url": "/sorc/Resources/bootstrap-admin/vendor/datatables/Portuguese-Brasil.json",
                 "decimal": ',',
                 "thousands": '.'
             },
@@ -361,7 +362,7 @@ function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura=
             "pagingType": "simple_numbers",
             "lengthChange": false,
             "language": {
-                "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+                "url": "/sorc/Resources/bootstrap-admin/vendor/datatables/Portuguese-Brasil.json",
                 "decimal": ',',
                 "thousands": '.'
             },
@@ -400,8 +401,12 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 function CriarGraficoBarras(nmeCampo, dados, arrLabels) {
     var campo = document.getElementById("" + nmeCampo + "");
     var valores = [];
+    var valorMaximo = 1000;
     for (var i in dados) {
         valores.push(dados[i].VALOR);
+        if(dados[i].VALOR > valorMaximo) {
+            valorMaximo = dados[i].VALOR;
+        }
     }
 
     new Chart(campo, {
@@ -444,8 +449,8 @@ function CriarGraficoBarras(nmeCampo, dados, arrLabels) {
                 yAxes: [{
                     ticks: {
                         min: 0,
-                        max: 20000,
-                        maxTicksLimit: 10,
+                        max: valorMaximo+500,
+                        maxTicksLimit: valorMaximo==1000 ? 5 : 10,
                         padding: 5,
                         // Include a dollar sign in the ticks
                         callback: function (value, index, values) {
@@ -743,3 +748,19 @@ function formataDataPtbr(data){
     var dataSplit = dataPtbr.split('-');
     return dataSplit[2]+'/'+dataSplit[1]+'/'+dataSplit[0];
 }
+
+if (!String.prototype.padStart) {
+    String.prototype.padStart = function padStart(targetLength, padString) {
+      targetLength = targetLength >> 0; //truncate if number, or convert non-number to 0;
+      padString = String(typeof padString !== "undefined" ? padString : " ");
+      if (this.length >= targetLength) {
+        return String(this);
+      } else {
+        targetLength = targetLength - this.length;
+        if (targetLength > padString.length) {
+          padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+        }
+        return padString.slice(0, targetLength) + String(this);
+      }
+    };
+  }

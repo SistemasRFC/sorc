@@ -19,13 +19,32 @@ class TipoDespesaModel extends BaseModel
 
         return json_encode($result);
     }
-
-    function SumarizaPorTipoDespesa() {
+    
+    Function ListarSomaTipoDespesas() {
         $dao = new TiposDespesaDao();
-        $codTipoDespesa = filter_input(INPUT_POST, 'tpoDespesa', FILTER_SANITIZE_STRING);
-        $result = $dao->SumarizaPorTipoDespesa($_SESSION['cod_cliente_final']);
+        $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_STRING);
+        $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_STRING);
+        if ($mes=='') {
+            $mes=date('m');
+        }
+        if ($ano=='') {
+            $ano=date('Y');
+        }        
+        $lista = $dao->ListarSomaTipoDespesas($_SESSION['cod_cliente_final'], $mes, $ano);
+        $arrTipos = [];
+        if($lista[0] && $lista[1] != null){
+            $count = count($lista[1]);
+            if($count > 0) {
+                for($i=0;$i<$count;$i++) {
+                    array_push($arrTipos, $lista[1][$i]['DSC_TIPO_DESPESA']);
+                    $lista[1][$i]['PORCENT'] = $lista[1][$i]['PORCENT'] < 100 ? $lista[1][$i]['PORCENT'] : 100;
+                    $lista[1][$i]['VALOR'] = number_format($lista[1][$i]['VALOR'],2,'.','');
+                }
+            }
+        }
+        $lista[2] = $arrTipos;
 
-        return json_encode($result);
+        return json_encode($lista);
     }
 }
 ?>

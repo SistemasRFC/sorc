@@ -9,6 +9,9 @@ $(function() {
             swal('Atenção!', 'Informe uma descrição para esse menu.', 'warning');
             return false;
         }
+        if ($("#codMenuPai").val() == null) {
+            $("#codMenuPai").val(0);
+        }
         salvarMenu();
     });
 

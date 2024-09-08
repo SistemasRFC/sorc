@@ -77,6 +77,7 @@ class TipoDespesaModel extends BaseModel
             if($count > 0) {
                 for($i=0;$i<$count;$i++) {
                     array_push($arrTipos, $lista[1][$i]['DSC_TIPO_DESPESA']);
+                    $lista[1][$i]['PORCENT'] = $lista[1][$i]['PORCENT'] < 100 ? $lista[1][$i]['PORCENT'] : 100;
                     $lista[1][$i]['VALOR'] = number_format($lista[1][$i]['VALOR'],2,'.','');
                 }
             }

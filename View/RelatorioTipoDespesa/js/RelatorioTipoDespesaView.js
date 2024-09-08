@@ -10,7 +10,7 @@ $(function() {
 function carregaGrafico() {
     document.getElementById("grafico").innerHTML = '&nbsp;';
     document.getElementById("grafico").innerHTML = '<canvas id="graficoTipoDespesa"></canvas>';
-    ExecutaDispatch('TipoDespesa', 'ListarSomaTipoDespesasPorPeriodo', 'dtaInicio<=>'+$("#dtaInicio").val()+'|dtaFim<=>'+$("#dtaFim").val(), montaGrafico);
+    ExecutaDispatch('RelatorioTipoDespesa', 'ListarSomaTipoDespesasPorPeriodo', 'dtaInicio<=>'+$("#dtaInicio").val()+'|dtaFim<=>'+$("#dtaFim").val(), montaGrafico);
     // ExecutaDispatch('TipoDespesa', 'ListarSomaTipoDespesas', 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val(), montaGrafico);
 }
 
@@ -21,5 +21,11 @@ function montaGrafico(dados) {
 }
 
 $(document).ready(function() {
-
+    let mes = mesAtual.length==2 ? mesAtual : "0"+ mesAtual;
+    let dtaPrimeiroDiaMesAtual = anoAtual+"-"+mes+"-01";
+    let ultimoDiaMesAtual = new Date(anoAtual, mesAtual, 0).getDate();
+    let dtaUltimoDiaMesAtual = anoAtual+"-"+mes+"-"+ultimoDiaMesAtual;
+    $("#dtaInicio").val(dtaPrimeiroDiaMesAtual);
+    $("#dtaFim").val(dtaUltimoDiaMesAtual);
+    carregaGrafico();
 });

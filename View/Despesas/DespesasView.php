@@ -62,7 +62,7 @@
                                     <div class="card-header d-flex flex-row align-items-center justify-content-between">
                                         <h5 class="m-0 text-white" id="tituloDespesa" style="cursor: pointer;">DESPESAS</h5>
                                         <div>
-                                            <div class="text-white"><b>Saldo: </b><br><span id='vlrSaldo'>R$ 0,00</span></div>
+                                            <div class="text-white"><b>Saldo: <i class="far fa-circle-question fa-xs" title="Contabiliza apenas despesas pagas!"></i></b><br><span id='vlrSaldo'>R$ 0,00</span></div>
                                         </div> 
                                         <div>
                                             <div class="text-white"><b>Total Despesas: </b><br><span id='vlrTotal'>R$ 0,00</span></div>
@@ -94,7 +94,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body pr-2">
                                         <div id="listaDespesas"></div>
                                     </div>
                                 </div>

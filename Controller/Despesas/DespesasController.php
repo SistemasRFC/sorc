@@ -58,9 +58,9 @@ class DespesasController extends BaseController {
         echo $model->ListarMesesFiltro();
     }
     
-    Public Function QuitarParcelas(){
+    Public Function QuitarDespesa(){
         $model = new DespesaModel();
-        echo $model->QuitarParcelas();
+        echo $model->QuitarDespesa();
     }
     
     Public Function PagarPorConta(){
@@ -76,6 +76,12 @@ class DespesasController extends BaseController {
     Function ListarDespesasCartao(){
         $model = new DespesaModel();
         echo $model->ListarDespesasCartao();
+    }
+
+    Function BuscarSaldoFiltro() {
+        $model = new DespesaModel();
+        echo $model->BuscarSaldoFiltro();
+
     }
     
 }

@@ -5175,12 +5175,11 @@ a.badge-dark:focus, a.badge-dark.focus {
 
 .progress {
   display: flex;
-  height: 1rem;
+  height: 0.5rem;
   overflow: hidden;
   line-height: 0;
   font-size: 0.75rem;
   background-color: #eaecf4;
-  border-radius: 0.35rem;
 }
 
 .progress-bar {

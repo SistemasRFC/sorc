@@ -12,10 +12,10 @@ class TipoDespesaController extends BaseController
         $model = new TipoDespesaModel();
         echo $model->VerificarTeto();
     }
-
-    function SumarizaPorTipoDespesa() {
+    
+    Function ListarSomaTipoDespesas(){
         $model = new TipoDespesaModel();
-        echo $model->SumarizaPorTipoDespesa();
+        echo $model->ListarSomaTipoDespesas();
     }
 }
 ?>

@@ -47,11 +47,6 @@ class TipoDespesaController extends BaseController
         $model = new TipoDespesaModel();
         echo $model->ListarTiposDespesasAtivos();
     }
-
-    Function ListarSomaTipoDespesasPorPeriodo() {
-        $model = new TipoDespesaModel();
-        echo $model->ListarSomaTipoDespesasPorPeriodo();
-    }
 }
 $TipoDespesaController = new TipoDespesaController();
 ?>

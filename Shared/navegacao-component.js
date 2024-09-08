@@ -7,7 +7,7 @@ class NavBar extends HTMLElement {
             <ul class="navbar-nav bg-primary sidebar sidebar-light accordion" id="accordionSidebar">
         
                 <div id="menuNavegacao"></div>
-                <div id="progressoGastos"></div>
+                <div id="progressoGastos" class="mt-auto mb-1"></div>
         
             </ul>`;
     }
@@ -54,15 +54,31 @@ function MontaMenu(DadosMenu) {
 function MontaProgressoGastos(arrSomaGastos) {
     if (arrSomaGastos[1] !=null && arrSomaGastos[1].length > 0) {
         listaGastos = arrSomaGastos[1];
-        var html = "";
+        var html = "<div class='mx-1' style='border: 1px solid white;'>";
+            html += "<h5 align=center class='text-white'><b>Resumo de gastos</b></h5>";
         for (var i in listaGastos) {
-                html += "<li class='nav-item'>"
-                html += "   <label>" + listaGastos[i].DSC_TIPO_DESPESA + "</label>";
-                html += "   <div class='progress'>";
-                html += "       <div class='progress-bar' role='progressbar' style='width: " + listaGastos[i].VALOR + "%' aria-valuenow='" + listaGastos[i].VALOR + "' aria-valuemin='" + listaGastos[i].VLR_PISO + "' aria-valuemax='" + listaGastos[i].VLR_TETO + "'></div>";
-                html += "   </div>";
+                var valor = parseFloat(listaGastos[i].VALOR)
+                var teto = parseFloat(listaGastos[i].VLR_TETO)
+                valor = number_format(valor,2,',','.');
+                teto = number_format(teto,2,',','.');
+                html += "<li class='nav-item mx-1 mb-1'>"
+                html += "   <label class='pb-0 mb-0 text-white'><b>" + listaGastos[i].DSC_TIPO_DESPESA + "</b></label>";
+                if(listaGastos[i].PORCENT < 65){
+                    html += "   <div class='progress' title='R$ " + teto + "'>";
+                    html += "       <div class='progress-bar' role='progressbar' style='width: " + listaGastos[i].PORCENT + "%; background-color: green;' title='R$ " + valor + "' aria-valuemin='0' aria-valuemax='100'></div>";
+                    html += "   </div>";
+                } else if (listaGastos[i].PORCENT < 90){
+                    html += "   <div class='progress' title='R$ " + teto + "'>";
+                    html += "       <div class='progress-bar' role='progressbar' style='width: " + listaGastos[i].PORCENT + "%; background-color: orange;' title='R$ " + valor + "' aria-valuemin='0' aria-valuemax='100'></div>";
+                    html += "   </div>";
+                } else {
+                    html += "   <div class='progress'>";
+                    html += "       <div class='progress-bar' role='progressbar' style='width: " + listaGastos[i].PORCENT + "%; background-color: red;' title='R$ " + valor + "' aria-valuemin='0' aria-valuemax='100'></div>";
+                    html += "   </div>";
+                }
                 html += "</li>";
         }
+        html += "</div>";
 
         $('#progressoGastos').html(html);
     }

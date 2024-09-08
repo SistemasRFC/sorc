@@ -1,7 +1,6 @@
 var anoAtual = new Date().getFullYear();
 var mesAtual = new Date().getMonth()+1;
 var arrDespesas;
-var vlrReceita;
 let codDespesasMarcadas = '';
 $(function() {
     $("#btnNovo").click(() => {
@@ -69,9 +68,7 @@ function CarregaGridDespesa() {
     params += '|tpoDespesaFiltro<=>'+$("#tpoDespesaFiltro").val()+'|statusFiltro<=>'+$("#statusFiltro").val();
     params += '|contaFiltro<=>'+$("#contaFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val();
     ExecutaDispatch('Despesas', 'ListarDespesas', params, MontaGridDespesa);
-    if ($("#statusFiltro").val()!="N") {
-        ExecutaDispatch('Receitas', 'ListarReceitas', 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val(), montaValorReceita);
-    }
+    ExecutaDispatch('Despesas', 'BuscarSaldoFiltro', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, montaValorSaldo);
 }
 
 function MontaGridDespesa(listaDespesa) {
@@ -122,10 +119,14 @@ function MontaGridDespesa(listaDespesa) {
             tabela += "     <td align='center'>" + status + (objeto[i].PAGO?objeto[i].DTA_PAGAMENTO_FORMATADO:'') + "</td>";
             tabela += "     <td class='px-1' align='center'>";
             tabela += "         <div class='btn-group'>";
+            tabela += "         <div class='btn-group btn-group-vertical'>";
             tabela += "             <button class='btn btn-outline-primary px-2' title='Editar' onclick='javascript:chamaCadastroDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-pen'></i></button>";
-            tabela += "             <button class='btn btn-outline-success px-2' "+isUnico+" title='Quitar despesa' onclick='javascript:quitarParcelas(" + objeto[i].COD_DESPESA + ");'><i class='fa-solid fa-inbox'></i></button>";
-            // tabela += "             <button class='btn btn-outline-success px-2' title='Pagar por conta' onclick='javascript:pagarPorConta(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-dollar-sign'></i></button>";
-            tabela += "             <button class='btn btn-outline-danger px-2' title='Excluir' onclick='javascript:deletarDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-trash'></i></button>";
+            // tabela += "             <button class='btn btn-outline-success px-2 ml-0' style='border-bottom-left-radius: 0.35rem;' title='Pagar por conta' onclick='javascript:pagarPorConta(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-dollar-sign'></i></button>";
+            tabela += "         </div>";
+            tabela += "         <div class='btn-group btn-group-vertical'>";
+            tabela += "             <button class='btn btn-outline-success px-2' style='border-top-right-radius: 0.35rem;' "+isUnico+" title='Quitar despesa' onclick='javascript:quitarParcelas(" + objeto[i].COD_DESPESA + ");'><i class='fa-solid fa-inbox'></i></button>";
+            tabela += "             <button class='btn btn-outline-danger px-2 ml-0' title='Excluir' onclick='javascript:deletarDespesa(" + objeto[i].COD_DESPESA + ");'><i class='fas fa-trash'></i></button>";
+            tabela += "         </div>";
             tabela += "         </div>";
             tabela += "     </td>";
             tabela += " </tr>";
@@ -140,7 +141,7 @@ function MontaGridDespesa(listaDespesa) {
 }
 
 function quitarParcelas(codDespesa) {
-    ExecutaDispatch('Despesas', 'QuitarParcelas', 'codDespesa<=>'+codDespesa, CarregaGridDespesa, 'Aguarde, quitando parcelas.', 'Parcelas quitadas com sucesso!');    
+    ExecutaDispatch('Despesas', 'QuitarDespesa', 'codDespesa<=>'+codDespesa, CarregaGridDespesa, 'Aguarde, quitando parcelas.', 'Parcelas quitadas com sucesso!');    
 }
 
 function somarValorTotal() {
@@ -164,26 +165,10 @@ function somarValorCartao() {
     $("#vlrCartao").html('<a class="text-white" href="javascript:listarDadosCartao();"><u>R$ '+vlrCartao+'</u></a>');
 }
 
-function calcularSaldo() {
-    var vlrDespesasPagas = 0;
-    for(var i in arrDespesas) {
-        if (arrDespesas[i].PAGO) {
-            vlrDespesasPagas = parseFloat(vlrDespesasPagas)+ parseFloat((arrDespesas[i].VLR_DESPESA.replace('.','')).replace(',','.'));
-        }
-    }
-    var vlrSaldo = parseFloat(vlrReceita) - parseFloat(vlrDespesasPagas);
+function montaValorSaldo(arrDados) {
+    var vlrSaldo = arrDados[1][0].VLR_SALDO;
     vlrSaldo = number_format(vlrSaldo, 2, ',', '.');
     $("#vlrSaldo").html('R$ '+vlrSaldo);
-}
-
-function montaValorReceita(listaReceitas) {
-    var arrReceitas = listaReceitas[1];
-    vlrReceita = 0;
-    for(var i in arrReceitas) {
-        vlrReceita = parseFloat(vlrReceita)+ parseFloat((arrReceitas[i].VLR_RECEITA.replace('.','')).replace(',','.'));
-    }
-    vlrReceita = number_format(vlrReceita, 2, ',', '.');
-    calcularSaldo();
 }
 
 function listarDadosCartao(){
@@ -311,7 +296,7 @@ function montaComboResponsavelFiltro(arr) {
 $(document).ready(function() {
     $("#btnImportar").attr('disabled', true);
     $("#btnImportar").attr('title', 'Nenhuma despesa selecionada.');
-    ExecutaDispatch('Receitas', 'ListarReceitas', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, montaValorReceita);
+    ExecutaDispatch('Despesas', 'BuscarSaldoFiltro', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, montaValorSaldo);
     ExecutaDispatch('Despesas', 'ListarAnosFiltro', undefined, montaComboAnoFiltro);
     ExecutaDispatch('Despesas', 'ListarMesesFiltro', undefined, montaComboMesFiltro);
     ExecutaDispatch('TipoDespesa', 'ListarTiposDespesaFiltro', undefined, montaComboTpoDespesaFiltro);

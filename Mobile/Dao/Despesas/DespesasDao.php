@@ -67,7 +67,7 @@ class DespesasDao extends BaseDao
                      ON R.TPO_DESPESA = TP.COD_TIPO_DESPESA
               LEFT JOIN SE_USUARIO U
                      ON R.COD_USUARIO_DESPESA = U.COD_USUARIO
-                  WHERE r.COD_CLIENTE_FINAL = $codClienteFinal
+                  WHERE R.COD_CLIENTE_FINAL = $codClienteFinal
                     AND MONTH(DTA_DESPESA)= ".$mes."
                     AND YEAR(DTA_DESPESA)=".$ano."
                ORDER BY DTA_DESPESA";

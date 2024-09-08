@@ -70,8 +70,8 @@ class TiposDespesaDao extends BaseDao
 		$sql = " SELECT TP.COD_TIPO_DESPESA,
                         DSC_TIPO_DESPESA,
                         SUM(VLR_DESPESA) AS VALOR,
-						VLR_PISO,
-						VLR_TETO
+						VLR_TETO,
+						SUM(VLR_DESPESA)*100/VLR_TETO AS PORCENT
                    FROM EN_DESPESA D
                   INNER JOIN EN_TIPO_DESPESA TP
                      ON D.TPO_DESPESA = TP.COD_TIPO_DESPESA

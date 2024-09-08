@@ -119,16 +119,43 @@ class DespesaModel extends BaseModel
         return BaseModel::ListarMesesCombo();
     }
     
-    Public Function QuitarParcelas() {
+    Public Function QuitarDespesa() {
         $dao = new DespesasDao();
         $codDespesa = filter_input(INPUT_POST, 'codDespesa', FILTER_SANITIZE_NUMBER_INT);
-        $result = $dao->PegaDespesaFilha($codDespesa);
-        if ($result[1]!=NULL) {
-            foreach($result[1] as $filha) {
-                $dao->DeletarDespesaFilha($filha['COD_DESPESA']);
+        $despesaAtual = $dao->BuscarDespesaPorCodigo($codDespesa);
+        $result = [false, null];
+        if($despesaAtual[0]) {
+            $totalParcelas = $despesaAtual[1][0]['QTD_PARCELAS'];
+            $parcelaAtual = $despesaAtual[1][0]['NRO_PARCELA_ATUAL'];
+            $qtdParcelasFuturas = $totalParcelas - $parcelaAtual;
+            ++$qtdParcelasFuturas; // Para contar a parcela atual
+            $valorParaQuitacao = $qtdParcelasFuturas*$despesaAtual[1][0]['VLR_DESPESA'];
+            $parcelasFuturas = $this->BuscarParcelasFuturas($codDespesa);
+            foreach($parcelasFuturas as $codParcela) {
+                $dao->DeletarDespesaFilha($codParcela);
             }
+
+            $result = $dao->AtualizarDespesaQuitada($codDespesa, $valorParaQuitacao);
         }
         return json_encode($result);
+    }
+
+    Function BuscarParcelasFuturas($codDespesa) {
+        $dao = new DespesasDao();
+        $despesaImportacao = $codDespesa;
+        $parcelasFuturas = [];
+        while($despesaImportacao > 0){
+            $parcelaFilha = $dao->PegaDespesaFilha($despesaImportacao);
+            
+            if ($parcelaFilha[1]!=null) {
+                array_push($parcelasFuturas, $parcelaFilha[1][0]['COD_DESPESA']);
+                $despesaImportacao = $parcelaFilha[1][0]['COD_DESPESA'];
+            } else {
+                $despesaImportacao = 0;
+            }
+        }
+
+        return $parcelasFuturas;
     }
     
     Public Function PagarPorConta(){
@@ -166,6 +193,13 @@ class DespesaModel extends BaseModel
             $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_DESPESA');
             $lista = FuncoesArray::AtualizaBooleanInArray($lista, 'IND_DESPESA_PAGA', 'PAGO');
         }
+        return json_encode($lista);
+    }
+
+    Function BuscarSaldoFiltro() {
+        $dao = new DespesasDao();
+        $codCliente = $_SESSION['cod_cliente_final'];
+        $lista = $dao->BuscarSaldoFiltro($codCliente);
         return json_encode($lista);
     }
 }

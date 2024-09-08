@@ -28,18 +28,21 @@ class TiposDespesaDao extends BaseDao
 		return $this->selectDB($sql, false);
 	}
 
-	function SumarizaPorTipoDespesa($codClienteFinal)
+	function ListarSomaTipoDespesas($codClienteFinal, $mes, $ano)
 	{
-		$sql = " SELECT DSC_TIPO_DESPESA,
-                        VLR_TETO-VLR_DESPESA AS VLR_TOTAL
-                   FROM (SELECT TP.DSC_TIPO_DESPESA,
-                                SUM(D.VLR_DESPESA) AS VLR_DESPESA,
-                                COALESCE(TP.VLR_TETO,0) AS VLR_TETO
-                           FROM EN_DESPESA D
-                     INNER JOIN EN_TIPO_DESPESA TP ON D.TPO_DESPESA = TP.COD_TIPO_DESPESA
-                  		  WHERE (YEAR(DTA_LANC_DESPESA)=YEAR(NOW()) AND MONTH(DTA_LANC_DESPESA)=MONTH(NOW())
-                    		AND D.COD_CLIENTE_FINAL = $codClienteFinal)
-               GROUP BY TP.DSC_TIPO_DESPESA) AS X";
+		$sql = " SELECT TP.COD_TIPO_DESPESA,
+                        DSC_TIPO_DESPESA,
+                        SUM(VLR_DESPESA) AS VALOR,
+						VLR_TETO,
+						SUM(VLR_DESPESA)*100/VLR_TETO AS PORCENT
+                   FROM EN_DESPESA D
+                  INNER JOIN EN_TIPO_DESPESA TP
+                     ON D.TPO_DESPESA = TP.COD_TIPO_DESPESA
+                  WHERE D.COD_CLIENTE_FINAL = $codClienteFinal
+                    AND MONTH(D.DTA_DESPESA)= $mes
+                    AND YEAR(D.DTA_DESPESA)= $ano
+                  GROUP BY TP.COD_TIPO_DESPESA, DSC_TIPO_DESPESA
+                  ORDER BY VALOR";
 		return $this->selectDB($sql, false);
 	}
 }
