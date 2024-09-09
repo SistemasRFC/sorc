@@ -10,7 +10,8 @@ class ReceitasDao extends BaseDao
         "codConta"              => array("column" => "COD_CONTA",               "typeColumn" => "I"),
         "dscReceita"            => array("column" => "DSC_RECEITA",             "typeColumn" => "S"),
         "codClienteFinal"       => array("column" => "COD_CLIENTE_FINAL",       "typeColumn" => "I"),
-        "codReceitaImportacao"  => array("column" => "COD_RECEITA_IMPORTACAO",  "typeColumn" => "I")
+        "codReceitaImportacao"  => array("column" => "COD_RECEITA_IMPORTACAO",  "typeColumn" => "I"),
+        "codUsuarioReceita"     => array("column" => "COD_USUARIO_RECEITA",     "typeColumn" => "I")
     );
 
     protected $columnKey = array("codReceita" => array("column" => "COD_RECEITA", "typeColumn" => "I"));
@@ -36,10 +37,14 @@ class ReceitasDao extends BaseDao
                         VLR_RECEITA,
                         DSC_RECEITA,
                         CONCAT(NME_BANCO,'(Ag: ',NRO_AGENCIA,' Conta: ',NRO_CONTA,')') AS CONTA,
-                        R.COD_CONTA
+                        R.COD_CONTA,
+                        COD_USUARIO_RECEITA,
+                        U.NME_USUARIO_COMPLETO AS DONO_RECEITA
                    FROM EN_RECEITA R
              INNER JOIN EN_CONTA C
                      ON R.COD_CONTA = C.COD_CONTA
+              LEFT JOIN SE_USUARIO U
+                     ON R.COD_USUARIO_RECEITA = U.COD_USUARIO
                   WHERE R.COD_CLIENTE_FINAL = $codClienteFinal
                     AND MONTH(DTA_RECEITA)= ".filter_input(INPUT_POST, 'nroMesReferencia', FILTER_SANITIZE_NUMBER_INT)."
                     AND YEAR(DTA_RECEITA)=".filter_input(INPUT_POST, 'nroAnoReferencia', FILTER_SANITIZE_NUMBER_INT);
@@ -53,14 +58,15 @@ class ReceitasDao extends BaseDao
     
     Public Function ImportarReceita($codCliente, $dtaReceita, $codReceitaRef){
         $codReceita = $this->CatchUltimoCodigo('EN_RECEITA', 'COD_RECEITA');
-        $sql = "INSERT INTO EN_RECEITA (COD_RECEITA, DSC_RECEITA, DTA_RECEITA, COD_CONTA, VLR_RECEITA, COD_CLIENTE_FINAL, COD_RECEITA_IMPORTACAO)
+        $sql = "INSERT INTO EN_RECEITA (COD_RECEITA, DSC_RECEITA, DTA_RECEITA, COD_CONTA, VLR_RECEITA, COD_CLIENTE_FINAL, COD_RECEITA_IMPORTACAO, COD_USUARIO_RECEITA)
                 SELECT $codReceita, 
                        DSC_RECEITA,
                        '$dtaReceita',
                        COD_CONTA,
                        VLR_RECEITA,
                        $codCliente,
-                       $codReceitaRef
+                       $codReceitaRef,
+                       COD_USUARIO_RECEITA
                   FROM EN_RECEITA
                  WHERE COD_RECEITA = $codReceitaRef";
         return $this->insertDB($sql);
@@ -71,6 +77,10 @@ class ReceitasDao extends BaseDao
                    FROM EN_RECEITA
                   WHERE COD_RECEITA_IMPORTACAO = $codReceita";
         return $this->selectDB($sql, false);
+    }
+
+    function RetornaReceitaPorCodigo(stdClass $obj) {
+        return $this->MontarSelect('WHERE COD_RECEITA = '.$obj->codReceita);
     }
 }
 ?>

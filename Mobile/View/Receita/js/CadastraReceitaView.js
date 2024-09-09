@@ -52,6 +52,10 @@ function validarCampos() {
         retorno[0] = false;
         retorno[1] += '- Conta \n';
     }
+    if ($("#codUsuarioReceita").val()=='-1') {
+        retorno[0] = false;
+        retorno[1] += '- Responsável \n';
+    }
 
     return retorno;
 }
@@ -68,8 +72,17 @@ function montaComboContas(dados){
     CriarSelectPuro('Conta *','codConta', dados, '-1', false);    
 }
 
+function montaComboResponsavel(arr) {
+    if (arr[1].length == 1) {
+        CriarSelectPuro('Responsável', 'codUsuarioReceita', arr, arrDados[1][0]['ID'], false);
+    } else {
+        CriarSelectPuro('Responsável', 'codUsuarioReceita', arr, -1, false);
+    }
+}
+
 $(document).ready(function() {
     ExecutaDispatch('ContasBancarias','ListarContasBancariasAtivas', 'verificaPermissao;N', montaComboContas);
+    ExecutaDispatch('Usuario','ListarResponsavelFiltro', parametros, montaComboResponsavel);
     if ($("#codReceita").val() > 0) {
         ExecutaDispatch('Receitas', 'RetornaReceitaPorCodigo', 'codReceita;' + $("#codReceita").val()+'|verificaPermissao;N', PreencherDados);
     }

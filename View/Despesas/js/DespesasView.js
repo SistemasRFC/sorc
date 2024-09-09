@@ -68,7 +68,7 @@ function CarregaGridDespesa() {
     params += '|tpoDespesaFiltro<=>'+$("#tpoDespesaFiltro").val()+'|statusFiltro<=>'+$("#statusFiltro").val();
     params += '|contaFiltro<=>'+$("#contaFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val();
     ExecutaDispatch('Despesas', 'ListarDespesas', params, MontaGridDespesa);
-    ExecutaDispatch('Despesas', 'BuscarSaldoFiltro', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, montaValorSaldo);
+    ExecutaDispatch('Despesas', 'BuscarSaldoFiltro', 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val(), montaValorSaldo);
 }
 
 function MontaGridDespesa(listaDespesa) {

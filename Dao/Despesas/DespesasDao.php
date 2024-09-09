@@ -224,13 +224,23 @@ class DespesasDao extends BaseDao
                            FROM EN_RECEITA 
                           WHERE COD_CLIENTE_FINAL = $codClienteFinal
                             AND MONTH(DTA_RECEITA) = $mes
-                            AND YEAR(DTA_RECEITA) = $ano) AS R,
+                            AND YEAR(DTA_RECEITA) = $ano";
+        $codUsuario = filter_input(INPUT_POST, 'responsavelFiltro', FILTER_SANITIZE_STRING);
+        if ($codUsuario!="-1" && $codUsuario!="" && $codUsuario!='undefined'){
+            $sql .= "       AND COD_USUARIO_RECEITA = ".$codUsuario;
+        }   
+        $sql .= "       ) AS R,
                         (SELECT COALESCE(SUM(VLR_DESPESA), 0) AS SOMA_DESPESAS
                            FROM EN_DESPESA 
                           WHERE COD_CLIENTE_FINAL = $codClienteFinal
                             AND MONTH(DTA_DESPESA) = $mes
                             AND YEAR(DTA_DESPESA) = $ano
-                            AND IND_DESPESA_PAGA = 'S') AS D";
+                            AND IND_DESPESA_PAGA = 'S'";
+        $codUsuario = filter_input(INPUT_POST, 'responsavelFiltro', FILTER_SANITIZE_STRING);
+        if ($codUsuario!="-1" && $codUsuario!="" && $codUsuario!='undefined') {
+            $sql .= "       AND COD_USUARIO_DESPESA = ".$codUsuario;
+        }
+        $sql .= "       ) AS D";                         
         return $this->selectDB($sql, false);
     }
 
