@@ -283,7 +283,7 @@ function montaComboContaFiltro(arr) {
 
 function montaComboResponsavelFiltro(arr) {
     if (arr[1].length == 1) {
-        CriarSelect('codUsuarioDespesa', arr, arrDados[1][0]['ID'], false);
+        CriarSelect('codUsuarioDespesa', arr, arr[1][0]['ID'], false);
     } else {
         CriarSelect('codUsuarioDespesa', arr, -1, false);
     }
