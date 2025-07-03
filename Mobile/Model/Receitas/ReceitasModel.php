@@ -73,5 +73,13 @@ class ReceitasModel extends BaseModel {
         return BaseModel::ListarMesesCombo();
     }
 
+    function RetornaReceitaPorCodigo() {
+        $dao = new ReceitasDao();
+        BaseModel::PopulaObjetoComRequest($dao->getColumns());
+        $lista = $dao->RetornaReceitaPorCodigo($this->objRequest);
+        $lista = FuncoesMoeda::FormataMoedaInArray($lista, 'VLR_RECEITA');
+        return json_encode($lista);
+    }
+
 }
 ?>

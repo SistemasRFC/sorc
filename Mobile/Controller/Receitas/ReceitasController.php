@@ -59,6 +59,11 @@ class ReceitasController extends BaseController {
 		$model = new ReceitasModel();
 		echo $model->ListarMesesFiltro();
 	}
+
+    Public Function RetornaReceitaPorCodigo() {
+        $model = new ReceitasModel();
+        echo $model->RetornaReceitaPorCodigo();
+    }
 }
 $ReceitasController = new ReceitasController();
 ?>

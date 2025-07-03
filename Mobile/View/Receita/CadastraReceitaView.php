@@ -56,6 +56,9 @@ include_once '../../constantes.php';
                 <div class="col-12">
                     <div id="tdcodConta"></div>
                 </div>
+                <div class="col-12">
+                    <div id="tdcodUsuarioReceita"></div>
+                </div>
             </div>
         </div>
         <div class="card-footer">

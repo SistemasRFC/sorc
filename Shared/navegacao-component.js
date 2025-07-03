@@ -54,7 +54,7 @@ function MontaMenu(DadosMenu) {
 function MontaProgressoGastos(arrSomaGastos) {
     if (arrSomaGastos[1] !=null && arrSomaGastos[1].length > 0) {
         listaGastos = arrSomaGastos[1];
-        var html = "<div class='mx-1' style='border: 1px solid white;'>";
+        var html = "<div class='mx-1 mb-2' style='border: 1px solid white;'>";
             html += "<h5 align=center class='text-white'><b>Resumo de gastos</b></h5>";
         for (var i in listaGastos) {
                 var valor = parseFloat(listaGastos[i].VALOR)
@@ -73,7 +73,7 @@ function MontaProgressoGastos(arrSomaGastos) {
                     html += "   </div>";
                 } else {
                     html += "   <div class='progress'>";
-                    html += "       <div class='progress-bar' role='progressbar' style='width: " + listaGastos[i].PORCENT + "%; background-color: red;' title='R$ " + valor + "' aria-valuemin='0' aria-valuemax='100'></div>";
+                    html += "       <div class='progress-bar' role='progressbar' style='width: " + listaGastos[i].PORCENT + "%; background-color: red;' title='R$ " + valor + " de R$ " + teto + "' aria-valuemin='0' aria-valuemax='100'></div>";
                     html += "   </div>";
                 }
                 html += "</li>";

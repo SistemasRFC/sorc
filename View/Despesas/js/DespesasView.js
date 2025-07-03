@@ -68,7 +68,7 @@ function CarregaGridDespesa() {
     params += '|tpoDespesaFiltro<=>'+$("#tpoDespesaFiltro").val()+'|statusFiltro<=>'+$("#statusFiltro").val();
     params += '|contaFiltro<=>'+$("#contaFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val();
     ExecutaDispatch('Despesas', 'ListarDespesas', params, MontaGridDespesa);
-    ExecutaDispatch('Despesas', 'BuscarSaldoFiltro', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, montaValorSaldo);
+    ExecutaDispatch('Despesas', 'BuscarSaldoFiltro', 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val(), montaValorSaldo);
 }
 
 function MontaGridDespesa(listaDespesa) {
@@ -281,9 +281,9 @@ function montaComboContaFiltro(arr) {
     });
 }
 
-function montaComboResponsavelFiltro(arr) {
+function montaCombosResponsavel(arr) {
     if (arr[1].length == 1) {
-        CriarSelect('codUsuarioDespesa', arr, arrDados[1][0]['ID'], false);
+        CriarSelect('codUsuarioDespesa', arr, arr[1][0]['ID'], false);
     } else {
         CriarSelect('codUsuarioDespesa', arr, -1, false);
     }
@@ -302,6 +302,6 @@ $(document).ready(function() {
     ExecutaDispatch('TipoDespesa', 'ListarTiposDespesaFiltro', undefined, montaComboTpoDespesaFiltro);
     montaComboStatusDespesaFiltro();
     ExecutaDispatch('ContasBancarias', 'ListarContasFiltro', undefined, montaComboContaFiltro);
-    ExecutaDispatch('Usuario', 'ListarResponsavelFiltro', undefined, montaComboResponsavelFiltro);
+    ExecutaDispatch('Usuario', 'ListarResponsavelFiltro', undefined, montaCombosResponsavel);
     ExecutaDispatch('Despesas', 'ListarDespesas', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, MontaGridDespesa);
 });

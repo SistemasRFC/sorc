@@ -30,6 +30,10 @@
                         <label class="mb-0">Conta</label>
                         <div id="tdcodConta"></div>
                     </div>
+                    <div class="col-4">
+                        <label class="mb-0">Responsável *</label>
+                        <div id="tdcodUsuarioReceita"></div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

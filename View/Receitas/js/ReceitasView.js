@@ -40,6 +40,7 @@ function MontaGridReceita(listaReceita) {
     tabela += "         <th width='10%'>Data</th>";
     tabela += "         <th width='12%'>Valor</th>";
     tabela += "         <th>Conta</th>";
+    tabela += "         <th>Responsável</th>";
     tabela += "         <th>Ações</th>";
     tabela += "     </tr>";
     tabela += " </thead>";
@@ -57,6 +58,7 @@ function MontaGridReceita(listaReceita) {
             tabela += "     <td align='center'>" + (objeto[i].DTA_RECEITA_FORMATADA != null ? objeto[i].DTA_RECEITA_FORMATADA : '') + "</td>";
             tabela += "     <td align='end'>" + (objeto[i].VLR_RECEITA != null ? objeto[i].VLR_RECEITA : '') + "</td>";
             tabela += "     <td>" + (objeto[i].CONTA != null ? objeto[i].CONTA : '') + "</td>";
+            tabela += "     <td>" + (objeto[i].COD_USUARIO_RECEITA != null ? objeto[i].DONO_RECEITA : '') + "</td>";
             tabela += "     <td class='px-1' align='center'>";
             tabela += "         <div class='btn-group'>";
             tabela += "             <button class='btn btn-outline-primary px-2' title='Editar' onclick='javascript:chamaCadastroReceita(" + objeto[i].COD_RECEITA + ");'><i class='fas fa-pen'></i></button>";
@@ -157,6 +159,14 @@ function montaComboConta(arr) {
     CriarSelect('codConta', arr, -1, false);
 }
 
+function montaComboResponsavel(arr) {
+    if (arr[1].length == 1) {
+        CriarSelect('codUsuarioReceita', arr, arr[1][0]['ID'], false);
+    } else {
+        CriarSelect('codUsuarioReceita', arr, -1, false);
+    }
+}
+
 $(document).ready(function() {
     $("#btnImportar").attr('disabled', true);
     $("#btnImportar").attr('title', 'Nenhuma Receita selecionada.');
@@ -164,22 +174,5 @@ $(document).ready(function() {
     ExecutaDispatch('Receitas', 'ListarMesesFiltro', undefined, montaComboMesFiltro);
     ExecutaDispatch('ContasBancarias', 'ListarContasFiltro', undefined, montaComboConta);
     ExecutaDispatch('Receitas', 'ListarReceitas', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, MontaGridReceita);
+    ExecutaDispatch('Usuario', 'ListarResponsavelFiltro', undefined, montaComboResponsavel);
 });
-
-
-// $(document).ready(function(){
-//     $(document).on('contextmenu', function (e) {
-//         return false;
-//     });
-//     data = new Date();
-//     ano = data.getFullYear();
-//     mes = data.getMonth();
-//     mes++;
-//     if (mes<10){
-//         mes = '0'+mes;
-//     }
-//     MontaComboFixo('comboNroAnoReferencia', 'nroAnoReferencia', ano);
-//     MontaComboFixo('comboNroMesReferencia', 'nroMesReferencia', mes);
-//     MontaComboFixo('comboCodConta', 'codConta', '-1');
-//     CarregaGridReceita();    
-// });
