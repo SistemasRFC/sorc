@@ -281,7 +281,7 @@ function montaComboContaFiltro(arr) {
     });
 }
 
-function montaComboResponsavelFiltro(arr) {
+function montaCombosResponsavel(arr) {
     if (arr[1].length == 1) {
         CriarSelect('codUsuarioDespesa', arr, arr[1][0]['ID'], false);
     } else {
@@ -302,6 +302,6 @@ $(document).ready(function() {
     ExecutaDispatch('TipoDespesa', 'ListarTiposDespesaFiltro', undefined, montaComboTpoDespesaFiltro);
     montaComboStatusDespesaFiltro();
     ExecutaDispatch('ContasBancarias', 'ListarContasFiltro', undefined, montaComboContaFiltro);
-    ExecutaDispatch('Usuario', 'ListarResponsavelFiltro', undefined, montaComboResponsavelFiltro);
+    ExecutaDispatch('Usuario', 'ListarResponsavelFiltro', undefined, montaCombosResponsavel);
     ExecutaDispatch('Despesas', 'ListarDespesas', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, MontaGridDespesa);
 });

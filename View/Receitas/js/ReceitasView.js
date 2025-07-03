@@ -161,7 +161,7 @@ function montaComboConta(arr) {
 
 function montaComboResponsavel(arr) {
     if (arr[1].length == 1) {
-        CriarSelect('codUsuarioReceita', arr, arrDados[1][0]['ID'], false);
+        CriarSelect('codUsuarioReceita', arr, arr[1][0]['ID'], false);
     } else {
         CriarSelect('codUsuarioReceita', arr, -1, false);
     }

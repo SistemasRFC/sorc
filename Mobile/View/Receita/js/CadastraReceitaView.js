@@ -74,7 +74,7 @@ function montaComboContas(dados){
 
 function montaComboResponsavel(arr) {
     if (arr[1].length == 1) {
-        CriarSelectPuro('Responsável', 'codUsuarioReceita', arr, arrDados[1][0]['ID'], false);
+        CriarSelectPuro('Responsável', 'codUsuarioReceita', arr, arr[1][0]['ID'], false);
     } else {
         CriarSelectPuro('Responsável', 'codUsuarioReceita', arr, -1, false);
     }
