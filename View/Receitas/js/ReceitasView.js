@@ -95,6 +95,7 @@ function marcarTodas() {
         });
         $("#btnImportar").attr('disabled', false);
         $("#btnImportar").attr('title', 'Importar Receita(s).');
+        $("#vlrSelecionado").html($("#vlrTotal").html());
     } else {
         codReceitasMarcadas = '';
         $(".ckbReceita").each(function () {
@@ -102,6 +103,7 @@ function marcarTodas() {
         });
         $("#btnImportar").attr('disabled', true);
         $("#btnImportar").attr('title', 'Nenhuma receita selecionada.');
+        $("#vlrSelecionado").html('R$ 0,00');
     }
     $("#codReceitasImportacao").val(codReceitasMarcadas.substring(0, codReceitasMarcadas.length-1));
 }
@@ -118,13 +120,15 @@ function eventosCheckbox() {
             codReceitasMarcadas += $(this).attr('codReceita')+'r';
             for(var i in arrReceitas) {
                 if (arrReceitas[i].COD_RECEITA==$(this).attr('codReceita')) {
-                    vlrSelecionado += parseFloat(arrReceitas[i].VLR_RECEITA.replace('.',''));
+                    // vlrSelecionado += parseFloat(arrReceitas[i].VLR_RECEITA.replace('.',''));
+                    vlrSelecionado = parseFloat(vlrSelecionado)+ parseFloat((arrReceitas[i].VLR_RECEITA.replace('.','')).replace(',','.'));
                 }
             }
         }
     });
     $("#codReceitasImportacao").val(codReceitasMarcadas.substring(0, codReceitasMarcadas.length-1));
-    vlrSelecionado = vlrSelecionado.toFixed(2).replace('.', ',');
+    // vlrSelecionado = vlrSelecionado.toFixed(2).replace('.', ',');
+    vlrSelecionado = number_format(vlrSelecionado,2,',','.');
     $("#vlrSelecionado").html('R$ '+vlrSelecionado);
 }
 

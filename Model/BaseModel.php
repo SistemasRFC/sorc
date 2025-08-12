@@ -44,7 +44,7 @@ class BaseModel {
     public function ListarAnosCombo() {
         $nroAno = date("Y")+1;
         $result = [true, []];
-        for($i=2012; $i<=$nroAno; $i++) {
+        for($i=2020; $i<=$nroAno; $i++) {
             $ref = (object) array('ID' => $i, 'DSC' => $i);
             array_push($result[1], $ref);
         }
