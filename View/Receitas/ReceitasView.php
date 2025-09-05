@@ -31,6 +31,10 @@
                                             <label class="mb-0">Mês: </label>
                                             <div id="tdmesFiltro"></div>
                                         </div>
+                                        <div class="col-2 pr-0">
+                                            <label class="mb-0">Responsável: </label>
+                                            <div id="tdresponsavelFiltro"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -32,6 +32,14 @@ class ReceitasDao extends BaseDao
     }
 
     Function ListarReceitas($codClienteFinal){
+        $mes = filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT);
+        $ano = filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
+        if ($mes==""){
+            $mes = date("m");
+        }
+        if ($ano==''){
+            $ano = date("Y");
+        }
         $sql = " SELECT COD_RECEITA,
                         DTA_RECEITA,
                         VLR_RECEITA,
@@ -46,8 +54,12 @@ class ReceitasDao extends BaseDao
               LEFT JOIN SE_USUARIO U
                      ON R.COD_USUARIO_RECEITA = U.COD_USUARIO
                   WHERE R.COD_CLIENTE_FINAL = $codClienteFinal
-                    AND MONTH(DTA_RECEITA)= ".filter_input(INPUT_POST, 'mesFiltro', FILTER_SANITIZE_NUMBER_INT)."
-                    AND YEAR(DTA_RECEITA)=".filter_input(INPUT_POST, 'anoFiltro', FILTER_SANITIZE_NUMBER_INT);
+                    AND MONTH(DTA_RECEITA)= ".$mes."
+                    AND YEAR(DTA_RECEITA)=".$ano;
+        $codUsuario = filter_input(INPUT_POST, 'responsavelFiltro', FILTER_SANITIZE_STRING);
+        if ($codUsuario!="-1" && $codUsuario!="" && $codUsuario!='undefined'){
+            $sql .= "   AND R.COD_USUARIO_RECEITA = ".$codUsuario;
+        }
         return $this->selectDB($sql, false);
     }
 
