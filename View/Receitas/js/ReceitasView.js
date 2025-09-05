@@ -19,7 +19,7 @@ function CarregaGridReceita() {
     $("#cadastroReceita").modal("hide");
     $("#importarReceita").modal("hide");
     $("#vlrSelecionado").html('R$ 0,00');
-    var params = 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val();
+    var params = 'anoFiltro<=>'+$("#anoFiltro").val()+'|mesFiltro<=>'+$("#mesFiltro").val()+'|responsavelFiltro<=>'+$("#responsavelFiltro").val();
     ExecutaDispatch('Receitas', 'ListarReceitas', params, MontaGridReceita);
 }
 
@@ -163,12 +163,17 @@ function montaComboConta(arr) {
     CriarSelect('codConta', arr, -1, false);
 }
 
-function montaComboResponsavel(arr) {
+
+function montaCombosResponsavel(arr) {
     if (arr[1].length == 1) {
         CriarSelect('codUsuarioReceita', arr, arr[1][0]['ID'], false);
     } else {
         CriarSelect('codUsuarioReceita', arr, -1, false);
     }
+    CriarSelect('responsavelFiltro', arr, -1, false, '');
+    $("#responsavelFiltro").change(function() {
+        CarregaGridReceita();
+    });
 }
 
 $(document).ready(function() {
@@ -178,5 +183,5 @@ $(document).ready(function() {
     ExecutaDispatch('Receitas', 'ListarMesesFiltro', undefined, montaComboMesFiltro);
     ExecutaDispatch('ContasBancarias', 'ListarContasFiltro', undefined, montaComboConta);
     ExecutaDispatch('Receitas', 'ListarReceitas', 'anoFiltro<=>'+anoAtual+'|mesFiltro<=>'+mesAtual, MontaGridReceita);
-    ExecutaDispatch('Usuario', 'ListarResponsavelFiltro', undefined, montaComboResponsavel);
+    ExecutaDispatch('Usuario', 'ListarResponsavelFiltro', undefined, montaCombosResponsavel);
 });
