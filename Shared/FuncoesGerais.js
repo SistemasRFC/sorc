@@ -350,8 +350,8 @@ function MontaDataTable(idCampo, isFilter, orderColum = 0, scroll=false, altura=
             buttons: [
                 {
                     extend: 'excel',
-                    text: '<span id="dtBtnExcel"></span>',
-                    className: 'd-none',
+                    text: '<i class="fas fa-file-excel"></i> Gerar excel',
+                    className: 'btn btn-outline-secondary btn-sm',
                 },
                 // 'copy', 'csv', 'excel', 'pdf', 'print' -- opções de exportação nativas dos DataTable
             ]
